@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>EPIC Mail</title>
+   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta charset="utf-8">
+   <link rel="stylesheet" href="css/styles.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+</head>
+
+<body>
+
+        <nav class="topnav" id="topnav">
+          <a href="inbox.html" class="active">Home</a>
+          <a href="admin.html">Admin </a>
+          <!-- <a href="login.html">Login</a>
+          <a href="signup.html">Sign Up</a> -->
+          <a href="login.html">Log Out</a>
+
+          <a href="javascript:void(0);" class="icon" onclick="navBar();">
+            &#9776;
+          </a>
+        </nav>
+
+      <aside>
+         <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="inbox.html" class="link">Inbox</a>
+            <a href="create.html" class="link">Create</a>
+            <a href="sent.html" class="link">Sent</a>
+            <a href="drafts.html" class="link">Drafts</a>
+          </div>
+          
+          <div id="main">
+            <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+            <h2>Create Message</h2>
+            
+            <div class="container">
+                <form action="#">
+                  <div class="row">
+                    <div class="col-25">
+                      <label for="rEmail">Recipient(s) Email</label>
+                    </div>
+                    <div class="col-75">
+                      <input type="email" id="rEmail" name="rEmail" placeholder="Your name..">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-25">
+                      <label for="subject">Subject</label>
+                    </div>
+                    <div class="col-75">
+                      <input type="text" id="subject" name="subject" placeholder="Email Subject ...">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-25">
+                      <label for="message">Message</label>
+                    </div>
+                    <div class="col-75">
+                      <textarea id="message" name="message" placeholder="Write something.."></textarea>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <button type="submit" class="btn">Send</button>
+                    <button type="submit" class="savebtn">Save</button>
+                  </div>
+                </form>
+              </div>
+          </div>
+      </aside>
+      
+      <footer class="footer">
+          <p>Copyright (c) 2019 <a href="/"><strong>EPIC Mail</strong></a> All Rights Reserved.</p>
+      </footer>
+  <script src="js/script.js"></script>
+</body>
+</html>
