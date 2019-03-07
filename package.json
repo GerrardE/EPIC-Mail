@@ -1,0 +1,42 @@
+{
+  "name": "epic-mail",
+  "version": "1.0.0",
+  "description": "A simple web application for people to exchange email messages",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js --exec babel-node",
+    "test": "mocha --require @babel/register server/tests/ --exit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GerrardE/EPIC-Mail.git"
+  },
+  "author": "Gerrard Ezeugwa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GerrardE/EPIC-Mail/issues"
+  },
+  "homepage": "https://github.com/GerrardE/EPIC-Mail#readme",
+  "dependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.4",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/register": "^7.0.0",
+    "body-parser": "^1.18.3",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
+    "express": "^4.16.4",
+    "mocha": "^6.0.2",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.18.10",
+    "swagger-jsdoc": "^3.2.7",
+    "swagger-ui-express": "^4.0.2"
+  },
+  "devDependencies": {
+    "chalk": "^2.4.2",
+    "eslint": "^5.14.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0"
+  }
+}
