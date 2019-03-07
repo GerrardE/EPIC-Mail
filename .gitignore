@@ -4,4 +4,3 @@ node_modules
 edgeCases.js
 playground.js
 /server/controllers/mailsController.js
-app.js

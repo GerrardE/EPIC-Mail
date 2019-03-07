@@ -190,6 +190,99 @@ class UsersController {
       });
     }
   }
+
+  userLogin(req, res) {
+    const reqUser = {
+      email: req.body.email,
+      password: req.body.password
+    };
+    const foundEmail = users.find(user => user.email === reqUser.email);
+    const foundPassword = users.find(user => user.password === reqUser.password);
+    // Email Validation
+    if (reqUser.email === undefined) {
+      return res.status(400)
+        .json({
+          status: 400,
+          data: [{
+            message: 'Error: email is undefined',
+          }]
+        });
+    }
+    if (typeof reqUser.email !== 'string') {
+      return res.status(400)
+        .json({
+          status: 400,
+          data: [{
+            message: 'Error: email should be a string'
+          }]
+        });
+    }
+    reqUser.email = reqUser.email.toLowerCase().trim();
+    if (reqUser.email === '') {
+      return res.status(400)
+        .json({
+          status: 400,
+          data: [{
+            message: 'Error: email cannot be empty.'
+          }]
+        });
+    }
+    if (!foundEmail) {
+      return res.status(400).json({
+        status: 400,
+        data: [{
+          message: 'Error: email does not exist'
+        }]
+      });
+    }
+
+    // Password Validation
+    if (reqUser.password === '') {
+      return res.status(400)
+        .json({
+          status: 400,
+          data: [{
+            message: 'Error: password field cannot be empty'
+          }],
+        });
+    }
+    if (typeof reqUser.password !== 'string') {
+      return res.status(400)
+        .json({
+          status: 400,
+          data: [{
+            message: 'Error: password should be a string'
+          }]
+        });
+    }
+    if (!foundPassword) {
+      return res.status(400).json({
+        status: 400,
+        data: [{
+          message: 'Error: password is incorrect'
+        }]
+      });
+    }
+
+    // Successful Login
+    if (foundEmail && foundPassword) {
+      return res.status(200).json({
+        status: 200,
+        data: [{
+          message: 'Success: login successful!',
+          token: 'xyz',
+          reqUser
+        }]
+      });
+    }
+
+    return res.status(400).json({
+      status: 400,
+      data: [{
+        message: 'Error: login failed. Try again...'
+      }]
+    });
+  }
 }
 
 const usersController = new UsersController();
