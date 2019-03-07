@@ -1,4 +1,5 @@
 # EPIC-Mail
+[![Build Status](https://travis-ci.org/GerrardE/EPIC-Mail.svg?branch=develop)](https://travis-ci.org/GerrardE/EPIC-Mail)
 
 ## Description
 
