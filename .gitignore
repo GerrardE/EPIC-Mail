@@ -3,4 +3,3 @@ node_modules
 /server/middlewares
 edgeCases.js
 playground.js
-/server/controllers/mailsController.js
