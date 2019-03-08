@@ -11,6 +11,6 @@ router.use(bodyParser.urlencoded({ extended: true }));
 
 // User Auth Routes
 router.post('/api/v1/auth/signup', usersController.createUser);
-
+router.post('/api/v1/auth/login', usersController.userLogin);
 
 export default router;
