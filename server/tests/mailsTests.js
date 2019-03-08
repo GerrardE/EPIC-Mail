@@ -51,3 +51,17 @@ describe('Tests for GET all sent messages', () => {
       });
   });
 });
+
+describe('Tests for GET a specific mail', () => {
+  it('Should return 200 for retrieved specific mail', (done) => {
+    const id = 1;
+    chai.request(app)
+      .get(`/api/v1/messages/${id}`)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.a('object');
+        expect(res.body.data[0].message).to.equal('Success: mail retrieved successfully!');
+        done();
+      });
+  });
+});
