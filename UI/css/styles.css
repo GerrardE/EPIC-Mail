@@ -5,10 +5,11 @@
 
 body{
   font-family: 'Roboto', sans-serif;
+  background-color: rgb(221, 221, 219) 
 }
 
-main{
-  margin-top: 50px;
+#main{
+  margin-top: 10px;
   margin-bottom: 100px;
 }
 
@@ -17,6 +18,13 @@ aside{
 }
 
 /*=== NAVIGATION ===*/ 
+#hamburger {
+  font-size:30px;
+  cursor:pointer;
+  color: #fff;
+  margin: 0% 1%
+}
+
 /* Add a black background color to the top navigation */
 .topnav {
   background-color: #333;
@@ -25,7 +33,7 @@ aside{
 
 /* Style the links inside the navigation bar */
 .topnav a {
-  float: left;
+  float: right;
   display: block;
   color: #f2f2f2;
   text-align: center;
@@ -46,11 +54,6 @@ aside{
   color: white;
 }
 
-/* Hide the link that should open and close the topnav on small screens */
-.topnav .icon {
-  display: none;
-}
-
 /*=== SIDEBAR ===*/
 .sidenav {
   height: 100%;
@@ -68,14 +71,15 @@ aside{
 .sidenav a {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
-  font-size: 25px;
+  font-size: 20px;
   color: #fff;
   display: block;
   transition: 0.3s;
 }
 
 .sidenav a:hover {
-  background-color: #000;
+  background-color: #fff;
+  color: #000;
 }
 
 .sidenav .active {
@@ -115,8 +119,13 @@ input[type=text], input[type=password], input[type=email] {
   height:200px;
   width: 100%
 }
+
+.para {
+  padding: 2% 2%;
+  background-color: #ddd
+}
 /* Set a style for all buttons */
-button {
+/* button {
   background-color: rgb(62, 105, 223);
   color: white;
   padding: 14px 20px;
@@ -124,7 +133,7 @@ button {
   border: none;
   cursor: pointer;
   width: 100%;
-}
+} */
 
 /* Add a hover effect for buttons */
 button:hover {
@@ -135,14 +144,38 @@ button:hover {
 .cancelbtn {
   width: auto;
   padding: 10px 18px;
-  background-color: #f44336;
+  /* background-color: #cf6159; */
   border-radius: 4px;
 }
 
-.savebtn {
+.loginbtn {
   width: auto;
   padding: 10px 18px;
+  border-radius: 4px;
+  float: right;
+}
+
+.deletebtn, .editbtn, .viewbtn {
+  width: auto;
+  font-size: 14px;
+  padding: 10px 18px;
+  font-family: 'Lucida Sans', sans-serif;
+  color: rgb(22, 21, 21)
+}
+
+.viewbtn:hover {
+  background-color: rgb(62, 105, 223);
+  color: #fff;
+}
+
+.deletebtn:hover {
+  background-color: #f44336;
+  color: #fff;
+}
+
+.editbtn:hover {
   background-color: #4caf50;
+  color: #fff;
 }
 
 input[type=submit] {
@@ -166,6 +199,10 @@ span.psw {
   border: 1px solid lightgrey;
   border-radius: 3px;
 }
+/* 
+.login-form {
+  margin: 2% auto;
+} */
 
 label {
   margin-bottom: 10px;
@@ -187,11 +224,20 @@ label {
   width: auto;
   border-radius: 3px;
   cursor: pointer;
-  font-size: 17px;
+  font-size: 16px;
 }
 
 .btn:hover {
-  background-color: rgb(62, 105, 223);
+  color: #fff
+}
+
+.savebtn {
+  width: 70px;
+  background-color: #4caf50;
+}
+
+.sendbtn{
+  width: 70px;
 }
 
 span.price {
@@ -365,20 +411,26 @@ input {
   background-color: #bbb;
 }
 
+/*=== LEADER ===*/
+.leader {
+  margin-bottom: 20px;
+}
+
 /*=== CHAT AREA ===*/ 
 /* Chat containers */
 .container-chat {
   border: 2px solid #dedede;
-  background-color: #f1f1f1;
+  background-color: #fff;
   border-radius: 5px;
-  padding: 0px 10px;
-  margin: 10px 0;
+  padding: 10px 10px;
+  margin: 30px 0;
+  box-shadow: 0 4px 8px 0 rgba(151, 145, 145, 0.2);
 }
 
 /* Darker chat container */
 .darker {
   border-color: #ccc;
-  background-color: #ddd;
+  background-color: rgb(243, 238, 238);
 }
 
 /* Clear floats */
@@ -445,7 +497,7 @@ input {
 
 /* When the screen is less than 600 pixels wide, hide all links, 
 except for the first one ("Home"). Show the link that contains 
-should open and close the topnav (.icon) */
+should open and close the topnav (.icon) 
 @media screen and (max-width: 600px) {
   .topnav a:not(:first-child) {display: none;}
   .topnav a.icon {
@@ -453,11 +505,12 @@ should open and close the topnav (.icon) */
     display: block;
   }
 }
+*/
 
 /* The "responsive" class is added to the topnav 
 with JavaScript when the user clicks on the icon. 
 This class makes the topnav look good on small screens 
-(display the links vertically instead of horizontally) */
+(display the links vertically instead of horizontally) 
 @media screen and (max-width: 600px) {
   .topnav.responsive {position: relative;}
   .topnav.responsive a.icon {
@@ -470,7 +523,7 @@ This class makes the topnav look good on small screens
     display: block;
     text-align: left;
   }
-}
+}*/
 
 /* For the create form, When the screen is less than 800px wide, 
 make the two columns stack on top of each other instead of next to each other 
@@ -501,14 +554,45 @@ make the two columns stack on top of each other instead of next to each other
 /* The width of the login form */
 @media (min-width: 767px) {
   .login-form{
-    width: 50%;
-    margin: auto;
+    width: 30%;
+    margin: 2% auto;
   }
 
   a .add { 
     display: none !important;
   }
+
+  #main {
+    padding: 0% 20%
+  }
 } 
+
+@media (max-width: 991px) {
+  .login-form{
+    width: 40%;
+  }
+}
+
+@media (max-width: 767px) {
+  .login-form{
+    width: 50%;
+    margin: 20% auto;
+  }
+}
+
+@media (max-width: 699px) {
+  .login-form{
+    width: 70%;
+    margin: 20% auto;
+  }
+}
+
+@media (max-width: 500px) {
+  .login-form{
+    width: 100%;
+    margin: 20% auto;
+  }
+}
 
 @media (max-width: 767px) {
   .add{

@@ -1,12 +1,8 @@
-// responsive navbar styling
-function navBar () {
-  let nav = document.getElementById("topnav");
-  if (nav.className === "topnav") {
-    nav.className += " responsive";
-  } else {
-    nav.className = "topnav";
-  };
-};
+// add active class
+function active() {
+  let nav = document.getElementsByClassName('nav');
+  nav.classList.add('active');
+}
 
 // Side bar
 function openNav() {
@@ -18,13 +14,6 @@ function closeNav() {
   document.getElementById("mySidenav").style.width = "0";
   document.getElementById("main").style.marginLeft= "0";
 }
-
-// function classActive() {
-//   let links = document.getElementsByClassName("links");
-//   links.addEventlistener('click', function(){
-//     links.classList.add("active");
-//   })
-// }
 
 // Create a "close" button and append it to each list item
 var myNodelist = document.getElementsByClassName("group");
