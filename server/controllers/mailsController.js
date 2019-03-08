@@ -162,6 +162,36 @@ class MailsController {
       });
     }
   }
+
+  deleteMail(req, res) {
+    const id = parseInt(req.params.id, 10);
+    let msg = [];
+    mails.find((mail, index) => {
+      if (mail.id === id) {
+        msg.push(mail);
+        mails.splice(index, 1);
+      } else {
+        msg = [];
+      }
+      if (msg.length > 0) {
+        return res.status(200).json({
+          status: 200,
+          data: [{
+            message: 'Success: mail deleted successfully!',
+            mail
+          }]
+        });
+      }
+      if (msg.length === 0) {
+        return res.status(404).json({
+          status: 404,
+          data: [{
+            message: 'Error: mail not found'
+          }]
+        });
+      }
+    });
+  }
 }
 
 const mailsController = new MailsController();
