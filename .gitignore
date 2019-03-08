@@ -1,7 +1,8 @@
 docs
 node_modules
-/server/middlewares
 edgeCases.js
 playground.js
 server
 app.js
+
+
