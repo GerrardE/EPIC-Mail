@@ -42,6 +42,33 @@ class MailsController {
       });
     }
   }
+
+  getSentMails(req, res) {
+    const msg = [];
+    const value = 'sent';
+    mails.map((mail) => {
+      if (mail.status === value) {
+        msg.push(mail);
+      }
+    });
+    if (msg.length > 0) {
+      res.status(200).json({
+        status: 200,
+        data: [{
+          message: 'Success: sent mails retrieved successfully!',
+          msg
+        }]
+      });
+    } else {
+      res.status(404).json({
+        success: 404,
+        data: [{
+          message: 'Error: you have not sent any mail',
+          msg
+        }]
+      });
+    }
+  }
 }
 
 const mailsController = new MailsController();
