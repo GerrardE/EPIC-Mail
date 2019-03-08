@@ -123,3 +123,28 @@ describe('Tests for GET a specific mail', () => {
       });
   });
 });
+
+describe('Tests for DELETE a specific mail', () => {
+  it('Should return 200 for deleted specific mail', (done) => {
+    const id = 1;
+    chai.request(app)
+      .delete(`/api/v1/messages/${id}`)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.a('object');
+        expect(res.body.data[0].message).to.equal('Success: mail deleted successfully!');
+        done();
+      });
+  });
+  it('Should return 404 for mail not found', (done) => {
+    const id = 7;
+    chai.request(app)
+      .delete(`/api/v1/messages/${id}`)
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        expect(res.body).to.be.a('object');
+        expect(res.body.data[0].message).to.equal('Error: mail not found');
+        done();
+      });
+  });
+});
