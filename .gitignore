@@ -3,4 +3,5 @@ node_modules
 /server/middlewares
 edgeCases.js
 playground.js
-.travis.yml
+server
+app.js
