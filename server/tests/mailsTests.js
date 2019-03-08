@@ -38,3 +38,16 @@ describe('Tests for GET all unread messages', () => {
       });
   });
 });
+
+describe('Tests for GET all sent messages', () => {
+  it('Should return 200 for retrieved sent messages', (done) => {
+    chai.request(app)
+      .get('/api/v1/messages/sent')
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.a('object');
+        expect(res.body.data[0].message).to.equal('Success: sent mails retrieved successfully!');
+        done();
+      });
+  });
+});

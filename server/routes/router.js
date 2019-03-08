@@ -17,5 +17,6 @@ router.post('/api/v1/auth/login', usersController.userLogin);
 // Message Routes
 router.get('/api/v1/messages', mailsController.getMails);
 router.get('/api/v1/messages/unread', mailsController.getUnreadMails);
+router.get('/api/v1/messages/sent', mailsController.getSentMails);
 
 export default router;
