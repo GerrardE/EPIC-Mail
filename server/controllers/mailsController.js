@@ -15,6 +15,33 @@ class MailsController {
         });
     }
   }
+
+  getUnreadMails(req, res) {
+    const msg = [];
+    const value = 'unread';
+    mails.map((mail) => {
+      if (mail.status === value) {
+        msg.push(mail);
+      }
+    });
+    if (msg.length > 0) {
+      res.status(200).json({
+        status: 200,
+        data: [{
+          message: 'Success: unread mails retrieved successfully!',
+          msg
+        }]
+      });
+    } else {
+      res.status(404).json({
+        success: 404,
+        data: [{
+          message: 'Error: you have read all your mails',
+          msg
+        }]
+      });
+    }
+  }
 }
 
 const mailsController = new MailsController();
