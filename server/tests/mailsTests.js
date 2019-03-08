@@ -26,3 +26,15 @@ describe('Tests for GET all messages', () => {
   });
 });
 
+describe('Tests for GET all unread messages', () => {
+  it('Should return 200 for retrieved unread messages', (done) => {
+    chai.request(app)
+      .get('/api/v1/messages/unread')
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.a('object');
+        expect(res.body.data[0].message).to.equal('Success: unread mails retrieved successfully!');
+        done();
+      });
+  });
+});
