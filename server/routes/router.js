@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import usersController from '../controllers/usersController';
+import mailsController from '../controllers/mailsController';
 
 // Introduce the express router middleware
 const router = express.Router();
@@ -12,5 +13,9 @@ router.use(bodyParser.urlencoded({ extended: true }));
 // User Auth Routes
 router.post('/api/v1/auth/signup', usersController.createUser);
 router.post('/api/v1/auth/login', usersController.userLogin);
+
+// Message Routes
+router.get('/api/v1/messages', mailsController.getMails);
+
 
 export default router;
