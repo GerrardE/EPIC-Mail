@@ -2,7 +2,6 @@ docs
 node_modules
 edgeCases.js
 playground.js
-server
-app.js
+
 
 
