@@ -2,6 +2,75 @@
 import { mails } from '../database/database';
 
 class MailsController {
+  createMail(req, res) {
+    if (req.body.subject === undefined) {
+      return res.status(400)
+        .json({
+          status: 400,
+          data: [{
+            message: 'Error: subject cannot be undefined',
+            sample: '{"subject": "string", "message": "string"}'
+          }]
+        });
+    }
+    if (req.body.subject === '') {
+      return res.status(400)
+        .json({
+          status: 400,
+          data: [{
+            message: 'Error: subject field cannot be empty',
+            sample: '{"subject": "string", "message": "string"}'
+          }]
+        });
+    }
+    if (req.body.message === undefined) {
+      return res.status(400)
+        .json({
+          status: 400,
+          data: [{
+            message: 'Error: message cannot be undefined',
+            sample: '{"subject": "string", "message": "string"}'
+          }]
+        });
+    }
+    if (req.body.message === '') {
+      return res.status(400)
+        .json({
+          status: 400,
+          data: [{
+            message: 'Error: message field cannot be empty',
+            sample: '{"subject": "string", "message": "string"}'
+          }]
+        });
+    }
+    const mail = {
+      id: 2,
+      createdOn: Date(),
+      subject: req.body.subject,
+      message: req.body.message,
+      parentMessageId: 1,
+      status: 'sent'
+    };
+
+    if (mail) {
+      mails.push(mail);
+      res.status(200).json({
+        status: 200,
+        data: [{
+          message: 'Success: Message sent successfully!',
+          mails
+        }]
+      });
+    } else {
+      res.status(400).json({
+        status: 400,
+        data: [{
+          message: 'Error: Message sending failed'
+        }]
+      });
+    }
+  }
+  
   getMails(req, res) {
     const msgs = mails;
     if (msgs) {
