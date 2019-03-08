@@ -194,4 +194,93 @@ describe('Tests for User Sign Up', () => {
   });
 });
 
+describe('Tests for User Login', () => {
+  it('should return 200 success status', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/login')
+      .send(correctLogin)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        res.body.should.be.a('object');
+        expect(res.body.data[0].message).to.equal('Success: login successful!');
+        expect(res.body.data[0]).to.have.property('token');
+        done();
+      });
+  });
+  // Email Tests
+  it('should return 400 status for an undefined Email', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/login')
+      .send(undefinedEmailLogin)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body.data[0].message).to.equal('Error: email is undefined');
+        done();
+      });
+  });
+  it('should return 400 status for an unstringed Email', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/login')
+      .send(unstringedEmailLogin)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body.data[0].message).to.equal('Error: email should be a string');
+        done();
+      });
+  });
+  it('should return 400 status for empty Email Field', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/login')
+      .send(emptyEmailField)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        res.body.should.be.a('object');
+        expect(res.body.data[0].message).to.equal('Error: email cannot be empty.');
+        done();
+      });
+  });
+  it('should return 400 status for non exixting Email', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/login')
+      .send(nonExistingEmail)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        res.body.should.be.a('object');
+        expect(res.body.data[0].message).to.equal('Error: email does not exist');
+        done();
+      });
+  });
 
+  // Password Tests
+  it('should return 400 status for empty Password Field', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/login')
+      .send(emptyPasswordField)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        res.body.should.be.a('object');
+        expect(res.body.data[0].message).to.equal('Error: password field cannot be empty');
+        done();
+      });
+  });
+  it('should return 400 status for an unstringed Password', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/login')
+      .send(unstringedPasswordLogin)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body.data[0].message).to.equal('Error: password should be a string');
+        done();
+      });
+  });
+  it('should return 400 status for incorrect Password', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/login')
+      .send(correctEmailIncorrectPassword)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body.data[0].message).to.equal('Error: password is incorrect');
+        done();
+      });
+  });
+});
