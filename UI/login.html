@@ -11,14 +11,11 @@
    </head>
    <body>
       <nav class="topnav" id="topnav">
+         <a href="signup.html" >Sign Up</a>
          <a href="login.html" class="active">Login</a>
-         <a href="signup.html">Sign Up</a>
-         <a href="javascript:void(0);" class="icon" onclick="navBar();">
-         <i class="fa fa-bars"></i>
-         </a>
       </nav>
       <main>
-         <div id="main" class="login-form">
+         <div class="login-form">
             <form action="inbox.html">
                <div class="container">
                   <p><strong>EPIC | Mail</strong> <br><br> A simple web app that helps people exchange
@@ -30,9 +27,9 @@
                   <input type="email" placeholder="eg: test@gmail.com" name="email" required>
                   <label for="psw"><b>Password</b></label>
                   <input type="password" placeholder="********" name="psw" required>
-                  <button type="submit">Login</button>
                   <div class="container">
-                     <button type="button" class="cancelbtn" onclick="window.location.href='reset-password.html'">Reset Password</button>
+                        <button type="submit" class="btn">LOGIN</button>
+                     <a type="button" class="deletebtn" href="reset-password.html"><nobr>RESET PASSWORD</nobr></a>
                   </div>
                </div>
             </form>

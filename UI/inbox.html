@@ -11,12 +11,10 @@
    </head>
    <body>
       <nav class="topnav" id="topnav">
-         <a href="inbox.html" class="active">Home</a>
+            <span id="hamburger" onclick="openNav()">&#9776;</span>
          <a href="admin.html">Admin </a>
          <a href="login.html">Log Out</a>
-         <a href="javascript:void(0);" class="icon" onclick="navBar();">
-         &#9776;
-         </a>
+         <a href="inbox.html" class="active">Home</a>
       </nav>
       <aside>
          <div id="mySidenav" class="sidenav">
@@ -27,27 +25,91 @@
             <a href="drafts.html" class="link">Drafts</a>
          </div>
          <div id="main">
-            <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
-            <h2>Inbox</h2>
-            <p>Welcome!</p>
+            <div class="leader">
+               <h2 class="lead">Inbox</h2>
+               <p>Welcome!</p>
+            </div>
             <div>
                <div class="container-chat">
-                  <span class="time-right">11:00</span>
+                  <span class="time-right">11:00 22 Jan 2018</span>
                   <p>Hello. How are you today?</p>
-                  <a href="view.html" type="submit" class="btn">View</a>
-                  <button type="submit" class="cancelbtn">Delete</button>
-               </div>
-               <div class="container-chat darker">
-                  <span class="time-right">11:01</span>
-                  <p>Hey! I'm fine. Thanks for asking!</p>
-                  <a href="view.html" type="submit" class="btn">View</a>
-                  <button type="submit" class="cancelbtn">Delete</button>
+                  <p class="para">Duis leo. Sed fringilla mauris sit amet nibh. 
+                        Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, 
+                        augue velit cursus nunc</p>
+                  <a href="view.html" type="submit" class="viewbtn">VIEW</a>
+                  <a type="submit" class="deletebtn">DELETE</a>
                </div>
                <div class="container-chat">
-                  <span class="time-right">11:02</span>
+                  <span class="time-right">11:02 22 Jan 2018</span>
                   <p>Sweet! So, what do you wanna do today?</p>
-                  <a href="view.html" type="submit" class="btn">View</a>
-                  <button type="submit" class="cancelbtn">Delete</button>
+                  <p class="para">Duis leo. Sed fringilla mauris sit amet nibh. 
+                        Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, 
+                        augue velit cursus nunc</p>
+                  <a href="view.html" type="submit" class="viewbtn">VIEW</a>
+                  <a type="submit" class="deletebtn">DELETE</a>
+               </div>
+               <div class="container-chat">
+                  <span class="time-right">11:02 22 Jan 2018</span>
+                  <p>Sweet! So, what do you wanna do today?</p>
+                  <p class="para">Duis leo. Sed fringilla mauris sit amet nibh. 
+                        Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, 
+                        augue velit cursus nunc</p>
+                  <a href="view.html" type="submit" class="viewbtn">VIEW</a>
+                  <a type="submit" class="deletebtn">DELETE</a>
+               </div>
+               <div class="container-chat darker">
+                  <span class="time-right">11:01 22 Jan 2018</span>
+                  <p>Hey! I'm fine. Thanks for asking!</p>
+                  <p class="para">Duis leo. Sed fringilla mauris sit amet nibh. 
+                        Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, 
+                        augue velit cursus nunc</p>
+                  <a href="view.html" type="submit" class="viewbtn">VIEW</a>
+                  <a type="submit" class="deletebtn">DELETE</a>
+               </div>
+               <div class="container-chat darker">
+                  <span class="time-right">11:01 22 Jan 2018</span>
+                  <p>Hey! I'm fine. Thanks for asking!</p>
+                  <p class="para">Duis leo. Sed fringilla mauris sit amet nibh. 
+                        Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, 
+                        augue velit cursus nunc</p>
+                  <a href="view.html" type="submit" class="viewbtn">VIEW</a>
+                  <a type="submit" class="deletebtn">DELETE</a>
+               </div>
+               <div class="container-chat darker">
+                  <span class="time-right">11:01 22 Jan 2018</span>
+                  <p>Hey! I'm fine. Thanks for asking!</p>
+                  <p class="para">Duis leo. Sed fringilla mauris sit amet nibh. 
+                        Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, 
+                        augue velit cursus nunc</p>
+                  <a href="view.html" type="submit" class="viewbtn">VIEW</a>
+                  <a type="submit" class="deletebtn">DELETE</a>
+               </div>
+               <div class="container-chat darker">
+                  <span class="time-right">11:01 22 Jan 2018</span>
+                  <p>Hey! I'm fine. Thanks for asking!</p>
+                  <p class="para">Duis leo. Sed fringilla mauris sit amet nibh. 
+                        Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, 
+                        augue velit cursus nunc</p>
+                  <a href="view.html" type="submit" class="viewbtn">VIEW</a>
+                  <a type="submit" class="deletebtn">DELETE</a>
+               </div>
+               <div class="container-chat darker">
+                  <span class="time-right">11:01 22 Jan 2018</span>
+                  <p>Hey! I'm fine. Thanks for asking!</p>
+                  <p class="para">Duis leo. Sed fringilla mauris sit amet nibh. 
+                        Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, 
+                        augue velit cursus nunc</p>
+                  <a href="view.html" type="submit" class="viewbtn">VIEW</a>
+                  <a type="submit" class="deletebtn">DELETE</a>
+               </div>
+               <div class="container-chat darker">
+                  <span class="time-right">11:01 22 Jan 2018</span>
+                  <p>Hey! I'm fine. Thanks for asking!</p>
+                  <p class="para">Duis leo. Sed fringilla mauris sit amet nibh. 
+                        Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, 
+                        augue velit cursus nunc</p>
+                  <a href="view.html" type="submit" class="viewbtn">VIEW</a>
+                  <a type="submit" class="deletebtn">DELETE</a>
                </div>
             </div>
          </div>

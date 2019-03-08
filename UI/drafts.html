@@ -14,15 +14,10 @@
 <body>
 
       <nav class="topnav" id="topnav">
-         <a href="inbox.html" class="active">Home</a>
+         <span id="hamburger" onclick="openNav()">&#9776;</span>
          <a href="admin.html">Admin </a>
-         <!-- <a href="login.html">Login</a>
-         <a href="signup.html">Sign Up</a> -->
          <a href="login.html">Log Out</a>
-
-         <a href="javascript:void(0);" class="icon" onclick="navBar();">
-            &#9776;
-         </a>
+         <a href="inbox.html" class="active">Home</a>
       </nav>
       
       <div id="mySidenav" class="sidenav">
@@ -35,25 +30,28 @@
       
       <aside>
           <div id="main">
-             <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
-            <h2>Drafts</h2>
-          
+            <h2 class="lead">Drafts</h2>
+            <p>Welcome!</p>
             <div class="timeline">
-               <div class="container-chat left">
-                     <div class="content">
-                     <h2>2017</h2>
-                     <p>Lorem ipsum dolor sit amet, quo ei simul congue exerci, ad nec admodum perfecto mnesarchum, vim ea mazim fierent detracto. Ea quis iuvaret expetendis his, te elit voluptua dignissim per, habeo iusto primis ea eam.</p>
-                     </div>
-                     <button type="submit" class="btn">Send</button>
-                    <button type="submit" class="cancelbtn">Delete</button>
+               <div class="container-chat">
+                  <span class="time-right">11:00, 22 Jan 2018</span>
+                  <p>Hello. How are you today?</p>
+                  <p class="para">Duis leo. Sed fringilla mauris sit amet nibh. 
+                        Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, 
+                        augue velit cursus nunc</p>
+                  <a type="submit" class="editbtn" href="create.html">EDIT</a>
+                  <a href="#" type="submit" class="viewbtn">SEND</a>
+                  <a type="submit" class="deletebtn">DELETE</a>
                </div>
-               <div class="container-chat right">
-                     <div class="content">
-                     <h2>2016</h2>
-                     <p>Lorem ipsum dolor sit amet, quo ei simul congue exerci, ad nec admodum perfecto mnesarchum, vim ea mazim fierent detracto. Ea quis iuvaret expetendis his, te elit voluptua dignissim per, habeo iusto primis ea eam.</p>
-                     </div>
-                     <button type="submit" class="btn">Send</button>
-                    <button type="submit" class="cancelbtn">Delete</button>
+               <div class="container-chat">
+                  <span class="time-right">11:02, 22 Jan 2018</span>
+                  <p>Sweet! So, what do you wanna do today?</p>
+                  <p class="para">Duis leo. Sed fringilla mauris sit amet nibh. 
+                        Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, 
+                        augue velit cursus nunc</p>
+                  <a type="submit" class="editbtn" href="create.html">EDIT</a>
+                  <a href="#" type="submit" class="viewbtn">SEND</a>
+                  <a type="submit" class="deletebtn">DELETE</a>
                </div>
             </div>
          </div>

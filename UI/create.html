@@ -13,17 +13,12 @@
 
 <body>
 
-        <nav class="topnav" id="topnav">
-          <a href="inbox.html" class="active">Home</a>
-          <a href="admin.html">Admin </a>
-          <!-- <a href="login.html">Login</a>
-          <a href="signup.html">Sign Up</a> -->
-          <a href="login.html">Log Out</a>
-
-          <a href="javascript:void(0);" class="icon" onclick="navBar();">
-            &#9776;
-          </a>
-        </nav>
+    <nav class="topnav" id="topnav">
+        <span id="hamburger" onclick="openNav()">&#9776;</span>
+     <a href="admin.html">Admin </a>
+     <a href="login.html">Log Out</a>
+     <a href="inbox.html" class="active">Home</a>
+    </nav>
 
       <aside>
          <div id="mySidenav" class="sidenav">
@@ -35,9 +30,8 @@
           </div>
           
           <div id="main">
-            <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
-            <h2>Create Message</h2>
-            
+            <h2 class="lead">Create Message</h2>
+            <p>Welcome!</p>
             <div class="container">
                 <form action="#">
                   <div class="row">
@@ -65,8 +59,8 @@
                     </div>
                   </div>
                   <div class="row">
-                    <button type="submit" class="btn">Send</button>
-                    <button type="submit" class="savebtn">Save</button>
+                    <a type="submit" class="editbtn">SAVE</a>
+                    <a type="submit" class="viewbtn">SEND</a>
                   </div>
                 </form>
               </div>
