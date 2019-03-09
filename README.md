@@ -1,9 +1,7 @@
 # EPIC-Mail
 [![Build Status](https://travis-ci.org/GerrardE/EPIC-Mail.svg?branch=develop)](https://travis-ci.org/GerrardE/EPIC-Mail)
-
 [![Maintainability](https://api.codeclimate.com/v1/badges/f14bbea59c2f8aeab9b6/maintainability)](https://codeclimate.com/github/GerrardE/EPIC-Mail/maintainability)
-
-[![Test Coverage](https://api.codeclimate.com/v1/badges/f14bbea59c2f8aeab9b6/test_coverage)](https://codeclimate.com/github/GerrardE/EPIC-Mail/test_coverage)
+[![Coverage Status](https://coveralls.io/repos/github/GerrardE/EPIC-Mail/badge.svg?branch=ch-api-setup-continuous-integration-%23164500990)](https://coveralls.io/github/GerrardE/EPIC-Mail?branch=ch-api-setup-continuous-integration-%23164500990)
 ## Description
 
 A simple web application where users can be able to exchange emails.
