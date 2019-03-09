@@ -169,26 +169,16 @@ class UsersController {
         });
     }
 
-
     // Create account if no errors
-    if (user) {
-      users.push(user);
-      res.status(201).json({
-        status: 201,
-        data: [{
-          message: 'Success: User created successfully!',
-          users,
-          token: 'xyz'
-        }]
-      });
-    } else {
-      res.status(400).json({
-        status: 400,
-        data: [{
-          message: 'Error: User not created, try again...'
-        }]
-      });
-    }
+    users.push(user);
+    return res.status(201).json({
+      status: 201,
+      data: [{
+        message: 'Success: User created successfully!',
+        users,
+        token: 'xyz'
+      }]
+    });
   }
 
   userLogin(req, res) {
@@ -265,23 +255,16 @@ class UsersController {
     }
 
     // Successful Login
-    if (foundEmail && foundPassword) {
-      return res.status(200).json({
-        status: 200,
-        data: [{
-          message: 'Success: login successful!',
-          token: 'xyz',
-          reqUser
-        }]
-      });
-    }
-
-    return res.status(400).json({
-      status: 400,
+    // if (foundEmail && foundPassword) {
+    return res.status(200).json({
+      status: 200,
       data: [{
-        message: 'Error: login failed. Try again...'
+        message: 'Success: login successful!',
+        token: 'xyz',
+        reqUser
       }]
     });
+    // }
   }
 }
 

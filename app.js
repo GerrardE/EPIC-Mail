@@ -6,8 +6,9 @@ const app = express();
 
 // Bring in the morgan middleware
 morgan('tiny');
+
 // declare your port constant
-const port = 3000;
+const port = 4000;
 
 // Bring in the user route
 app.use(router);
