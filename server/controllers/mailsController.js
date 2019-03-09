@@ -62,7 +62,7 @@ class MailsController {
         }]
       });
     } else {
-      res.status(400).json({
+      return res.status(400).json({
         status: 400,
         data: [{
           message: 'Error: Message sending failed'
@@ -70,7 +70,7 @@ class MailsController {
       });
     }
   }
-  
+
   getMails(req, res) {
     const msgs = mails;
     if (msgs) {
@@ -102,7 +102,7 @@ class MailsController {
         }]
       });
     } else {
-      res.status(404).json({
+      return res.status(404).json({
         success: 404,
         data: [{
           message: 'Error: you have read all your mails',
