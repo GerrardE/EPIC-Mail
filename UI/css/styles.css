@@ -54,6 +54,11 @@ aside{
   color: white;
 }
 
+.select {
+  background-color: #ddd;
+  color: rgb(62, 105, 223) !important;
+}
+
 /*=== SIDEBAR ===*/
 .sidenav {
   height: 100%;
@@ -163,6 +168,9 @@ button:hover {
   color: rgb(22, 21, 21)
 }
 
+.btnfloat {
+  float: right;
+}
 .viewbtn:hover {
   background-color: rgb(62, 105, 223);
   color: #fff;
@@ -254,8 +262,9 @@ span.price {
 }
 
 .title {
-  color: grey;
+  color: #000;
   font-size: 18px;
+  font-weight: 700;
 }
 
 .check {
@@ -373,6 +382,7 @@ ul li:hover {
   padding: 30px 40px;
   color: white;
   text-align: center;
+  margin-top: 3%;
 }
 
 /* Clear floats after the header */
@@ -416,6 +426,18 @@ input {
   margin-bottom: 20px;
 }
 
+.lead {
+  font-size: 12px;
+  font-weight: 700;
+  color: #000;
+}
+
+.lead-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #000;
+}
+
 /*=== CHAT AREA ===*/ 
 /* Chat containers */
 .container-chat {
@@ -444,6 +466,7 @@ input {
 .time-right {
   float: right;
   color: #aaa;
+  font-size: 70%;
 }
 
 /* Style time text */
@@ -597,5 +620,33 @@ make the two columns stack on top of each other instead of next to each other
 @media (max-width: 767px) {
   .add{
     margin: 0% 20% 0% 0%;
+  }
+}
+
+@media (min-width: 767px) {
+  .add{
+    margin: 0% 10% 0% 0%;
+  }
+}
+
+@media (min-width: 767px) {
+  #mySidenav {
+    width: 200px
+  }
+  #main {
+    margin-left: 50px;
+  }
+  .closebtn{
+    display: none !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .sidebar {
+    width: 200px ;
+  }
+
+  .content {
+    margin-left: 50px;
   }
 }
