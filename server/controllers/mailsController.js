@@ -130,7 +130,7 @@ class MailsController {
       });
     } else {
       res.status(404).json({
-        success: 404,
+        status: 404,
         data: [{
           message: 'Error: you have not sent any mail',
           msg
