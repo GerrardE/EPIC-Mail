@@ -1,1 +1,7 @@
 node_modules
+docs
+node_modules
+edgeCases.js
+playground.js
+coverage
+.nyc_output
