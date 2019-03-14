@@ -5,3 +5,4 @@ edgeCases.js
 playground.js
 coverage
 .nyc_output
+.env

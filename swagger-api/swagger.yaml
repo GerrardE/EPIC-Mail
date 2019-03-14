@@ -1,0 +1,50 @@
+openapi: 3.0.1
+info:
+  title: EPIC-Mail
+  description: A simple web application for users to exchange email messages
+  version: "1"
+servers:
+- url: https://epic-m.herokuapp.com
+paths:
+  /api/v1/auth/signup:
+    post:
+      description: It enables a user to create an account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/body'
+            examples:
+              0:
+                value: |-
+                  {
+                       "firstName":"Gerrard",
+                       "lastName":"Ezeugwa",
+                       "email":"test@gmail.com",
+                       "password":"test123"
+                   }
+      responses:
+        201:
+          description: An object conta
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+      - url: https://epic-m.herokuapp.com
+    servers:
+    - url: https://epic-m.herokuapp.com
+components:
+  schemas:
+    body:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        password:
+          type: string
+        email:
+          type: string

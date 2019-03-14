@@ -1,3 +1,4 @@
+import makeToken from '../helpers/auth';
 import { users } from '../database/database';
 
 class UsersController {
@@ -13,23 +14,22 @@ class UsersController {
 
     // Create account if no errors
     users.push(user);
+    const token = makeToken(user);
     return res.status(201).json({
       status: 201,
       message: 'Success: User created successfully!',
-      data: {
-        token: 'xyz',
-      }
+      data: { token }
     });
   }
 
   static userLogin(req, res) {
+    const { user } = req.body;
+    const token = makeToken(user);
     // Successful Login
     return res.status(200).json({
       status: 200,
       message: 'Success: login successful!',
-      data: {
-        token: 'xyz',
-      }
+      data: { token }
     });
   }
 }
