@@ -2,7 +2,7 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../app';
 import {
-  correctMessage, undefinedMessage, emptyMessage, emptySubject, undefinedSubject
+  correctMessage, undefinedMessage, emptyMessage, emptySubject, undefinedSubject, undefinedToEmail, emptyToEmail
 } from './mockData/mockMessages';
 
 // chai middleware
@@ -21,7 +21,7 @@ describe('Tests for POST Messages', () => {
       .end((err, res) => {
         expect(res).to.have.status(200);
         res.body.should.be.a('object');
-        expect(res.body.data[0].message).to.equal('Success: Message sent successfully!');
+        expect(res.body.message).to.equal('Success: Message sent successfully!');
         done();
       });
   });
@@ -32,7 +32,7 @@ describe('Tests for POST Messages', () => {
       .send(undefinedSubject)
       .end((err, res) => {
         expect(res).to.have.status(400);
-        expect(res.body.data[0].message).to.equal('Error: subject cannot be undefined');
+        expect(res.body.message).to.equal('Error: subject cannot be undefined');
         done();
       });
   });
@@ -42,7 +42,7 @@ describe('Tests for POST Messages', () => {
       .send(emptySubject)
       .end((err, res) => {
         expect(res).to.have.status(400);
-        expect(res.body.data[0].message).to.equal('Error: subject field cannot be empty');
+        expect(res.body.message).to.equal('Error: subject field cannot be empty');
         done();
       });
   });
@@ -54,7 +54,7 @@ describe('Tests for POST Messages', () => {
       .send(undefinedMessage)
       .end((err, res) => {
         expect(res).to.have.status(400);
-        expect(res.body.data[0].message).to.equal('Error: message cannot be undefined');
+        expect(res.body.message).to.equal('Error: message cannot be undefined');
         done();
       });
   });
@@ -64,7 +64,29 @@ describe('Tests for POST Messages', () => {
       .send(emptyMessage)
       .end((err, res) => {
         expect(res).to.have.status(400);
-        expect(res.body.data[0].message).to.equal('Error: message field cannot be empty');
+        expect(res.body.message).to.equal('Error: message field cannot be empty');
+        done();
+      });
+  });
+
+  // Tests for Email
+  it('should return 400 status for Undefined ToEmail', (done) => {
+    chai.request(app)
+      .post('/api/v1/messages')
+      .send(undefinedToEmail)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body.message).to.equal('Error: email field cannot be empty');
+        done();
+      });
+  });
+  it('should return 400 status for Empty ToEmail', (done) => {
+    chai.request(app)
+      .post('/api/v1/messages')
+      .send(emptyToEmail)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body.message).to.equal('Error: email field cannot be empty.');
         done();
       });
   });
@@ -78,7 +100,7 @@ describe('Tests for GET all messages', () => {
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body).to.be.a('object');
-        expect(res.body.data[0].message).to.equal('Success: messages retrieved successfully!');
+        expect(res.body.message).to.equal('Success: messages retrieved successfully!');
         done();
       });
   });
@@ -91,7 +113,7 @@ describe('Tests for GET all unread messages', () => {
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body).to.be.a('object');
-        expect(res.body.data[0].message).to.equal('Success: unread mails retrieved successfully!');
+        expect(res.body.message).to.equal('Success: unread mails retrieved successfully!');
         done();
       });
   });
@@ -104,7 +126,7 @@ describe('Tests for GET all sent messages', () => {
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body).to.be.a('object');
-        expect(res.body.data[0].message).to.equal('Success: sent mails retrieved successfully!');
+        expect(res.body.message).to.equal('Success: sent mails retrieved successfully!');
         done();
       });
   });
@@ -118,7 +140,7 @@ describe('Tests for GET a specific mail', () => {
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body).to.be.a('object');
-        expect(res.body.data[0].message).to.equal('Success: mail retrieved successfully!');
+        expect(res.body.message).to.equal('Success: mail retrieved successfully!');
         done();
       });
   });
@@ -132,7 +154,7 @@ describe('Tests for DELETE a specific mail', () => {
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body).to.be.a('object');
-        expect(res.body.data[0].message).to.equal('Success: mail deleted successfully!');
+        expect(res.body.message).to.equal('Success: mail deleted successfully!');
         done();
       });
   });
@@ -143,7 +165,7 @@ describe('Tests for DELETE a specific mail', () => {
       .end((err, res) => {
         expect(res).to.have.status(404);
         expect(res.body).to.be.a('object');
-        expect(res.body.data[0].message).to.equal('Error: mail not found');
+        expect(res.body.message).to.equal('Error: mail not found');
         done();
       });
   });

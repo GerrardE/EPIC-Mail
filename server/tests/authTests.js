@@ -38,7 +38,7 @@ describe('Tests for Index Page', () => {
       .end((err, res) => {
         expect(res).to.have.status(404);
         res.body.should.be.a('object');
-        expect(res.body.message).to.equal('Page not found');
+        expect(res.body.message).to.equal('Not found Visit, https://epic-m.herokuapp.com/api/v1');
         done();
       });
   });
@@ -52,8 +52,8 @@ describe('Tests for User Sign Up', () => {
       .end((err, res) => {
         expect(res).to.have.status(201);
         res.body.should.be.a('object');
-        expect(res.body.data[0].message).to.equal('Success: User created successfully!');
-        expect(res.body.data[0]).to.have.property('token');
+        expect(res.body.message).to.equal('Success: User created successfully!');
+       // expect(res.body.data).to.have.property('token');
         done();
       });
   });
@@ -65,7 +65,7 @@ describe('Tests for User Sign Up', () => {
       .send(undefinedFirstName)
       .end((err, res) => {
         expect(res).to.have.status(400);
-        expect(res.body.data[0].message).to.equal('First name field cannot be undefined');
+        expect(res.body.message).to.equal('First name field cannot be empty');
         done();
       });
   });
@@ -75,7 +75,7 @@ describe('Tests for User Sign Up', () => {
       .send(unstringedFirstName)
       .end((err, res) => {
         expect(res).to.have.status(400);
-        expect(res.body.data[0].message).to.equal('First name must be a string');
+        expect(res.body.message).to.equal('First name must be a string');
         done();
       });
   });
@@ -85,7 +85,7 @@ describe('Tests for User Sign Up', () => {
       .send(emptyFirstName)
       .end((err, res) => {
         expect(res).to.have.status(400);
-        expect(res.body.data[0].message).to.equal('First name field cannot be empty');
+        expect(res.body.message).to.equal('First name field cannot be empty');
         done();
       });
   });
@@ -95,7 +95,7 @@ describe('Tests for User Sign Up', () => {
       .send(invalidFirstNameLength)
       .end((err, res) => {
         expect(res).to.have.status(400);
-        expect(res.body.data[0].message).to.equal('First name should be 4 to 50 aplhabets long');
+        expect(res.body.message).to.equal('First name should be 4 to 50 aplhabets long');
         done();
       });
   });
@@ -105,7 +105,7 @@ describe('Tests for User Sign Up', () => {
       .send(invalidFirstNameCharacter)
       .end((err, res) => {
         expect(res).to.have.status(400);
-        expect(res.body.data[0].message).to.equal('First name accepts only alphabets');
+        expect(res.body.message).to.equal('First name accepts only alphabets');
         done();
       });
   });
@@ -117,7 +117,7 @@ describe('Tests for User Sign Up', () => {
       .send(undefinedLastName)
       .end((err, res) => {
         expect(res).to.have.status(400);
-        expect(res.body.data[0].message).to.equal('Last name field cannot be undefined');
+        expect(res.body.message).to.equal('Last name field is required');
         done();
       });
   });
@@ -127,7 +127,7 @@ describe('Tests for User Sign Up', () => {
       .send(unstringedLastName)
       .end((err, res) => {
         expect(res).to.have.status(400);
-        expect(res.body.data[0].message).to.equal('Last name must be a string');
+        expect(res.body.message).to.equal('Last name must be a string');
         done();
       });
   });
@@ -137,7 +137,7 @@ describe('Tests for User Sign Up', () => {
       .send(emptyLastName)
       .end((err, res) => {
         expect(res).to.have.status(400);
-        expect(res.body.data[0].message).to.equal('Last name field cannot be empty');
+        expect(res.body.message).to.equal('Last name field cannot be empty');
         done();
       });
   });
@@ -147,7 +147,7 @@ describe('Tests for User Sign Up', () => {
       .send(invalidLastNameLength)
       .end((err, res) => {
         expect(res).to.have.status(400);
-        expect(res.body.data[0].message).to.equal('Last name should be 4 to 50 aplhabets long');
+        expect(res.body.message).to.equal('Last name should be 4 to 50 aplhabets long');
         done();
       });
   });
@@ -157,7 +157,7 @@ describe('Tests for User Sign Up', () => {
       .send(invalidLastNameCharacter)
       .end((err, res) => {
         expect(res).to.have.status(400);
-        expect(res.body.data[0].message).to.equal('Last name accepts only alphabets');
+        expect(res.body.message).to.equal('Last name accepts only alphabets');
         done();
       });
   });
@@ -169,7 +169,7 @@ describe('Tests for User Sign Up', () => {
       .send(undefinedEmail)
       .end((err, res) => {
         expect(res).to.have.status(400);
-        expect(res.body.data[0].message).to.equal('Error: email is undefined');
+        expect(res.body.message).to.equal('Error: email field is required');
         done();
       });
   });
@@ -178,8 +178,8 @@ describe('Tests for User Sign Up', () => {
       .post('/api/v1/auth/signup')
       .send(unstringedEmail)
       .end((err, res) => {
-        expect(res).to.have.status(400);
-        expect(res.body.data[0].message).to.equal('Error: email should be a string');
+        expect(res.body.status).to.equal(400);
+        expect(res.body.message).to.equal('Error: email should be a string');
         done();
       });
   });
@@ -190,12 +190,23 @@ describe('Tests for User Sign Up', () => {
       .end((err, res) => {
         expect(res).to.have.status(400);
         res.body.should.be.a('object');
-        expect(res.body.data[0].message).to.equal('Error: email cannot be empty.');
+        expect(res.body.message).to.equal('Error: email cannot be empty.');
         done();
       });
   });
 
   // Password Tests
+  it('should return 400 status for undefined Password', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signup')
+      .send(undefinedPassword)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        res.body.should.be.a('object');
+        expect(res.body.message).to.equal('Error: password field cannot be empty');
+        done();
+      });
+  });
   it('should return 400 status for empty Password Field', (done) => {
     chai.request(app)
       .post('/api/v1/auth/signup')
@@ -203,7 +214,7 @@ describe('Tests for User Sign Up', () => {
       .end((err, res) => {
         expect(res).to.have.status(400);
         res.body.should.be.a('object');
-        expect(res.body.data[0].message).to.equal('Error: password field cannot be empty');
+        expect(res.body.message).to.equal('Error: password field cannot be empty');
         done();
       });
   });
@@ -213,7 +224,17 @@ describe('Tests for User Sign Up', () => {
       .send(unstringedPassword)
       .end((err, res) => {
         expect(res).to.have.status(400);
-        expect(res.body.data[0].message).to.equal('Error: password should be a string');
+        expect(res.body.message).to.equal('Error: password should be a string');
+        done();
+      });
+  });
+  it('should return 400 status for White space Password', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signup')
+      .send(whitespacePassword)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body.message).to.equal('Error: password cannot contain spaces');
         done();
       });
   });
@@ -227,8 +248,8 @@ describe('Tests for User Login', () => {
       .end((err, res) => {
         expect(res).to.have.status(200);
         res.body.should.be.a('object');
-        expect(res.body.data[0].message).to.equal('Success: login successful!');
-        expect(res.body.data[0]).to.have.property('token');
+        expect(res.body.message).to.equal('Success: login successful!');
+        expect(res.body.data).to.have.property('token');
         done();
       });
   });
@@ -239,7 +260,7 @@ describe('Tests for User Login', () => {
       .send(undefinedEmailLogin)
       .end((err, res) => {
         expect(res).to.have.status(400);
-        expect(res.body.data[0].message).to.equal('Error: email is undefined');
+        expect(res.body.message).to.equal('Error: email field cannot be empty');
         done();
       });
   });
@@ -249,7 +270,7 @@ describe('Tests for User Login', () => {
       .send(unstringedEmailLogin)
       .end((err, res) => {
         expect(res).to.have.status(400);
-        expect(res.body.data[0].message).to.equal('Error: email should be a string');
+        expect(res.body.message).to.equal('Error: email should be a string');
         done();
       });
   });
@@ -260,23 +281,34 @@ describe('Tests for User Login', () => {
       .end((err, res) => {
         expect(res).to.have.status(400);
         res.body.should.be.a('object');
-        expect(res.body.data[0].message).to.equal('Error: email cannot be empty.');
+        expect(res.body.message).to.equal('Error: email field cannot be empty.');
         done();
       });
   });
-  it('should return 400 status for non exixting Email', (done) => {
+  it('should return 400 status for non existing Email', (done) => {
     chai.request(app)
       .post('/api/v1/auth/login')
       .send(nonExistingEmail)
       .end((err, res) => {
         expect(res).to.have.status(400);
         res.body.should.be.a('object');
-        expect(res.body.data[0].message).to.equal('Error: email does not exist');
+        expect(res.body.message).to.equal('Error: authentication failed');
         done();
       });
   });
 
   // Password Tests
+  it('should return 400 status for Undefined Password Login', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/login')
+      .send(undefinedPasswordLogin)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        res.body.should.be.a('object');
+        expect(res.body.message).to.equal('Error: password field cannot be empty');
+        done();
+      });
+  });
   it('should return 400 status for empty Password Field', (done) => {
     chai.request(app)
       .post('/api/v1/auth/login')
@@ -284,7 +316,7 @@ describe('Tests for User Login', () => {
       .end((err, res) => {
         expect(res).to.have.status(400);
         res.body.should.be.a('object');
-        expect(res.body.data[0].message).to.equal('Error: password field cannot be empty');
+        expect(res.body.message).to.equal('Error: password field cannot be empty');
         done();
       });
   });
@@ -294,17 +326,7 @@ describe('Tests for User Login', () => {
       .send(unstringedPasswordLogin)
       .end((err, res) => {
         expect(res).to.have.status(400);
-        expect(res.body.data[0].message).to.equal('Error: password should be a string');
-        done();
-      });
-  });
-  it('should return 400 status for incorrect Password', (done) => {
-    chai.request(app)
-      .post('/api/v1/auth/login')
-      .send(correctEmailIncorrectPassword)
-      .end((err, res) => {
-        expect(res).to.have.status(400);
-        expect(res.body.data[0].message).to.equal('Error: password is incorrect');
+        expect(res.body.message).to.equal('Error: password should be a string');
         done();
       });
   });
