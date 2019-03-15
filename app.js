@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import bodyParser from 'body-parser';
+import dotenv from 'dotenv';
 import router from './server/routes/router';
 import indexRouter from './server/routes/index';
 // Introduce the express middleware
@@ -10,6 +11,7 @@ const app = express();
 
 // Bring in the morgan middleware
 morgan('tiny');
+dotenv.config();
 
 // Introduce the body parser middleware
 app.use(bodyParser.json());

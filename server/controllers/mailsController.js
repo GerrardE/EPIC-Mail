@@ -1,17 +1,18 @@
-import { mails } from '../database/database';
+import { mails, users } from '../database/database';
 
 class MailsController {
   static createMail(req, res) {
     const mail = {
-      id: 2,
+      id: mails.length + 1,
       createdOn: Date(),
       toEmail: req.body.email,
       subject: req.body.subject,
       message: req.body.message,
+      senderId: parseInt(req.params.id, 10),
       parentMessageId: 1,
       status: 'sent'
     };
-
+    
     if (mail) {
       mails.push(mail);
       res.status(200).json({
@@ -29,7 +30,21 @@ class MailsController {
 
   static getMails(req, res) {
     const msgs = mails;
-    if (msgs) {
+    if (msgs.length > 0) {
+      return res.status(200)
+        .json({
+          status: 200,
+          message: 'Success: messages retrieved successfully!',
+          mails
+        });
+    }
+  }
+
+  static getUserMails(req, res) {
+    const decUser = req.decoded.payload;
+    console.log(decUser)
+    const msgs = users.filter(user => +decUser.id === user.id);
+    if (msgs.length > 0) {
       return res.status(200)
         .json({
           status: 200,
@@ -133,10 +148,4 @@ class MailsController {
   }
 }
 
-const {
-  createMail, getMails, getUnreadMails, getSentMails, getMail, deleteMail
-} = MailsController;
-
-export {
-  createMail, getMails, getUnreadMails, getSentMails, getMail, deleteMail
-};
+export default MailsController;

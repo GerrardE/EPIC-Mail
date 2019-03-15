@@ -20,17 +20,30 @@ const { should, expect } = chai;
 should();
 
 // Tests for default page
-describe('Tests for Index Page', () => {
-  it('should return 200 success status', (done) => {
-    chai.request(app)
-      .get('/')
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        res.body.should.be.a('object');
-        expect(res.body.message).to.equal('Welcome to EPIC-Mail');
-        done();
-      });
-  });
+// describe('Tests for Index Page', () => {
+//   it('should return 200 success status', (done) => {
+//     chai.request(app)
+//       .get('/')
+//       .end((err, res) => {
+//         expect(res).to.have.status(200);
+//         res.body.should.be.a('object');
+//         expect(res.body.message).to.equal('Welcome to EPIC-Mail');
+//         done();
+//       });
+//   });
+
+
+//   it('should return 404 fail status', (done) => {
+//     chai.request(app)
+//       .get('/*')
+//       .end((err, res) => {
+//         expect(res).to.have.status(404);
+//         res.body.should.be.a('object');
+//         expect(res.body.message).to.equal('Not found Visit, https://epic-m.herokuapp.com/api/v1');
+//         done();
+//       });
+//   });
+// });
 
   // it('should return 404 fail status', (done) => {
   //   chai.request(app)
@@ -44,6 +57,7 @@ describe('Tests for Index Page', () => {
   // });
 });
 
+
 describe('Tests for User Sign Up', () => {
   it('should return 201 success status', (done) => {
     chai.request(app)
@@ -53,7 +67,7 @@ describe('Tests for User Sign Up', () => {
         expect(res).to.have.status(201);
         res.body.should.be.a('object');
         expect(res.body.message).to.equal('Success: User created successfully!');
-       // expect(res.body.data).to.have.property('token');
+        expect(res.body.data).to.have.property('token');
         done();
       });
   });
