@@ -176,11 +176,11 @@ class UserValidatorHandler {
         });
     }
 
-    req.body.firstName = firstName;
-    req.body.lastname = lastName;
-    req.body.email = email;
-    req.body.password = password;
-    return next();
+    // req.body.firstName = firstName;
+    // req.body.lastname = lastName;
+    // req.body.email = email;
+    // req.body.password = password;
+   next();
   }
 
   static loginValidator(req, res, next) {

@@ -1,24 +1,23 @@
 import express from 'express';
-import { createUser, userLogin } from '../controllers/usersController';
+import UsersController from '../controllers/usersController';
 import { signupValidator, loginValidator } from '../middlewares/user';
 import createMailValidator from '../middlewares/mail';
-import {
-  createMail, getMails, getUnreadMails, getSentMails, getMail, deleteMail
-} from '../controllers/mailsController';
+import MailsController from '../controllers/mailsController';
+import auth from '../helpers/auth';
 
 // Introduce the express router middleware
 const router = express.Router();
 
 // User Auth Routes
-router.post('/api/v1/auth/signup', signupValidator, createUser);
-router.post('/api/v1/auth/login', loginValidator, userLogin);
+router.post('/api/v1/auth/signup', signupValidator, UsersController.createUser);
+router.post('/api/v1/auth/login', loginValidator, UsersController.userLogin);
 
 // Message Routes
-router.post('/api/v1/messages', createMailValidator, createMail);
-router.get('/api/v1/messages', getMails);
-router.get('/api/v1/messages/unread', getUnreadMails);
-router.get('/api/v1/messages/sent', getSentMails);
-router.get('/api/v1/messages/:id', getMail);
-router.delete('/api/v1/messages/:id', deleteMail);
+router.post('/api/v1/messages', createMailValidator, MailsController.createMail);
+router.get('/api/v1/:id/messages', auth.verifyToken, MailsController.getMails);
+router.get('/api/v1/messages/unread', MailsController.getUnreadMails);
+router.get('/api/v1/messages/sent', MailsController.getSentMails);
+router.get('/api/v1/messages/:id', MailsController.getMail);
+router.delete('/api/v1/messages/:id', MailsController.deleteMail);
 
 export default router;

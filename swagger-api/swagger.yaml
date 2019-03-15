@@ -1,50 +1,471 @@
-openapi: 3.0.1
+swagger: "2.0"
 info:
-  title: EPIC-Mail
-  description: A simple web application for users to exchange email messages
-  version: "1"
-servers:
-- url: https://epic-m.herokuapp.com
+  description: "This is a simple web application for sending emails"
+  version: "1.0.0"
+  title: "EPIC-Mail"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "ezeugwagerrard@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "epic-m.herokuapp.com"
+basePath: "/api/v1"
+tags:
+- name: "User"
+  description: "Creates a user account"
+- name: "Mails"
+  description: "Access to user Emails"
+- name: "Groups"
+  description: "Create groups"
+schemes:
+- "https"
+- "http"
 paths:
-  /api/v1/auth/signup:
+  /auth/signup:
     post:
-      description: It enables a user to create an account
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/body'
-            examples:
-              0:
-                value: |-
-                  {
-                       "firstName":"Gerrard",
-                       "lastName":"Ezeugwa",
-                       "email":"test@gmail.com",
-                       "password":"test123"
-                   }
+      tags:
+      - "signup"
+      summary: "Create a new user account"
+      description: "Creates a new user and adds it to the database"
+      operationId: "userSignup"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "User to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/UserSignUp"
       responses:
         201:
-          description: An object conta
-          content:
-            application/json; charset=utf-8:
-              schema:
-                type: string
-              examples: {}
-      servers:
-      - url: https://epic-m.herokuapp.com
-    servers:
-    - url: https://epic-m.herokuapp.com
-components:
-  schemas:
-    body:
-      type: object
-      properties:
-        firstName:
-          type: string
-        lastName:
-          type: string
-        password:
-          type: string
-        email:
-          type: string
+          description: "Success: User created successfully!"
+      # security:
+      # - petstore_auth:
+      #   - "write:pets"
+      #   - "read:pets"
+    put:
+      tags:
+      - "pet"
+      summary: "Update an existing pet"
+      description: ""
+      operationId: "updatePet"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Pet object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/Pet"
+      responses:
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Pet not found"
+        405:
+          description: "Validation exception"
+  /auth/login:
+    post:
+      tags:
+      - "login"
+      summary: "Log in user"
+      description: "Logs in a user to EPIC-Mail"
+      operationId: "userLogin"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "User to be logged in"
+        required: true
+        schema:
+          $ref: "#/definitions/UserLogin"
+      responses:
+        201:
+          description: "Success: login successful!"
+      # security:
+      # - petstore_auth:
+      #   - "write:pets"
+      #   - "read:pets"
+    put:
+      tags:
+      - "pet"
+      summary: "Update an existing pet"
+      description: ""
+      operationId: "updatePet"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Pet object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/Pet"
+      responses:
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Pet not found"
+        405:
+          description: "Validation exception"
+      security:
+      - petstore_auth:
+        - "write:pets"
+        - "read:pets"
+  /messages:
+    post:
+      tags:
+      - "messages"
+      summary: "Create Message"
+      description: "User can create and send an email message"
+      operationId: "postMessages"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "messages"
+        description: "Post message"
+        required: false
+        schema:
+          $ref: "#/definitions/PostMessages"
+      responses:
+        200:
+          description: "Success: Message sent successfully!"
+          schema:
+            type: "object"
+      security:
+      - api_key: []
+    get:
+      tags:
+      - "messages"
+      summary: "Get Messages"
+      description: "Return messages belonging to a user"
+      operationId: "getMessages"
+      produces:
+      - "application/xml"
+      - "application/json"
+      responses:
+        200:
+          description: "Success: messages retrieved successfully!"
+          schema:
+            type: "object"
+            items:
+              $ref: "#/definitions/GetMessages"
+  /messages/unread:
+    get:
+        tags:
+        - "messages/unread"
+        summary: "Get Message"
+        description: "Return unread messages belonging to a user"
+        operationId: "getUnreadMessages"
+        produces:
+        - "application/xml"
+        - "application/json"
+        responses:
+          200:
+            description: "Success: unread mails retrieved successfully!"
+          404:
+            description: "Error: you have read all your mails"
+            schema:
+              type: "object"
+              items:
+                $ref: "#/definitions/GetMessagesUnread"
+    post:
+      tags:
+      - "pet"
+      summary: "Updates a pet in the store with form data"
+      description: ""
+      operationId: "updatePetWithForm"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "petId"
+        in: "path"
+        description: "ID of pet that needs to be updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "name"
+        in: "formData"
+        description: "Updated name of the pet"
+        required: false
+        type: "string"
+      - name: "status"
+        in: "formData"
+        description: "Updated status of the pet"
+        required: false
+        type: "string"
+      responses:
+        405:
+          description: "Invalid input"
+      security:
+      - petstore_auth:
+        - "write:pets"
+        - "read:pets"
+  /messages/sent:
+    get:
+        tags:
+        - "messages/sent"
+        summary: "Get Sent Message"
+        description: "Return sent messages belonging to a user"
+        operationId: "getSentMessages"
+        produces:
+        - "application/xml"
+        - "application/json"
+        responses:
+          200:
+            description: "Success: sent mails retrieved successfully!"
+          404:
+            description: "Error: you have not sent any mail"
+            schema:
+              type: "object"
+              items:
+                $ref: "#/definitions/GetMessagesSent"
+    post:
+      tags:
+      - "pet"
+      summary: "Updates a pet in the store with form data"
+      description: ""
+      operationId: "updatePetWithForm"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "petId"
+        in: "path"
+        description: "ID of pet that needs to be updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "name"
+        in: "formData"
+        description: "Updated name of the pet"
+        required: false
+        type: "string"
+      - name: "status"
+        in: "formData"
+        description: "Updated status of the pet"
+        required: false
+        type: "string"
+      responses:
+        405:
+          description: "Invalid input"
+      security:
+      - petstore_auth:
+        - "write:pets"
+        - "read:pets"
+  /messages/message-id:
+    get:
+      tags:
+      - "messages"
+      summary: "Gets a message"
+      description: "Gets a specific message belonging to a user"
+      operationId: "getMessage"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Message id to get"
+      responses:
+        200:
+          description: "Success: mail retrieved successfully!"
+        404:
+          description: "Error: mail not found"
+      security:
+      - petstore_auth:
+        - "write:pets"
+        - "read:pets"
+definitions:
+  UserSignUp:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      email:
+        type: "string"
+      password:
+        type: "string"
+      role:
+        type: "integer"
+        description: "User can be admin or ordinary user"
+    xml:
+      name: "User"
+  UserLogin:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+      password:
+        type: "string"
+    xml:
+      name: "UserLogin"
+  PostMessages:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      createdOn:
+        type: "string"
+        format: "date"
+      subject:
+        type: "string"
+      message:
+        type: "string"
+      parentMessageId:
+        type: "integer"
+      status:
+        type: "string"
+    xml:
+      name: "PostMessages"
+  GetMessages:
+    type: "object"
+    properties:
+      status:
+        type: "integer"
+      id:
+        type: "integer"
+      createdOn:
+        type: "date-time"
+        format: "date"
+      toEmail:
+        type: "string"
+      subject:
+        type: "string"
+      message:
+        type: "string"
+      senderId:
+        type: "integer"
+      receiverId:
+        type: "integer"
+      parentMessageId:
+        type: "integer"
+      status:
+        type: "string"
+    xml:
+      name: "GetMessages"
+  GetMessagesUnread:
+    type: "object"
+    properties:
+      status:
+        type: "integer"
+      id:
+        type: "integer"
+      createdOn:
+        type: "date-time"
+        format: "date"
+      toEmail:
+        type: "string"
+      subject:
+        type: "string"
+      message:
+        type: "string"
+      senderId:
+        type: "integer"
+      receiverId:
+        type: "integer"
+      parentMessageId:
+        type: "integer"
+      status:
+        type: "string"
+    xml:
+      name: "GetMessagesUnread"
+  GetMessagesSent:
+    type: "object"
+    properties:
+      status:
+        type: "integer"
+      id:
+        type: "integer"
+      createdOn:
+        type: "date-time"
+        format: "date"
+      toEmail:
+        type: "string"
+      subject:
+        type: "string"
+      message:
+        type: "string"
+      senderId:
+        type: "integer"
+      receiverId:
+        type: "integer"
+      parentMessageId:
+        type: "integer"
+      status:
+        type: "string"
+    xml:
+      name: "GetMessagesSent"
+  GetMessagesId:
+    type: "object"
+    properties:
+      status:
+        type: "integer"
+      id:
+        type: "integer"
+      createdOn:
+        type: "date-time"
+        format: "date"
+      subject:
+        type: "string"
+      message:
+        type: "string"
+      senderId:
+        type: "integer"
+      receiverId:
+        type: "integer"
+      parentMessageId:
+        type: "integer"
+    xml:
+      name: "GetMessagesId"
+  DeleteMessagesId:
+    type: "object"
+    properties:
+      status:
+        type: "integer"
+      data:
+        id:
+          type: "integer"
+        createdOn:
+          type: "string"
+          format: "date"
+        subject:
+          type: "string"
+        message:
+          type: "string"
+        parentMessageId:
+          type: "integer"
+        status:
+          type: "string"
+    xml:
+      name: "DeleteMessage"

@@ -53,7 +53,7 @@ describe('Tests for User Sign Up', () => {
         expect(res).to.have.status(201);
         res.body.should.be.a('object');
         expect(res.body.message).to.equal('Success: User created successfully!');
-       // expect(res.body.data).to.have.property('token');
+        expect(res.body.data).to.have.property('token');
         done();
       });
   });

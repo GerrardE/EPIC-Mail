@@ -3,15 +3,16 @@ import { mails } from '../database/database';
 class MailsController {
   static createMail(req, res) {
     const mail = {
-      id: 2,
+      id: mails.length + 1,
       createdOn: Date(),
       toEmail: req.body.email,
       subject: req.body.subject,
       message: req.body.message,
+      senderId: parseInt(req.params.id, 10),
       parentMessageId: 1,
       status: 'sent'
     };
-
+    
     if (mail) {
       mails.push(mail);
       res.status(200).json({
@@ -28,8 +29,18 @@ class MailsController {
   }
 
   static getMails(req, res) {
-    const msgs = mails;
-    if (msgs) {
+    const decUser = req.decoded.payload;
+    // const userId = parseInt(req.params.id, 10);
+    
+    const msgs = [];
+    
+    mails.map((mail) => {
+      if (mail.senderId === decUser.id) {
+        console.log(mail);
+        msgs.push(mail);
+      }
+    });
+    if (msgs.length > 0) {
       return res.status(200)
         .json({
           status: 200,
@@ -133,10 +144,4 @@ class MailsController {
   }
 }
 
-const {
-  createMail, getMails, getUnreadMails, getSentMails, getMail, deleteMail
-} = MailsController;
-
-export {
-  createMail, getMails, getUnreadMails, getSentMails, getMail, deleteMail
-};
+export default MailsController;

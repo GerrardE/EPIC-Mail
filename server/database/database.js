@@ -75,4 +75,12 @@ const mails = [
   },
 ];
 
+// {
+//   "firstName": "Gerrard",
+//   "lastName": "Ezeugwa",
+//   "email": "ezeugwagerrard@gmail.com",
+//   "password": "ezeugwagerrard",
+//   "role": 0
+// }
+
 export { users, mails };
