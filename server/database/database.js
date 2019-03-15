@@ -25,8 +25,8 @@ const people = [
     password: 'johndoe',
     email: 'johndoe@gmail.com',
     role: 0,
-    mails: [
-      {
+    emails:
+      [{
         id: 1,
         createdOn: Date(),
         fromEmail: 'testtested@gmail.com',
@@ -36,8 +36,7 @@ const people = [
         receiverId: 1, // possible foreign key
         parentMessageId: 1,
         status: 'unread'
-      }
-    ]
+      }]
   },
   {
     id: 2,
@@ -46,7 +45,7 @@ const people = [
     email: 'janejoe@gmail.com',
     password: 'janejoe',
     role: 0,
-    mails: [
+    emails: [
       {
         id: 1,
         createdOn: Date(),
@@ -109,12 +108,4 @@ const mails = [
   },
 ];
 
-// {
-//   "firstName": "Gerrard",
-//   "lastName": "Ezeugwa",
-//   "email": "ezeugwagerrard@gmail.com",
-//   "password": "ezeugwagerrard",
-//   "role": 0
-// }
-
-export { users, mails, people };
+export { users, mails };
