@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-const makeToken = (payload) => {
+const makeToken = (payload) => jwt.sign({ payload }, process.env.SECRET_KEY);
   const token = jwt.sign({ payload }, process.env.SECRET_KEY);
   return token;
 };
