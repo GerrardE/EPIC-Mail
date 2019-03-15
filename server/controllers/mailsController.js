@@ -1,4 +1,4 @@
-import { mails } from '../database/database';
+import { mails, users } from '../database/database';
 
 class MailsController {
   static createMail(req, res) {
@@ -29,17 +29,21 @@ class MailsController {
   }
 
   static getMails(req, res) {
+    const msgs = mails;
+    if (msgs.length > 0) {
+      return res.status(200)
+        .json({
+          status: 200,
+          message: 'Success: messages retrieved successfully!',
+          mails
+        });
+    }
+  }
+
+  static getUserMails(req, res) {
     const decUser = req.decoded.payload;
-    // const userId = parseInt(req.params.id, 10);
-    
-    const msgs = [];
-    
-    mails.map((mail) => {
-      if (mail.senderId === decUser.id) {
-        console.log(mail);
-        msgs.push(mail);
-      }
-    });
+    console.log(decUser)
+    const msgs = users.filter(user => +decUser.id === user.id);
     if (msgs.length > 0) {
       return res.status(200)
         .json({
