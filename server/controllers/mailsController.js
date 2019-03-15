@@ -1,51 +1,11 @@
-/* eslint-disable class-methods-use-this */
 import { mails } from '../database/database';
 
 class MailsController {
-  createMail(req, res) {
-    if (req.body.subject === undefined) {
-      return res.status(400)
-        .json({
-          status: 400,
-          data: [{
-            message: 'Error: subject cannot be undefined',
-            sample: '{"subject": "string", "message": "string"}'
-          }]
-        });
-    }
-    if (req.body.subject === '') {
-      return res.status(400)
-        .json({
-          status: 400,
-          data: [{
-            message: 'Error: subject field cannot be empty',
-            sample: '{"subject": "string", "message": "string"}'
-          }]
-        });
-    }
-    if (req.body.message === undefined) {
-      return res.status(400)
-        .json({
-          status: 400,
-          data: [{
-            message: 'Error: message cannot be undefined',
-            sample: '{"subject": "string", "message": "string"}'
-          }]
-        });
-    }
-    if (req.body.message === '') {
-      return res.status(400)
-        .json({
-          status: 400,
-          data: [{
-            message: 'Error: message field cannot be empty',
-            sample: '{"subject": "string", "message": "string"}'
-          }]
-        });
-    }
+  static createMail(req, res) {
     const mail = {
       id: 2,
       createdOn: Date(),
+      toEmail: req.body.email,
       subject: req.body.subject,
       message: req.body.message,
       parentMessageId: 1,
@@ -56,36 +16,30 @@ class MailsController {
       mails.push(mail);
       res.status(200).json({
         status: 200,
-        data: [{
-          message: 'Success: Message sent successfully!',
-          mails
-        }]
+        message: 'Success: Message sent successfully!',
+        mail
       });
     } else {
       return res.status(400).json({
         status: 400,
-        data: [{
-          message: 'Error: Message sending failed'
-        }]
+        message: 'Error: Message sending failed'
       });
     }
   }
 
-  getMails(req, res) {
+  static getMails(req, res) {
     const msgs = mails;
     if (msgs) {
       return res.status(200)
         .json({
           status: 200,
-          data: [{
-            message: 'Success: messages retrieved successfully!',
-            mails
-          }]
+          message: 'Success: messages retrieved successfully!',
+          mails
         });
     }
   }
 
-  getUnreadMails(req, res) {
+  static getUnreadMails(req, res) {
     const msg = [];
     const value = 'unread';
     mails.map((mail) => {
@@ -96,23 +50,18 @@ class MailsController {
     if (msg.length > 0) {
       res.status(200).json({
         status: 200,
-        data: [{
-          message: 'Success: unread mails retrieved successfully!',
-          msg
-        }]
+        message: 'Success: unread mails retrieved successfully!',
+        msg
       });
     } else {
       return res.status(404).json({
         success: 404,
-        data: [{
-          message: 'Error: you have read all your mails',
-          msg
-        }]
+        message: 'Error: you have read all your mails',
       });
     }
   }
 
-  getSentMails(req, res) {
+  static getSentMails(req, res) {
     const msg = [];
     const value = 'sent';
     mails.map((mail) => {
@@ -123,23 +72,19 @@ class MailsController {
     if (msg.length > 0) {
       res.status(200).json({
         status: 200,
-        data: [{
-          message: 'Success: sent mails retrieved successfully!',
-          msg
-        }]
+        message: 'Success: sent mails retrieved successfully!',
+        msg
       });
     } else {
       res.status(404).json({
-        status: 404,
-        data: [{
-          message: 'Error: you have not sent any mail',
-          msg
-        }]
+        success: 404,
+        message: 'Error: you have not sent any mail',
+        msg
       });
     }
   }
 
-  getMail(req, res) {
+  static getMail(req, res) {
     const msg = [];
     const id = parseInt(req.params.id, 10);
     mails.map((mail) => {
@@ -150,10 +95,8 @@ class MailsController {
     if (msg.length > 0) {
       res.status(200).json({
         status: 200,
-        data: [{
-          message: 'Success: mail retrieved successfully!',
-          msg
-        }]
+        message: 'Success: mail retrieved successfully!',
+        msg
       });
     } else {
       res.status(404).json({
@@ -163,7 +106,7 @@ class MailsController {
     }
   }
 
-  deleteMail(req, res) {
+  static deleteMail(req, res) {
     const id = parseInt(req.params.id, 10);
     let msg = [];
     mails.find((mail, index) => {
@@ -176,23 +119,24 @@ class MailsController {
       if (msg.length > 0) {
         return res.status(200).json({
           status: 200,
-          data: [{
-            message: 'Success: mail deleted successfully!',
-            mail
-          }]
+          message: 'Success: mail deleted successfully!',
+          msg
         });
       }
       if (msg.length === 0) {
         return res.status(404).json({
           status: 404,
-          data: [{
-            message: 'Error: mail not found'
-          }]
+          message: 'Error: mail not found'
         });
       }
     });
   }
 }
 
-const mailsController = new MailsController();
-export default mailsController;
+const {
+  createMail, getMails, getUnreadMails, getSentMails, getMail, deleteMail
+} = MailsController;
+
+export {
+  createMail, getMails, getUnreadMails, getSentMails, getMail, deleteMail
+};

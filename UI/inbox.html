@@ -1,72 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+   <head>
       <title>EPIC Mail</title>
-   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta charset="utf-8">
-   <link rel="stylesheet" href="css/styles.css">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-</head>
-
-<body>
-
+      <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta charset="utf-8">
+      <link rel="stylesheet" href="css/styles.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+   </head>
+   <body>
       <nav class="topnav" id="topnav">
-         <a href="inbox.html" class="active">Home</a>
-         <a href="admin.html">Admin </a>
-         <!-- <a href="login.html">Login</a>
-         <a href="signup.html">Sign Up</a> -->
+         <span id="hamburger" onclick="openNav()">&#9776;</span>
          <a href="login.html">Log Out</a>
-   
-         <a href="javascript:void(0);" class="icon" onclick="navBar();">
-            &#9776;
-         </a>
+         <a href="inbox.html" class="active">Home</a>
       </nav>
-
       <aside>
          <div id="mySidenav" class="sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a href="inbox.html" class="link">Inbox</a>
-            <a href="create.html" class="link">Create</a>
-            <a href="sent.html" class="link">Sent</a>
-            <a href="drafts.html" class="link">Drafts</a>
-          </div>
-          
-          <div id="main">
-             
-             <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
-             <h2>Inbox</h2>
-             <p>Welcome!</p>
+            <a href="admin.html">Admin </a>
+            <a href="inbox.html" class="select">Inbox</a>
+            <a href="create.html" class="">Create</a>
+            <a href="sent.html" class="">Sent</a>
+            <a href="drafts.html" class="">Drafts</a>
+         </div>
+         <div id="main" class="">
+            <div class="leader">
+               <h2 class="lead-title">Inbox</h2>
+               <p>Welcome!</p>
+            </div>
             <div>
                <div class="container-chat">
-                  <span class="time-right">11:00</span>
-                  <p>Hello. How are you today?</p>
-                  <a href="view.html" type="submit" class="btn">View</a>
-                  <button type="submit" class="cancelbtn">Delete</button>
-                </div>
-                
-                <div class="container-chat darker">
-                   <span class="time-right">11:01</span>
-                  <p>Hey! I'm fine. Thanks for asking!</p>
-                  <a href="view.html" type="submit" class="btn">View</a>
-                  <button type="submit" class="cancelbtn">Delete</button>
+                  <div class="top">
+                     <span class="title">Olga Kolyenko</span>
+                     <span class="time-right">11:00 22 Jan 2018</span>
+                  </div>
+                  <p class="lead">Application for appointment</p>
+                  <p class="para">Duis leo. Sed fringilla mauris sit amet nibh. 
+                        Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, 
+                        augue velit cursus nunc</p>
+                  <a href="view.html" type="submit" class="viewbtn">VIEW</a>
+                  <a type="submit" class="deletebtn">DELETE</a>
                </div>
-                
-                <div class="container-chat">
-                   <span class="time-right">11:02</span>
-                  <p>Sweet! So, what do you wanna do today?</p>
-                  <a href="view.html" type="submit" class="btn">View</a>
-                  <button type="submit" class="cancelbtn">Delete</button>
-                </div>
+               <div class="container-chat">
+                  <div class="top">
+                     <span class="title">James Cameron</span>
+                     <span class="time-right">11:00 22 Jan 2018</span>
+                  </div>
+                  <p class="lead">Meeting starts by 10:00am</p>
+                  <p class="para">Duis leo. Sed fringilla mauris sit amet nibh. 
+                        Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, 
+                        augue velit cursus nunc</p>
+                  <a href="view.html" type="submit" class="viewbtn">VIEW</a>
+                  <a type="submit" class="deletebtn">DELETE</a>
+               </div>
+               <div class="container-chat">
+                  <div class="top">
+                     <span class="title">Mark Zamoyta</span>
+                     <span class="time-right">11:00 22 Jan 2018</span>
+                  </div>
+                  <p class="lead">Application for appointment</p>
+                  <p class="para">Duis leo. Sed fringilla mauris sit amet nibh. 
+                        Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, 
+                        augue velit cursus nunc</p>
+                  <a href="view.html" type="submit" class="viewbtn">VIEW</a>
+                  <a type="submit" class="deletebtn">DELETE</a>
+               </div>
+               <div class="container-chat darker">
+                  <div class="top">
+                     <span class="title">Olga Kolyenko</span>
+                     <span class="time-right">11:00 22 Jan 2018</span>
+                  </div>
+                  <p class="lead">Application for appointment</p>
+                  <p class="para">Duis leo. Sed fringilla mauris sit amet nibh. 
+                        Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, 
+                        augue velit cursus nunc</p>
+                  <a href="view.html" type="submit" class="viewbtn">VIEW</a>
+                  <a type="submit" class="deletebtn">DELETE</a>
+               </div>
+               <div class="container-chat darker">
+                  <div class="top">
+                     <span class="title">James Cameron</span>
+                     <span class="time-right">11:00 22 Jan 2018</span>
+                  </div>
+                  <p class="lead">Meeting starts by 10:00am</p>
+                  <p class="para">Duis leo. Sed fringilla mauris sit amet nibh. 
+                        Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, 
+                        augue velit cursus nunc</p>
+                  <a href="view.html" type="submit" class="viewbtn">VIEW</a>
+                  <a type="submit" class="deletebtn">DELETE</a>
+               </div>
+               <div class="container-chat darker">
+                  <div class="top">
+                     <span class="title">Mark Zamoyta</span>
+                     <span class="time-right">11:00 22 Jan 2018</span>
+                  </div>
+                  <p class="lead">Application for appointment</p>
+                  <p class="para">Duis leo. Sed fringilla mauris sit amet nibh. 
+                        Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, 
+                        augue velit cursus nunc</p>
+                  <a href="view.html" type="submit" class="viewbtn">VIEW</a>
+                  <a type="submit" class="deletebtn">DELETE</a>
+               </div>
             </div>
-          </div>
+         </div>
       </aside>
-
       <footer class="footer">
-            <p>Copyright (c) 2019 <a href="/"><strong>EPIC Mail</strong></a> All Rights Reserved.</p>
-        </footer>
-  <script src="js/script.js"></script>
-</body>
+         <p>Copyright (c) 2019 <a href="/"><strong>EPIC Mail</strong></a> All Rights Reserved.</p>
+      </footer>
+      <script src="js/script.js"></script>
+   </body>
 </html>

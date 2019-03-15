@@ -1,30 +1,26 @@
-// responsive navbar styling
-function navBar () {
-  let nav = document.getElementById("topnav");
-  if (nav.className === "topnav") {
-    nav.className += " responsive";
-  } else {
-    nav.className = "topnav";
-  };
-};
+// add active class
+function active() {
+  let nav = document.getElementsByClassName('nav');
+  nav.classList.add('active');
+}
 
 // Side bar
 function openNav() {
-  document.getElementById("mySidenav").style.width = "250px";
-  document.getElementById("main").style.marginLeft = "250px";
+  // document.getElementById("mySidenav").style.width = "200px";
+  // document.getElementById("main").style.marginLeft = "50px";
+  var sideNav = document.getElementById("mySidenav");
+  var main = document.getElementById("main");
+  sideNav.classList.add("sidebar");
+  main.classList.add("content");
+  
 }
 
 function closeNav() {
-  document.getElementById("mySidenav").style.width = "0";
-  document.getElementById("main").style.marginLeft= "0";
+  var sideNav = document.getElementById("mySidenav");
+  var main = document.getElementById("main");
+  sideNav.classList.remove("sidebar");
+  main.classList.remove("content");
 }
-
-// function classActive() {
-//   let links = document.getElementsByClassName("links");
-//   links.addEventlistener('click', function(){
-//     links.classList.add("active");
-//   })
-// }
 
 // Create a "close" button and append it to each list item
 var myNodelist = document.getElementsByClassName("group");
@@ -41,11 +37,11 @@ for (i = 0; i < myNodelist.length; i++) {
 let myNodelist1 = document.getElementsByClassName("group");
 let j;
 for (j = 0; j < myNodelist1.length; j++) {
-  let a = document.createElement("a");
-  let txt1 = document.createTextNode("EDIT");
+  var a = document.createElement("a");
+  var txt1 = document.createTextNode("ADD-USER");
+  a.appendChild(txt1);
   a.className = "add";
   a.setAttribute("href", "addusers.html")
-  a.appendChild(txt1);
   myNodelist1[j].appendChild(a);
 }
 

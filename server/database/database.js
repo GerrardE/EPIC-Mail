@@ -21,6 +21,7 @@ const mails = [
   {
     id: 1,
     createdOn: Date(),
+    fromEmail: 'testtested@gmail.com',
     subject: 'First subject',
     message: 'First message',
     senderId: 10,
@@ -31,6 +32,7 @@ const mails = [
   {
     id: 2,
     createdOn: Date(),
+    fromEmail: 'tomdoejoe@gmail.com',
     subject: 'Second subject',
     message: 'Second message',
     senderId: 10,
@@ -41,6 +43,7 @@ const mails = [
   {
     id: 3,
     createdOn: Date(),
+    fromEmail: 'janedoe@gmail.com',
     subject: 'Third subject',
     message: 'Third message',
     senderId: 10,
@@ -51,6 +54,7 @@ const mails = [
   {
     id: 4,
     createdOn: Date(),
+    fromEmail: 'casperjoe@gmail.com',
     subject: 'Fourth subject',
     message: 'Fourth message',
     senderId: 10,
@@ -61,6 +65,7 @@ const mails = [
   {
     id: 5,
     createdOn: Date(),
+    fromEmail: 'emilyjoe@gmail.com',
     subject: 'Fifth subject',
     message: 'Fifth message',
     senderId: 10,

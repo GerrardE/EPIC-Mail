@@ -1,151 +1,151 @@
 const correctUser = {
-  firstName: 'John',
-  lastName: 'Doe',
-  email: 'johndoe@gmail.com',
-  password: 'johndoe'
+  firstName: 'James',
+  lastName: 'Done',
+  email: 'jamesdoe@gmail.com',
+  password: 'jamesdoe'
 };
 
 const undefinedFirstName = {
-  lastName: 'Doe',
-  email: 'johndoe@gmail.com',
-  password: 'johndoe'
+  lastName: 'Done',
+  email: 'jamesdoe@gmail.com',
+  password: 'jamesdoe'
 };
 
 const unstringedFirstName = {
-  firstName: ['John'],
-  lastName: 'Doe',
-  email: 'johndoe@gmail.com',
-  password: 'johndoe'
+  firstName: ['James'],
+  lastName: 'Done',
+  email: 'jamesdoe@gmail.com',
+  password: 'jamesdoe'
 };
 
 const emptyFirstName = {
   firstName: '',
-  lastName: 'Doe',
-  email: 'johndoe@gmail.com',
-  password: 'johndoe'
+  lastName: 'Done',
+  email: 'jamesdoe@gmail.com',
+  password: 'jamesdoe'
 };
 
 const invalidFirstNameLength = {
   firstName: 'J',
-  lastName: 'Doe',
-  email: 'johndoe@gmail.com',
-  password: 'johndoe'
+  lastName: 'Done',
+  email: 'jamesdoe@gmail.com',
+  password: 'jamesdoe'
 };
 
 const invalidFirstNameCharacter = {
   firstName: 'Joh$n',
-  lastName: 'Doe',
-  email: 'johndoe@gmail.com',
-  password: 'johndoe'
+  lastName: 'Done',
+  email: 'jamesdoe@gmail.com',
+  password: 'jamesdoe'
 };
 
 const undefinedLastName = {
-  firstName: 'John',
-  email: 'johndoe@gmail.com',
-  password: 'johndoe'
+  firstName: 'James',
+  email: 'jamesdoe@gmail.com',
+  password: 'jamesdoe'
 };
 
 const unstringedLastName = {
-  firstName: 'John',
-  lastName: ['Doe'],
-  email: 'johndoe@gmail.com',
-  password: 'johndoe'
+  firstName: 'James',
+  lastName: ['Done'],
+  email: 'jamesdoe@gmail.com',
+  password: 'jamesdoe'
 };
 
 const emptyLastName = {
-  firstName: 'John',
+  firstName: 'James',
   lastName: '',
-  email: 'johndoe@gmail.com',
-  password: 'johndoe'
+  email: 'jamesdoe@gmail.com',
+  password: 'jamesdoe'
 };
 
 const invalidLastNameLength = {
-  firstName: 'John',
+  firstName: 'James',
   lastName: 'D',
-  email: 'johndoe@gmail.com',
-  password: 'johndoe'
+  email: 'jamesdoe@gmail.com',
+  password: 'jamesdoe'
 };
 
 const invalidLastNameCharacter = {
-  firstName: 'John',
+  firstName: 'James',
   lastName: 'Do$e',
-  email: 'johndoe@gmail.com',
-  password: 'johndoe'
+  email: 'jamesdoe@gmail.com',
+  password: 'jamesdoe'
 };
 
 const undefinedEmail = {
-  firstName: 'John',
-  lastName: 'Doe',
-  password: 'johndoe'
+  firstName: 'James',
+  lastName: 'Done',
+  password: 'jamesdoe'
 };
 
 const unstringedEmail = {
-  firstName: 'John',
-  lastName: 'Doe',
-  email: ['johndoe@gmail.com'],
-  password: 'johndoe'
+  firstName: 'James',
+  lastName: 'Done',
+  email: ['jamesdoe@gmail.com'],
+  password: 'jamesdoe'
 };
 
 const emptyEmail = {
-  firstName: 'John',
-  lastName: 'Doe',
+  firstName: 'James',
+  lastName: 'Done',
   email: '',
-  password: 'johndoe'
+  password: 'jamesdoe'
 };
 
 const invalidEmailLength = {
-  firstName: 'John',
-  lastName: 'Doe',
+  firstName: 'James',
+  lastName: 'Done',
   email: 'd@g.com',
-  password: 'johndoe'
+  password: 'jamesdoe'
 };
 
 const invalidEmailCharacter = {
-  firstName: 'John',
-  lastName: 'Doe',
+  firstName: 'James',
+  lastName: 'Done',
   email: 'j%%##@gmail.#om',
-  password: 'johndoe'
+  password: 'jamesdoe'
 };
 
 const existingEmail = {
-  firstName: 'John',
-  lastName: 'Doe',
-  email: 'johndoe@gmail.com',
-  password: 'johndoe'
+  firstName: 'James',
+  lastName: 'Done',
+  email: 'jamesdoe@gmail.com',
+  password: 'jamesdoe'
 };
 
 const undefinedPassword = {
-  firstName: 'John',
-  lastName: 'Doe',
-  email: 'johndoe@gmail.com'
+  firstName: 'James',
+  lastName: 'Done',
+  email: 'jonahjang@gmail.com'
 };
 
 const unstringedPassword = {
-  firstName: 'John',
-  lastName: 'Doe',
-  email: 'johndoe@gmail.com',
+  firstName: 'James',
+  lastName: 'Done',
+  email: 'jonahjoe@gmail.com',
   password: ['mypass', 'yourpass']
 };
 
 const emptyPassword = {
-  firstName: 'John',
-  lastName: 'Doe',
-  email: 'johndoe@gmail.com',
+  firstName: 'James',
+  lastName: 'Done',
+  email: 'jonahjoe@gmail.com',
   password: ''
 };
 
 const invalidPasswordLength = {
-  firstName: 'John',
-  lastName: 'Doe',
-  email: 'johndoe@gmail.com',
+  firstName: 'James',
+  lastName: 'Done',
+  email: 'jonahjoe@gmail.com',
   password: 'j'
 };
 
 const whitespacePassword = {
-  firstName: 'John',
-  lastName: 'Doe',
-  email: 'johndoe@gmail.com',
-  password: 'john doe'
+  firstName: 'James',
+  lastName: 'Done',
+  email: 'hallyjoe@gmail.com',
+  password: ' '
 };
 
 const correctLogin = {
@@ -159,17 +159,17 @@ const undefinedEmailLogin = {
 
 const emptyEmailField = {
   email: '',
-  password: 'johndoe'
+  password: 'jamesdoe'
 };
 
 const unstringedEmailLogin = {
-  email: ['johndoe@gmail.com'],
-  password: 'johndoe'
+  email: ['jamesdoe@gmail.com'],
+  password: 'jamesdoe'
 };
 
 const nonExistingEmail = {
-  email: 'johndoe@gmial.com',
-  password: 'johndoe'
+  email: 'Jamesdoe@gmial.com',
+  password: 'jamesdoe'
 };
 
 const undefinedPasswordLogin = {
@@ -177,18 +177,18 @@ const undefinedPasswordLogin = {
 };
 
 const emptyPasswordField = {
-  email: 'johndoe@gmail.com',
+  email: 'jamesdoe@gmail.com',
   password: ''
 };
 
 const unstringedPasswordLogin = {
   email: 'johndoe@gmail.com',
-  password: ['johndoe']
+  password: ['jamesdoe']
 };
 
 const correctEmailIncorrectPassword = {
   email: 'johndoe@gmail.com',
-  password: 'john#doe'
+  password: 'Jamesdroeh'
 };
 
 export {
