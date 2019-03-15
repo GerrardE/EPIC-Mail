@@ -7,7 +7,6 @@ class MailValidatorHandler {
       toEmail, subject, message
     } = req.body;
     
-    const foundUser = users.find(user => user.email === toEmail);
     // Email Validation
     if (toEmail === undefined) {
       return res.status(400)
@@ -52,13 +51,6 @@ class MailValidatorHandler {
         error: 'Error: email should be 10 to 30 characters long'
       });
     }
-    
-    if (!foundUser) {
-      return res.status(400).json({
-        status: 400,
-        message: 'Error: email does not exist'
-      });
-    }
 
     if (subject === undefined) {
       return res.status(400)
@@ -93,10 +85,7 @@ class MailValidatorHandler {
         });
     }
 
-    req.body.foundUser = foundUser;
-    req.body.subject = subject;
-    req.body.message = message;
-    return next();
+    next();
   }
 }
 
