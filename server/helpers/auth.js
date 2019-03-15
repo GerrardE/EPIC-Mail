@@ -1,16 +1,13 @@
 import jwt from 'jsonwebtoken';
 
-const makeToken = (payload) => jwt.sign({ payload }, process.env.SECRET_KEY);
-  const token = jwt.sign({ payload }, process.env.SECRET_KEY);
-  return token;
-};
+const makeToken = (payload => jwt.sign({ payload }, process.env.SECRET_KEY));
 
 const verifyToken = (req, res, next) => {
   const token = req.headers.authorization || req.body.token;
   if (!token) {
     return res.status(403).json({
       status: 'Fail',
-      mesage: 'No token supplied'
+      mesage: 'Error: no token supplied'
     });
   }
 
@@ -25,11 +22,6 @@ const verifyToken = (req, res, next) => {
 
       req.decoded = decoded;
       return next();
-    });
-  } else {
-    return res.json({
-      success: false,
-      message: 'Error: Auth token is not supplied'
     });
   }
 };

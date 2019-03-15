@@ -2,6 +2,9 @@ import { mails, users } from '../database/database';
 
 class MailsController {
   static createMail(req, res) {
+    const decUser = req.decoded.payload;
+    const person = users.find(user => decUser.email === user.email);
+
     const mail = {
       id: mails.length + 1,
       createdOn: Date(),
@@ -12,39 +15,34 @@ class MailsController {
       parentMessageId: 1,
       status: 'sent'
     };
-    
-    if (mail) {
+
+    if (!person) {
+      return res.status(400).json({
+        status: 400,
+        message: 'Error: email does not exist'
+      });
+    }
+
+    if (person && mail) {
       mails.push(mail);
-      res.status(200).json({
+      return res.status(200).json({
         status: 200,
         message: 'Success: Message sent successfully!',
         mail
       });
-    } else {
-      return res.status(400).json({
-        status: 400,
-        message: 'Error: Message sending failed'
-      });
     }
+
+    return res.status(400).json({
+      status: 400,
+      message: 'Error: Message sending failed'
+    });
   }
 
   static getMails(req, res) {
-    const msgs = mails;
-    if (msgs.length > 0) {
-      return res.status(200)
-        .json({
-          status: 200,
-          message: 'Success: messages retrieved successfully!',
-          mails
-        });
-    }
-  }
-
-  static getUserMails(req, res) {
     const decUser = req.decoded.payload;
-    console.log(decUser)
-    const msgs = users.filter(user => +decUser.id === user.id);
-    if (msgs.length > 0) {
+    const person = users.find(user => decUser.email === user.email);
+
+    if (person) {
       return res.status(200)
         .json({
           status: 200,
@@ -55,96 +53,80 @@ class MailsController {
   }
 
   static getUnreadMails(req, res) {
-    const msg = [];
-    const value = 'unread';
-    mails.map((mail) => {
-      if (mail.status === value) {
-        msg.push(mail);
-      }
-    });
-    if (msg.length > 0) {
-      res.status(200).json({
+    const decUser = req.decoded.payload;
+    const person = users.find(user => decUser.email === user.email);
+
+    if (person) {
+      return res.status(200).json({
         status: 200,
         message: 'Success: unread mails retrieved successfully!',
-        msg
-      });
-    } else {
-      return res.status(404).json({
-        success: 404,
-        message: 'Error: you have read all your mails',
+        messages: mails.find(mail => mail.status === 'unread')
       });
     }
+
+    return res.status(404).json({
+      success: 404,
+      message: 'Error: you have read all your mails',
+    });
   }
 
   static getSentMails(req, res) {
-    const msg = [];
-    const value = 'sent';
-    mails.map((mail) => {
-      if (mail.status === value) {
-        msg.push(mail);
-      }
-    });
-    if (msg.length > 0) {
+    const decUser = req.decoded.payload;
+    const person = users.find(user => decUser.email === user.email);
+
+    if (person) {
       res.status(200).json({
         status: 200,
         message: 'Success: sent mails retrieved successfully!',
-        msg
-      });
-    } else {
-      res.status(404).json({
-        success: 404,
-        message: 'Error: you have not sent any mail',
-        msg
+        messages: mails.find(mail => mail.status === 'sent')
       });
     }
+
+    return res.status(404).json({
+      success: 404,
+      message: 'Error: you have not sent any mail',
+    });
   }
 
   static getMail(req, res) {
-    const msg = [];
-    const id = parseInt(req.params.id, 10);
-    mails.map((mail) => {
-      if (mail.id === id) {
-        msg.push(mail);
-      }
-    });
-    if (msg.length > 0) {
+    const decUser = req.decoded.payload;
+    const person = users.find(user => decUser.email === user.email);
+    const id = +req.params.id;
+
+    if (person) {
       res.status(200).json({
         status: 200,
         message: 'Success: mail retrieved successfully!',
-        msg
-      });
-    } else {
-      res.status(404).json({
-        success: 404,
-        message: 'Error: mail not found'
+        messages: mails.find(mail => mail.id === id)
       });
     }
+
+    return res.status(404).json({
+      success: 404,
+      message: 'Error: mail not found'
+    });
   }
 
   static deleteMail(req, res) {
-    const id = parseInt(req.params.id, 10);
-    let msg = [];
-    mails.find((mail, index) => {
-      if (mail.id === id) {
-        msg.push(mail);
-        mails.splice(index, 1);
-      } else {
-        msg = [];
-      }
-      if (msg.length > 0) {
-        return res.status(200).json({
-          status: 200,
-          message: 'Success: mail deleted successfully!',
-          msg
-        });
-      }
-      if (msg.length === 0) {
-        return res.status(404).json({
-          status: 404,
-          message: 'Error: mail not found'
-        });
-      }
-    });
+    const decUser = req.decoded.payload;
+    const person = users.find(user => decUser.email === user.email);
+    const id = +req.params.id;
+    const mail = mails.find(msg => msg.id === id)
+    mail.splice(mail.id - 1, 1);
+
+    if (person) {
+      return res.status(200).json({
+        status: 200,
+        message: 'Success: mail deleted successfully!',
+        mail
+      });
+    }
+    if (!person) {
+      return res.status(404).json({
+        status: 404,
+        message: 'Error: mail not found'
+      });
+    }
   }
 }
 

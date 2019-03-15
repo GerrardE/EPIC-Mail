@@ -6,30 +6,6 @@ const users = [
     password: 'johndoe',
     email: 'johndoe@gmail.com',
     role: 0,
-    mails: [
-      {
-        id: 1,
-        createdOn: Date(),
-        fromEmail: 'testtested@gmail.com',
-        subject: 'First subject',
-        message: 'First message',
-        senderId: 10,
-        receiverId: 20,
-        parentMessageId: 1,
-        status: 'unread'
-      },
-      {
-        id: 2,
-        createdOn: Date(),
-        fromEmail: 'testtested@gmail.com',
-        subject: 'First subject',
-        message: 'First message',
-        senderId: 10,
-        receiverId: 20,
-        parentMessageId: 1,
-        status: 'unread'
-      }
-    ],
   },
   {
     id: 2,
@@ -38,7 +14,38 @@ const users = [
     email: 'janejoe@gmail.com',
     password: 'janejoe',
     role: 0,
-    mails: [
+  },
+];
+
+const people = [
+  {
+    id: 1,
+    firstName: 'John',
+    lastName: 'Doe',
+    password: 'johndoe',
+    email: 'johndoe@gmail.com',
+    role: 0,
+    emails:
+      [{
+        id: 1,
+        createdOn: Date(),
+        fromEmail: 'testtested@gmail.com',
+        subject: 'First subject',
+        message: 'First message',
+        senderId: 10,
+        receiverId: 1, // possible foreign key
+        parentMessageId: 1,
+        status: 'unread'
+      }]
+  },
+  {
+    id: 2,
+    firstName: 'Jane',
+    lastName: 'Joe',
+    email: 'janejoe@gmail.com',
+    password: 'janejoe',
+    role: 0,
+    emails: [
       {
         id: 1,
         createdOn: Date(),
@@ -46,109 +53,15 @@ const users = [
         subject: 'First subject',
         message: 'First message',
         senderId: 10,
-        receiverId: 20,
+        receiverId: 2,
         parentMessageId: 1,
         status: 'unread'
-      },
-      {
-        id: 2,
-        createdOn: Date(),
-        fromEmail: 'testtested@gmail.com',
-        subject: 'First subject',
-        message: 'First message',
-        senderId: 10,
-        receiverId: 20,
-        parentMessageId: 1,
-        status: 'unread'
-      }
-    ],
-  },
-];
-
-const people = [
-  {
-    users: [
-                {
-                  id: 1,
-                  firstName: 'John',
-                  lastName: 'Doe',
-                  password: 'johndoe',
-                  email: 'johndoe@gmail.com',
-                  role: 0,
-                  mails: [
-                    {
-                      id: 1,
-                      createdOn: Date(),
-                      fromEmail: 'testtested@gmail.com',
-                      subject: 'First subject',
-                      message: 'First message',
-                      senderId: 10,
-                      receiverId: 20,
-                      parentMessageId: 1,
-                      status: 'unread'
-                    },
-                    {
-                      id: 2,
-                      createdOn: Date(),
-                      fromEmail: 'testtested@gmail.com',
-                      subject: 'First subject',
-                      message: 'First message',
-                      senderId: 10,
-                      receiverId: 20,
-                      parentMessageId: 1,
-                      status: 'unread'
-                    }
-                  ],
-                },
-
-      {
-        id: 2,
-        firstName: 'John',
-        lastName: 'Doe',
-        password: 'johndoe',
-        email: 'johndoe@gmail.com',
-        role: 0,
-        mails: [
-          {
-            id: 1,
-            createdOn: Date(),
-            fromEmail: 'testtested@gmail.com',
-            subject: 'First subject',
-            message: 'First message',
-            senderId: 10,
-            receiverId: 20,
-            parentMessageId: 1,
-            status: 'unread'
-          },
-          {
-            id: 2,
-            createdOn: Date(),
-            fromEmail: 'testtested@gmail.com',
-            subject: 'First subject',
-            message: 'First message',
-            senderId: 10,
-            receiverId: 20,
-            parentMessageId: 1,
-            status: 'unread'
-          }
-        ],
       }
     ]
-  }
+  },
 ];
 
 const mails = [
-  {
-    id: 1,
-    createdOn: Date(),
-    fromEmail: 'testtested@gmail.com',
-    subject: 'First subject',
-    message: 'First message',
-    senderId: 10,
-    receiverId: 20,
-    parentMessageId: 1,
-    status: 'unread'
-  },
   {
     id: 2,
     createdOn: Date(),
@@ -195,12 +108,4 @@ const mails = [
   },
 ];
 
-// {
-//   "firstName": "Gerrard",
-//   "lastName": "Ezeugwa",
-//   "email": "ezeugwagerrard@gmail.com",
-//   "password": "ezeugwagerrard",
-//   "role": 0
-// }
-
-export { users, mails, people };
+export { users, mails };
