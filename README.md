@@ -8,8 +8,8 @@ A simple web application where users can be able to exchange emails.
 
 <br/><b>Project Plan with PIVOTAL TRACKER:</b> https://www.pivotaltracker.com/n/projects/2314408
 <br/><b>UI-pages:</b> https://gerrarde.github.io/EPIC-Mail/UI/login.html
-<br/><b> Hosted API on Heroku: </b> https://https://epic-m.herokuapp.com
-<br/><b> API documentation: </b> https://stilltocome/api-docs
+<br/><b> Hosted API on Heroku: </b> https://epic-m.herokuapp.com
+<br/><b> API documentation: </b> https://epic-m.herokuapp.com/swagger-api/swagger.yaml
 
 ## Features
 
