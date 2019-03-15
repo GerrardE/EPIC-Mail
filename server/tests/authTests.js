@@ -42,7 +42,7 @@ describe('Tests for Index Page', () => {
   //       done();
   //     });
   // });
-});
+//});
 
 describe('Tests for User Sign Up', () => {
   it('should return 201 success status', (done) => {
