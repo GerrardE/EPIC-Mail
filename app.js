@@ -33,7 +33,7 @@ const options = {
   // import swaggerDefinitions
   swaggerDefinition,
   // path to the API docs
-  apis: ['./swagger-api/authUser.yaml'],
+  apis: ['./swagger-api/*.yaml'],
 };
 // initialize swagger-jsdoc
 const swaggerSpec = swaggerJSDoc(options);
