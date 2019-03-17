@@ -6,6 +6,7 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import router from './server/routes/router';
 import indexRouter from './server/routes/index';
+
 // Introduce the express middleware
 const app = express();
 
