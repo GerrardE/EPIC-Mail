@@ -176,11 +176,7 @@ class UserValidatorHandler {
         });
     }
 
-    // req.body.firstName = firstName;
-    // req.body.lastname = lastName;
-    // req.body.email = email;
-    // req.body.password = password;
-   next();
+    next();
   }
 
   static loginValidator(req, res, next) {
@@ -281,8 +277,92 @@ class UserValidatorHandler {
     req.body.password = password;
     return next();
   }
+
+  static loginCheck(req, res, next) {
+    let {
+      // eslint-disable-next-line prefer-const
+      email, password
+    } = req.body;
+
+    // Email Validation
+    if (email === undefined) {
+      return res.status(400)
+        .json({
+          status: 400,
+          message: 'Error: email field cannot be empty',
+        });
+    }
+    if (email === '') {
+      return res.status(400)
+        .json({
+          status: 400,
+          message: 'Error: email field cannot be empty.'
+        });
+    }
+    if (typeof email !== 'string') {
+      return res.status(400)
+        .json({
+          status: 400,
+          message: 'Error: email should be a string'
+        });
+    }
+    if (email.includes(' ')) {
+      return res.status(400)
+        .json({
+          status: 400,
+          message: 'Error: email cannot include space.'
+        });
+    }
+    // email check: stackoverflow
+    const emailCheck = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
+    if (!emailCheck.test(email)) {
+      return res.status(400).json({
+        status: 400,
+        error: 'Error: email format is invalid'
+      });
+    }
+    email = email.toLowerCase().trim();
+    if (email.length < 10 || email.length > 30) {
+      return res.status(400).json({
+        status: 400,
+        error: 'Error: email should be 10 to 30 characters long'
+      });
+    }
+
+    // Password Validation
+    if (password === undefined) {
+      return res.status(400)
+        .json({
+          status: 400,
+          message: 'Error: password field cannot be empty'
+        });
+    }
+    if (password === '') {
+      return res.status(400)
+        .json({
+          status: 400,
+          message: 'Error: password field cannot be empty'
+        });
+    }
+    if (password === ' ') {
+      return res.status(400)
+        .json({
+          status: 400,
+          message: 'Error: password cannot contain spaces'
+        });
+    }
+    if (typeof password !== 'string') {
+      return res.status(400)
+        .json({
+          status: 400,
+          message: 'Error: password should be a string'
+        });
+    }
+
+    next();
+  }
 }
 
-const { signupValidator, loginValidator } = UserValidatorHandler;
+const { signupValidator, loginValidator, loginCheck } = UserValidatorHandler;
 
-export { signupValidator, loginValidator };
+export { signupValidator, loginValidator, loginCheck };

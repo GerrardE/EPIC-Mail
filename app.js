@@ -5,6 +5,7 @@ import swaggerUi from 'swagger-ui-express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import router from './server/routes/router';
+import api from './server/routes/api';
 import indexRouter from './server/routes/index';
 
 // Introduce the express middleware
@@ -23,6 +24,7 @@ const port = process.env.PORT || 3000;
 
 // Bring in the user route
 app.use(router);
+app.use(api);
 app.use(indexRouter);
 
 // Swagger definition

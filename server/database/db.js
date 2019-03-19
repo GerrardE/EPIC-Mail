@@ -12,15 +12,7 @@ pool.on('connect', () => {
 
 // create users table
 const usersTable = () => {
-  const queryText = `CREATE TABLE IF NOT EXISTS
-        users(id integer NOT NULL,
-        "firstName" text COLLATE pg_catalog."default" NOT NULL,
-        "lastName" text COLLATE pg_catalog."default" NOT NULL,
-        email text COLLATE pg_catalog."default" NOT NULL,
-        password text COLLATE pg_catalog."default" NOT NULL,
-        CONSTRAINT users_pkey PRIMARY KEY (id),
-        CONSTRAINT email UNIQUE (email)
-    )`;
+  
 
   pool.query(queryText)
     .then((res) => {
@@ -89,7 +81,7 @@ const messagesTable = () => {
     });
 };
 
-// create messages table
+// create child messages table
 const childMessagesTable = () => {
   const queryText = `CREATE TABLE IF NOT EXISTS
         childmsgs(
