@@ -14,7 +14,7 @@ class MailValidatorHandler {
           message: 'Error: email field cannot be empty',
         });
     }
-    toEmail = toEmail.toLowerCase().trim();
+    toEmail = toEmail.toLowerCase();
     if (typeof toEmail !== 'string') {
       return res.status(400)
         .json({

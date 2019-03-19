@@ -28,9 +28,14 @@ const getMessage = 'select * from messages left join userMessage on userId = $1 
 // Get sent messages
 const deleteMessage = 'delete from userMessage where userId = $1 and messageId = $2';
 
+// Return an existing group
+const returnGroup = 'select * from groups where name = $1';
+
+// Create a group
+const createGroup = 'insert into groups (ownerId, name, createdOn) values ($1, $2, $3) returning *';
 
 export {
   createUser, emailLogin, returnUser, createMessage, userMessage,
   getMessages, getUnreadMessages,
-  getSentMessages, getMessage, deleteMessage
+  getSentMessages, getMessage, deleteMessage, createGroup, returnGroup,
 };
