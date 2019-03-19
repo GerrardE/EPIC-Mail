@@ -1,5 +1,5 @@
-import auth from '../helpers/auth';
-import { users } from '../database/database';
+import auth from '../../helpers/auth';
+import { users } from '../../database/database';
 
 class UsersController {
   static createUser(req, res) {

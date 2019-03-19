@@ -1,4 +1,4 @@
-import { mails, users } from '../database/database';
+import { mails, users } from '../../database/database';
 
 class MailsController {
   static createMail(req, res) {

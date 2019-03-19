@@ -1,4 +1,3 @@
-import { users } from '../database/database';
 
 class MailValidatorHandler {
   static createMailValidator(req, res, next) {
@@ -57,7 +56,7 @@ class MailValidatorHandler {
         .json({
           status: 400,
           message: 'Error: subject cannot be undefined',
-          sample: '{"subject": "string", "message": "string"}'
+          
         });
     }
     if (subject === '') {
@@ -65,7 +64,7 @@ class MailValidatorHandler {
         .json({
           status: 400,
           message: 'Error: subject field cannot be empty',
-          sample: '{"subject": "string", "message": "string"}'
+          
         });
     }
     if (message === undefined) {
@@ -73,7 +72,7 @@ class MailValidatorHandler {
         .json({
           status: 400,
           message: 'Error: message cannot be undefined',
-          sample: '{"subject": "string", "message": "string"}'
+          
         });
     }
     if (message === '') {
@@ -81,7 +80,64 @@ class MailValidatorHandler {
         .json({
           status: 400,
           message: 'Error: message field cannot be empty',
-          sample: '{"subject": "string", "message": "string"}'
+          
+        });
+    }
+
+    next();
+  }
+
+  static validMail(req, res, next) {
+    const {
+      toEmail, subject, message
+    } = req.body;
+
+    // email check: stackoverflow
+    const emailCheck = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
+    if (!emailCheck.test(toEmail)) {
+      return res.status(400).json({
+        status: 400,
+        error: 'Error: email format is invalid'
+      });
+    }
+    if (toEmail.length < 2 || toEmail.length > 100) {
+      return res.status(400).json({
+        status: 400,
+        error: 'Error: email should be 2 to 100 characters long'
+      });
+    }
+
+    if (subject === undefined) {
+      return res.status(400)
+        .json({
+          status: 400,
+          message: 'Error: subject field cannot be empty',
+          
+        });
+    }
+
+    if (subject === '') {
+      return res.status(400)
+        .json({
+          status: 400,
+          message: 'Error: subject field cannot be empty',
+          
+        });
+    }
+    if (message === undefined) {
+      return res.status(400)
+        .json({
+          status: 400,
+          message: 'Error: message field cannot be empty',
+          
+        });
+    }
+    if (message === '') {
+      return res.status(400)
+        .json({
+          status: 400,
+          message: 'Error: message field cannot be empty',
+    
         });
     }
 
@@ -89,6 +145,4 @@ class MailValidatorHandler {
   }
 }
 
-const { createMailValidator } = MailValidatorHandler;
-
-export default createMailValidator;
+export default MailValidatorHandler;
