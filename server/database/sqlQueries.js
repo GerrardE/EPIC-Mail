@@ -37,8 +37,11 @@ const createGroup = 'insert into groups (ownerId, name, createdOn) values ($1, $
 // Get groups
 const getGroups = 'select * from groups where ownerId = $1';
 
+// Edit group
+const editGroup = 'update groups set name=$1 where id=$2 and ownerId=$3 returning *';
+
 export {
-  createUser, emailLogin, returnUser, createMessage, userMessage,
+  createUser, emailLogin, returnUser, createMessage, userMessage, editGroup,
   getMessages, getGroups, getUnreadMessages,
   getSentMessages, getMessage, deleteMessage, createGroup, returnGroup,
 };

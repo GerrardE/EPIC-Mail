@@ -25,5 +25,6 @@ api.delete('/api/v2/messages/:id', auth.verifyToken, MailsController.deleteMail)
 // Group Routes
 api.post('/api/v2/groups', auth.verifyToken, groupValidator.validGroupName, group.createGroup);
 api.get('/api/v2/groups', auth.verifyToken, group.getGroups);
+api.patch('/api/v2/groups/:id/name', auth.verifyToken, groupValidator.validGroupName, group.editGroup);
 
 export default api;
