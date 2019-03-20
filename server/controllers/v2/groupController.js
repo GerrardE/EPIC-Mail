@@ -181,6 +181,40 @@ class GroupController {
         message: err.message
       }));
   }
+
+  static deleteUser(req, res) {
+    const decUser = req.decoded.payload;
+    const ownerId = Number(decUser.userid);
+    const { id, memberid } = req.params;
+
+    pool.query(returnGrp, [+id])
+      .then((data) => {
+        console.log(data.rows[0]);
+        if (data.rowCount > 0 && data.rows[0].ownerid === ownerId) {
+          return pool.query(deleteMember, [id, memberid])
+            .then(() => res.status(200)
+              .send({
+                success: true,
+                message: 'Group member deleted successfully!'
+              }))
+            .catch(err => res.status(500)
+              .send({
+                success: false,
+                message: err.message
+              }));
+        }
+        return res.status(500)
+          .send({
+            success: false,
+            message: 'Group member does not exist. Try again'
+          });
+      })
+      .catch(err => res.status(500)
+        .send({
+          success: false,
+          message: err.message
+        }));
+  }
 }
 
 export default GroupController;
