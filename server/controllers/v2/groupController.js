@@ -1,7 +1,7 @@
 import moment from 'moment';
 import pool from '../../database/dbconnect';
 import {
-  createGroup, getGroups, returnGroup
+  createGroup, getGroups, returnGroup, editGroup
 } from '../../database/sqlQueries';
 
 class GroupController {
@@ -63,6 +63,37 @@ class GroupController {
           .send({
             success: false,
             message: 'No group found',
+          });
+      })
+      .catch(err => res.status(500)
+        .send({
+          success: false,
+          message: err.message
+        }));
+  }
+
+  static editGroup(req, res) {
+    const decUser = req.decoded.payload;
+    const userId = +decUser.userid;
+    let { name, groupId } = req.params;
+    groupId = +groupId;
+    const values = [name, groupId, userId];
+
+    pool.query(editGroup, [values])
+      .then((data) => {
+        if (data.rowCount !== 0) {
+          const editedGroup = data.rows;
+          return res.status(200)
+            .send({
+              success: true,
+              message: 'Group edited successfully!',
+              editedGroup
+            });
+        }
+        return res.status(500)
+          .send({
+            success: false,
+            message: 'This group was not found',
           });
       })
       .catch(err => res.status(500)
