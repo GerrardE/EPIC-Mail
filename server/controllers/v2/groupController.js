@@ -1,7 +1,7 @@
 import moment from 'moment';
 import pool from '../../database/dbconnect';
 import {
-  createGroup, checkGroup, returnGroup, getMessages, getUnreadMessages, getSentMessages, getMessage, deleteMessage
+  createGroup, getGroups, returnGroup
 } from '../../database/sqlQueries';
 
 class GroupController {
@@ -42,6 +42,34 @@ class GroupController {
         success: false,
         message: err.message
       }));
+  }
+
+  static getGroups(req, res) {
+    const decUser = req.decoded.payload;
+    const userId = +decUser.userid;
+
+    pool.query(getGroups, [userId])
+      .then((data) => {
+        if (data.rowCount !== 0) {
+          const retrievedGroups = data.rows;
+          return res.status(200)
+            .send({
+              success: true,
+              message: 'Groups retrieved successfully!',
+              retrievedGroups
+            });
+        }
+        return res.status(500)
+          .send({
+            success: false,
+            message: 'No group found',
+          });
+      })
+      .catch(err => res.status(500)
+        .send({
+          success: false,
+          message: err.message
+        }));
   }
 }
 

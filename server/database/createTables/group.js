@@ -5,7 +5,8 @@ const groupsTable = `DROP TABLE IF EXISTS groups CASCADE;
         id SERIAL PRIMARY KEY NOT NULL,
         ownerId INTEGER NOT NULL,
         name TEXT UNIQUE NOT NULL,
-        createdOn TEXT NOT NULL
+        createdOn TEXT NOT NULL,
+        FOREIGN KEY (ownerId) references users (userId) on delete cascade
         )`;
 
 const groupMembersTable = `DROP TABLE IF EXISTS groupMembersTable CASCADE;

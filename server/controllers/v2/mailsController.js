@@ -55,8 +55,7 @@ class MailsController {
       .then((data) => {
         if (data.rowCount !== 0) {
           const retrievedMessages = data.rows;
-          console.log(data.rows);
-          return res.status(201)
+          return res.status(200)
             .send({
               success: true,
               message: 'Messages retrieved successfully!',
