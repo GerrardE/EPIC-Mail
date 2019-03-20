@@ -51,6 +51,7 @@ class MailValidatorHandler {
       });
     }
 
+    subject = subject.trim();
     if (subject === undefined) {
       return res.status(400)
         .json({
@@ -67,6 +68,8 @@ class MailValidatorHandler {
           
         });
     }
+
+    message = message.trim();
     if (message === undefined) {
       return res.status(400)
         .json({
@@ -80,7 +83,7 @@ class MailValidatorHandler {
         .json({
           status: 400,
           message: 'Error: message field cannot be empty',
-          
+
         });
     }
 

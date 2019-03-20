@@ -6,7 +6,6 @@ const createUsersTable = `DROP TABLE IF EXISTS users CASCADE;
         firstName CHARACTER VARYING(50) NOT NULL,
         lastName CHARACTER VARYING(50) NOT NULL,
         email CHARACTER VARYING(100) UNIQUE NOT NULL,
-        role INTEGER UNIQUE NOT NULL,
         password CHARACTER VARYING(255) NOT NULL
     )`;
 
