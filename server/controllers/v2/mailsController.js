@@ -163,7 +163,7 @@ class MailsController {
 
     pool.query(deleteMessage, [userid, id])
       .then((data) => {
-        if (res.rowCount !== 0) {
+        if (data.rowCount !== 0) {
           const deletedMessage = data.rows[0];
           return res.status(201)
             .send({

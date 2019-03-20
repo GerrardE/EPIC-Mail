@@ -1,7 +1,7 @@
 import moment from 'moment';
 import pool from '../../database/dbconnect';
 import {
-  createGroup, getGroups, returnGroup, editGroup
+  createGroup, getGroups, returnGroup, editGroup, deleteGroup
 } from '../../database/sqlQueries';
 
 class GroupController {
@@ -94,6 +94,35 @@ class GroupController {
           .send({
             success: false,
             message: 'This group was not found',
+          });
+      })
+      .catch(err => res.status(500)
+        .send({
+          success: false,
+          message: err.message
+        }));
+  }
+
+  static deleteGroup(req, res) {
+    const decUser = req.decoded.payload;
+    const ownerId = +decUser.userid;
+    const { id } = req.params;
+
+    pool.query(deleteGroup, [ownerId, id])
+      .then((data) => {
+        if (data.rowCount !== 0) {
+          const deletedGroup = data.rows[0];
+          return res.status(201)
+            .send({
+              success: true,
+              message: 'Group deleted successfully!',
+              deletedGroup
+            });
+        }
+        return res.status(500)
+          .send({
+            success: false,
+            message: 'Something happened. Try again'
           });
       })
       .catch(err => res.status(500)

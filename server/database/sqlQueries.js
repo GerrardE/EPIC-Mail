@@ -25,7 +25,7 @@ const getSentMessages = 'select * from messages left join userMessage on userId 
 // Get specific message
 const getMessage = 'select * from messages left join userMessage on userId = $1 where id=$2';
 
-// Get sent messages
+// Delete messages
 const deleteMessage = 'delete from userMessage where userId = $1 and messageId = $2';
 
 // Return an existing group
@@ -40,8 +40,11 @@ const getGroups = 'select * from groups where ownerId = $1';
 // Edit group
 const editGroup = 'update groups set name=$1 where id=$2 and ownerId=$3 returning *';
 
+// Delete group
+const deleteGroup = 'delete from groups where ownerId=$1 and id=$2 returning *';
+
 export {
-  createUser, emailLogin, returnUser, createMessage, userMessage, editGroup,
+  createUser, emailLogin, returnUser, createMessage, userMessage, editGroup, deleteGroup,
   getMessages, getGroups, getUnreadMessages,
   getSentMessages, getMessage, deleteMessage, createGroup, returnGroup,
 };
