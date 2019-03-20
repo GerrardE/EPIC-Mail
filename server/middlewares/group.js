@@ -37,6 +37,59 @@ class GroupValidatorHandler {
 
     next();
   }
+
+  static validMember(req, res, next) {
+    let {
+      email
+    } = req.body;
+
+    // Email Validation
+    if (email === undefined) {
+      return res.status(400)
+        .json({
+          status: 400,
+          message: 'Error: email field cannot be empty',
+        });
+    }
+    email = email.toLowerCase();
+    if (typeof email !== 'string') {
+      return res.status(400)
+        .json({
+          status: 400,
+          message: 'Error: email should be a string'
+        });
+    }
+    if (email === '') {
+      return res.status(400)
+        .json({
+          status: 400,
+          message: 'Error: email field cannot be empty.'
+        });
+    }
+    if (email.includes(' ')) {
+      return res.status(400)
+        .json({
+          status: 400,
+          message: 'Error: email cannot include space.'
+        });
+    }
+    // email check: stackoverflow
+    const emailCheck = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
+    if (!emailCheck.test(email)) {
+      return res.status(400).json({
+        status: 400,
+        error: 'Error: email format is invalid'
+      });
+    }
+    if (email.length < 12) {
+      return res.status(400).json({
+        status: 400,
+        error: 'Error: email should be at least 12 characters long'
+      });
+    }
+
+    next();
+  }
 }
 
 export default GroupValidatorHandler;

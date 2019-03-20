@@ -4,16 +4,17 @@ const groupsTable = `DROP TABLE IF EXISTS groups CASCADE;
     CREATE TABLE groups (
         id SERIAL PRIMARY KEY NOT NULL,
         ownerId INTEGER NOT NULL,
-        name TEXT UNIQUE NOT NULL,
+        name TEXT NOT NULL,
         createdOn TEXT NOT NULL,
         FOREIGN KEY (ownerId) references users (userId) on delete cascade
         )`;
 
-const groupMembersTable = `DROP TABLE IF EXISTS groupMembersTable CASCADE;
-      CREATE TABLE groupMembersTable (
-        groupId SERIAL PRIMARY KEY NOT NULL,
+const groupMembersTable = `DROP TABLE IF EXISTS groupMembers CASCADE;
+      CREATE TABLE groupMembers (
+        id SERIAL PRIMARY KEY NOT NULL,
+        groupId INTEGER NOT NULL,
         memberId INTEGER NOT NULL,
-        email TEXT NOT NULL,
+        email TEXT UNIQUE NOT NULL,
         addedOn TEXT NOT NULL,
         FOREIGN KEY (groupId) references groups (id) on delete cascade,
         FOREIGN KEY (memberId) references users (userId) on delete cascade
