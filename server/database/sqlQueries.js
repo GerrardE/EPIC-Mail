@@ -34,8 +34,11 @@ const returnGroup = 'select * from groups where name = $1';
 // Create a group
 const createGroup = 'insert into groups (ownerId, name, createdOn) values ($1, $2, $3) returning *';
 
+// Get groups
+const getGroups = 'select * from groups where ownerId = $1';
+
 export {
   createUser, emailLogin, returnUser, createMessage, userMessage,
-  getMessages, getUnreadMessages,
+  getMessages, getGroups, getUnreadMessages,
   getSentMessages, getMessage, deleteMessage, createGroup, returnGroup,
 };
