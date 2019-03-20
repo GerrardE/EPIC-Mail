@@ -53,10 +53,13 @@ const checkGroup = 'select * from groups where ownerId = $1';
 const addUser = 'insert into groupMembers (email, groupId, memberId, addedOn) values ($1, $2, $3, $4) returning *';
 
 // Delete group member
-const deleteMember = 'delete from groupMember where groupId=$1 and memberId=$2 returning *';
+const deleteMember = 'delete from groupMembers where groupId=$1 and memberId=$2;';
+
+// return specific group
+const returnGrp = 'select * from groups where id=$1;';
 
 export {
-  createUser, emailLogin, returnUser, createMessage, userMessage, editGroup, deleteGroup, returnMember, addUser, checkGroup,
+  createUser, emailLogin, returnUser, createMessage, userMessage, editGroup, deleteGroup, returnMember, addUser, checkGroup, returnGrp,
   getMessages, getGroups, getUnreadMessages,
   getSentMessages, getMessage, deleteMessage, createGroup, returnGroup, deleteMember
 };

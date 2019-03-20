@@ -2,7 +2,7 @@ import moment from 'moment';
 import pool from '../../database/dbconnect';
 import {
   createGroup, getGroups, returnGroup, editGroup, deleteGroup, returnMember, addUser, checkGroup,
-  deleteMember
+  deleteMember, returnGrp
 } from '../../database/sqlQueries';
 
 class GroupController {
@@ -79,7 +79,7 @@ class GroupController {
     let { id } = req.params;
     const { name } = req.body;
 
-    id = Number(id); 
+    id = Number(id);
     const values = [id, name];
 
     pool.query(editGroup, values)
