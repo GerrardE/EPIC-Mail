@@ -149,7 +149,7 @@ const whitespacePassword = {
 };
 
 const correctLogin = {
-    email: 'jamesdoe@epic-mail.com',
+    email: 'jamesdoe@gmail.com',
     password: 'jamesdoe'
 };
 
