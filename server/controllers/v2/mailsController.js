@@ -33,18 +33,18 @@ class MailsController {
                   })).catch(err => res.status(400)
                   .send({
                     success: false,
-                    error: err.message
+                    error: 'Message sending failed.'
                   }));
             })
             .catch(err => res.status(500).send({
               success: false,
-              message: err.message
+              message: 'Message sending failed.'
             }));
         }
       })
       .catch(err => res.status(500).send({
         success: false,
-        message: err.message
+        message: 'Message sending failed.'
       }));
   }
 
@@ -71,7 +71,7 @@ class MailsController {
       .catch(err => res.status(500)
         .send({
           success: false,
-          message: err.message
+          message: 'No message found'
         }));
   }
 
@@ -98,7 +98,7 @@ class MailsController {
       .catch(err => res.status(500)
         .send({
           success: false,
-          message: err.message
+          message: 'You have read all your messages'
         }));
   }
 
@@ -125,7 +125,7 @@ class MailsController {
       .catch(err => res.status(500)
         .send({
           success: false,
-          message: err.message
+          message: 'You have not sent any message'
         }));
   }
 
@@ -153,7 +153,7 @@ class MailsController {
       .catch(err => res.status(500)
         .send({
           success: false,
-          message: err.message
+          message: 'No message found'
         }));
   }
 
@@ -181,7 +181,7 @@ class MailsController {
       .catch(err => res.status(500)
         .send({
           success: false,
-          message: err.message
+          message: 'Error: mail not found'
         }));
   }
 }

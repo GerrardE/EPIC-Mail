@@ -5,10 +5,14 @@ import { createUser, emailLogin } from '../../database/sqlQueries';
 
 class UsersController {
   static createUser(req, res) {
+    let email = req.body.email;
+    email = email.split('@')[0];
+    email = `${email}` + `${'@epic-mail.com'}`;
+
     const values = [
       req.body.firstName,
       req.body.lastName,
-      req.body.email,
+      email,
       bcrypt.hashSync(req.body.password, 10)
     ];
 
@@ -20,13 +24,14 @@ class UsersController {
         return res.status(201)
           .send({
             message: 'Success: User created successfully!',
+            email, 
             token
           });
       })
       .catch(err => res.status(500)
         .send({
           success: false,
-          message: err.message
+          message: 'Your account creation failed. Try again.'
         }));
   }
 
