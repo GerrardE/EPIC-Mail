@@ -16,8 +16,8 @@ tags:
   description: "Users"
 - name: "messages"
   description: "Emails"
-- name: "Groups"
-  description: "Create groups"
+- name: "groups"
+  description: "Groups"
 schemes:
 - "https"
 - "http"
@@ -215,6 +215,166 @@ paths:
               type: "object"
               items:
                 $ref: "#/definitions/DeleteMessageId"
+  /groups:
+    post:
+      tags:
+      - "groups"
+      summary: "Create a group"
+      description: "Creates a new group and adds it to the database"
+      operationId: "createGroup"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "group"
+        description: "Create a contact group"
+        required: false
+        schema:
+          $ref: "#/definitions/Groups"
+      responses:
+        201:
+          description: "Group created successfully!"
+    get:
+      tags:
+      - "groups"
+      summary: "Get groups"
+      description: "Get all groups owned by a user"
+      operationId: "getGroups"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "group"
+        description: ""
+        required: false
+        schema:
+          $ref: "#/definitions/GetGroups"
+      responses:
+        201:
+          description: "Groups retrieved successfully!"
+  /groups/group-id/name:
+    patch:
+      tags:
+      - "groups"
+      summary: "Edit group name"
+      description: "Edit group name owned by a user"
+      operationId: "editGroup"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "group"
+        description: ""
+        required: false
+        schema:
+          $ref: "#/definitions/EditGroup"
+      responses:
+        200:
+          description: "Group edited successfully!"
+  /groups/group-id:
+    delete:
+      tags:
+      - "groups"
+      summary: "Delete group"
+      description: "Delete group owned by a user"
+      operationId: "deleteGroup"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "group"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/DeleteGroup"
+      responses:
+        200:
+          description: "Group deleted successfully!"
+  /groups/group-id/users:
+    post:
+      tags:
+      - "groups"
+      summary: "Add a group user"
+      description: "Add a user to the group"
+      operationId: "addGroupUser"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "groupId"
+        description: "Add a group member"
+        required: false
+        schema:
+          $ref: "#/definitions/GroupAddUser"
+      responses:
+        201:
+          description: "Group member added successfully!"
+  /groups/group-id/users/user-id:
+    delete:
+      tags:
+      - "groups"
+      summary: "Delete group member"
+      description: "Delete group member owned by a user"
+      operationId: "deleteGroupMember"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "group"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/DeleteGroupMember"
+      responses:
+        200:
+          description: "Group member deleted successfully!"
+  /groups/group-id/messages:
+    post:
+      tags:
+      - "groups"
+      summary: "Send group message"
+      description: "Send a message to the group"
+      operationId: "sendGroupMessage"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "groupId"
+        description: "Group Id"
+        required: true
+        schema:
+          $ref: "#/definitions/SendGroupMessage"
+      responses:
+        201:
+          description: "Group message sent successfully!"
 definitions:
   UserSignUp:
     type: "object"
@@ -383,3 +543,78 @@ definitions:
         type: "string"
     xml:
       name: "DeleteMessage"
+  Groups:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      name:
+        type: "string"
+      role:
+        type: "integer"
+        description: "User can be admin or ordinary user"
+    xml:
+      name: "Group"
+  GetGroups:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      name:
+        type: "string"
+    xml:
+      name: "GetGroups"
+  EditGroup:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      name:
+        type: "string"
+    xml:
+      name: "EditGroup"
+  DeleteGroup:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      name:
+        type: "string"
+    xml:
+      name: "DeleteGroup"
+  GroupAddUser:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      userId:
+        type: "integer"
+    xml:
+      name: "AddGroupUser"
+  DeleteGroupMember:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      userId:
+        type: "integer"
+    xml:
+      name: "DeleteGroupMember"
+  SendGroupMessage:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      createdOn:
+        type: "string"
+        format: "date"
+      subject:
+        type: "string"
+      message:
+        type: "string"
+      parentMessageId:
+        type: "integer"
+      status:
+        type: "string"
+    xml:
+      name: "GroupMessage"

@@ -8,7 +8,7 @@ const emailLogin = 'select * from users where email = $1';
 const returnUser = 'select * from users where email = $1';
 
 // Create Message
-const createMessage = 'insert into messages (senderId, subject, message, email, createdOn) values($1, $2, $3, $4, $5) returning *';
+const createMessage = 'insert into messages (senderId, subject, message, email, createdOn) values ($1, $2, $3, $4, $5) returning *';
 
 // To user Message
 const userMessage = 'insert into userMessage (userId, messageId, status) values ($1, $2, $3)';
@@ -58,8 +58,15 @@ const deleteMember = 'delete from groupMembers where groupId=$1 and memberId=$2;
 // return specific group
 const returnGrp = 'select * from groups where id=$1;';
 
+// check for a group
+const groupCheck = 'select * from groups where ownerId=$1 and id=$2;';
+
+const returnMemberIds = 'select memberId from groupMembers where groupId=$1;';
+
+const sendGroupMessage = 'insert into messages (senderId, subject, message, email, createdOn) values ($1, $2, $3, $4, $5) returning *;';
+
 export {
   createUser, emailLogin, returnUser, createMessage, userMessage, editGroup, deleteGroup, returnMember, addUser, checkGroup, returnGrp,
   getMessages, getGroups, getUnreadMessages,
-  getSentMessages, getMessage, deleteMessage, createGroup, returnGroup, deleteMember
+  getSentMessages, getMessage, deleteMessage, returnMemberIds, createGroup, returnGroup, deleteMember, groupCheck, sendGroupMessage
 };

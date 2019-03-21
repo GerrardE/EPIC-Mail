@@ -24,7 +24,7 @@ class MailsController {
             .then((data) => {
               const newMessage = data.rows[0];
 
-              return pool.query(userMessage, [userid, newMessage.id, false])
+              return pool.query(userMessage, [userid, newMessage.id, 'unread'])
                 .then(() => res.status(201)
                   .send({
                     success: true,
@@ -78,7 +78,7 @@ class MailsController {
   static getUnreadMails(req, res) {
     const { userId } = req.decoded.payload;
 
-    pool.query(getUnreadMessages, [userId, false])
+    pool.query(getUnreadMessages, [userId, 'unread'])
       .then((data) => {
         if (data.rowCount !== 0) {
           const retrievedMessages = data.rows;
@@ -105,14 +105,14 @@ class MailsController {
   static getSentMails(req, res) {
     const { userId } = req.decoded.payload;
 
-    pool.query(getSentMessages, [userId, true])
+    pool.query(getSentMessages, [userId, 'sent'])
       .then((data) => {
         if (data.rowCount !== 0) {
           const retrievedMessages = data.rows;
-          return res.status(201)
+          return res.status(200)
             .send({
               success: true,
-              message: 'Sent messages retrieved successfully!',
+              message: 'Success: sent mails retrieved successfully!',
               retrievedMessages
             });
         }
@@ -137,10 +137,10 @@ class MailsController {
       .then((data) => {
         if (data.rowCount !== 0) {
           const retrievedMessage = data.rows;
-          return res.status(201)
+          return res.status(200)
             .send({
               success: true,
-              message: 'Message retrieved successfully!',
+              message: 'Success: mail retrieved successfully!',
               retrievedMessage
             });
         }
@@ -165,17 +165,17 @@ class MailsController {
       .then((data) => {
         if (data.rowCount !== 0) {
           const deletedMessage = data.rows[0];
-          return res.status(201)
+          return res.status(200)
             .send({
               success: true,
-              message: 'Message deleted successfully!',
+              message: 'Success: mail deleted successfully!',
               deletedMessage
             });
         }
         return res.status(500)
           .send({
             success: false,
-            message: 'Something happened. Try again'
+            message: 'Error: mail not found'
           });
       })
       .catch(err => res.status(500)

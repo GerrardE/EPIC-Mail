@@ -18,13 +18,13 @@ class UsersController {
         const { email } = newUser;
         const token = auth.makeToken(newUser);
         return res.status(201)
-          .json({
-            message: `User ${email} created successfully`,
+          .send({
+            message: 'Success: User created successfully!',
             token
           });
       })
       .catch(err => res.status(500)
-        .json({
+        .send({
           success: false,
           message: err.message
         }));
@@ -39,31 +39,30 @@ class UsersController {
           const checkPassword = bcrypt.compareSync(req.body.password, result.rows[0].password);
           if (checkPassword) {
             const user = result.rows[0];
-            const email = value;
             const token = auth.makeToken(user);
             return res.status(200)
-              .json({
+              .send({
                 success: true,
-                message: `${email} logged in successfully`,
+                message: 'Success: login successful!',
                 token
               });
           }
           res.status(401)
-            .json({
+            .send({
               success: false,
               message: 'Authentication failed. Try again',
             });
         }
         if (result.rowCount === 0) {
           res.status(404)
-            .json({
+            .send({
               status: false,
-              message: 'Invalid credentials',
+              message: 'Error: Invalid credentials',
             });
         }
       })
       .catch(err => res.status(500)
-        .json({
+        .send({
           success: false,
           message: err.message
         }));

@@ -2,7 +2,7 @@ import moment from 'moment';
 import pool from '../../database/dbconnect';
 import {
   createGroup, getGroups, returnGroup, editGroup, deleteGroup, returnMember, addUser, checkGroup,
-  deleteMember, returnGrp
+  deleteMember, returnGrp, groupCheck, returnMemberIds, sendGroupMessage
 } from '../../database/sqlQueries';
 
 class GroupController {
@@ -214,6 +214,72 @@ class GroupController {
           success: false,
           message: err.message
         }));
+  }
+
+  static sendGroupMail(req, res) {
+    const decUser = req.decoded.payload;
+    const ownerId = Number(decUser.userid);
+    const groupId = Number(req.params.id);
+
+    const values = [ownerId, groupId];
+
+    // check if group exists
+    pool.query(groupCheck, values)
+      .then((result) => {
+        if (result.rowCount > 0) {
+          return pool.query(returnMemberIds, [groupId])
+            .then((data) => {
+              // check for members
+              if (data.rowCount < 0) {
+                return res.status(400).send({
+                  success: false,
+                  message: 'Error: no member found.'
+                });
+              } // end check for members
+
+              const members = [];
+              data.rows.forEach(m => members.push(m.memberid));
+              const {
+                subject, message, toEmail
+              } = req.body;
+
+              const toMessage = [ownerId, subject, message, toEmail, moment().format('llll')];
+              return pool.query(sendGroupMessage, toMessage)
+                .then((detail) => {
+                  
+                  return pool.query(`INSERT INTO userMessage (messageId,status, userId) VALUES (${detail.rows[0].id}, 'unread', unnest(array[${members}]))`)
+                    .then(() => {
+                      return res.status(200)
+                        .send({
+                          success: true,
+                          message: 'Group message sent successfully!',
+                          toMessage
+                        });
+                    })
+                    .catch(() => {
+
+                    });
+                })
+                .catch(err => res.status(500).send({
+                  success: false,
+                  message: err.message
+                }));
+            }) // end data block
+            .catch(err => res.status(500)
+              .send({
+                success: false,
+                message: err.message
+              }));
+        }
+        return res.status(400).send({
+          success: false,
+          message: 'Error: group does not exist'
+        });
+      })
+      .catch(err => res.status(500).send({
+        success: false,
+        message: err.message
+      }));
   }
 }
 
