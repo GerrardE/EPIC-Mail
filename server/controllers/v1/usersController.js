@@ -18,7 +18,7 @@ class UsersController {
     return res.status(201).json({
       status: 201,
       message: 'Success: User created successfully!',
-      data: { token }
+      token 
     });
   }
 
@@ -29,7 +29,7 @@ class UsersController {
     return res.status(200).json({
       status: 200,
       message: 'Success: login successful!',
-      data: { token }
+      token 
     });
   }
 }

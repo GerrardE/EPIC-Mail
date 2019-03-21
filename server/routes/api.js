@@ -29,5 +29,6 @@ api.patch('/api/v2/groups/:id/name', auth.verifyToken, group.editGroup);
 api.delete('/api/v2/groups/:id', auth.verifyToken, group.deleteGroup);
 api.post('/api/v2/groups/:id/users', auth.verifyToken, groupValidator.validMember, group.addUser);
 api.delete('/api/v2/groups/:id/users/:memberid', auth.verifyToken, group.deleteUser);
+api.post('/api/v2/groups/:id/messages', auth.verifyToken, MailValidatorHandler.validMail, group.sendGroupMail);
 
 export default api;

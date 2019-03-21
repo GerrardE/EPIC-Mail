@@ -75,7 +75,7 @@ class MailsController {
     const person = users.find(user => decUser.email === user.email);
 
     if (person) {
-      res.status(200).json({
+     return res.status(200).json({
         status: 200,
         message: 'Success: sent mails retrieved successfully!',
         messages: mails.find(mail => mail.status === 'sent')
@@ -94,7 +94,7 @@ class MailsController {
     const id = +req.params.id;
 
     if (person) {
-      res.status(200).json({
+      return res.status(200).json({
         status: 200,
         message: 'Success: mail retrieved successfully!',
         messages: mails.find(mail => mail.id === id)
