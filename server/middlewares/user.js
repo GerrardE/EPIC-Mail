@@ -274,8 +274,6 @@ class UserValidatorHandler {
       });
     }
 
-    req.body.foundUser = foundUser;
-    req.body.password = password;
     return next();
   }
 

@@ -31,7 +31,7 @@ class GroupController {
             })
             .catch(err => res.status(500).send({
               success: false,
-              message: err.message
+              message: 'Group cannot be created. Try again.'
             }));
         }
         return res.status(400).send({
@@ -41,7 +41,7 @@ class GroupController {
       })
       .catch(err => res.status(500).send({
         success: false,
-        message: err.message
+        message: 'This name is taken. Try again'
       }));
   }
 
@@ -69,7 +69,7 @@ class GroupController {
       .catch(err => res.status(500)
         .send({
           success: false,
-          message: err.message
+          message: 'No group found'
         }));
   }
 
@@ -102,7 +102,7 @@ class GroupController {
       .catch(err => res.status(500)
         .send({
           success: false,
-          message: err.message
+          message: 'Your group could not be edited. Try again'
         }));
   }
 
@@ -131,7 +131,7 @@ class GroupController {
       .catch(err => res.status(500)
         .send({
           success: false,
-          message: err.message
+          message: 'YOur group was not deleted. Try again.'
         }));
   }
 
@@ -162,7 +162,7 @@ class GroupController {
                   })
                   .catch(err => res.status(500).send({
                     success: false,
-                    message: err.message
+                    message: 'An error occured. Try again'
                   }));
               }
               return res.status(400).send({
@@ -178,7 +178,7 @@ class GroupController {
       })
       .catch(err => res.status(500).send({
         success: false,
-        message: err.message
+        message: 'User does not exist. Try again.'
       }));
   }
 
@@ -212,7 +212,7 @@ class GroupController {
       .catch(err => res.status(500)
         .send({
           success: false,
-          message: err.message
+          message: 'User could not be deleted. Try again'
         }));
   }
 
@@ -237,6 +237,7 @@ class GroupController {
                 });
               } // end check for members
 
+              // create an email
               const members = [];
               data.rows.forEach(m => members.push(m.memberid));
               const {
@@ -277,8 +278,7 @@ class GroupController {
         });
       })
       .catch(err => res.status(500).send({
-        success: false,
-        message: err.message
+        success: 'Error: group does not exist'
       }));
   }
 }
