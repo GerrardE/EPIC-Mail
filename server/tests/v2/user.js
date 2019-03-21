@@ -254,6 +254,17 @@ describe('V2 Tests for User Login', () => {
         done();
       });
   });
+  it('should return 404 status for Invalid credentials', (done) => {
+    chai.request(app)
+      .post('/api/v2/auth/login')
+      .send(nonExistingEmail)
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        res.body.should.be.a('object');
+        expect(res.body.message).to.equal('Error: Invalid credentials');
+        done();
+      });
+  });
   // Password Tests
   it('should return 400 status for Undefined Password Login', (done) => {
     chai.request(app)
