@@ -7,11 +7,9 @@
     "start": "npm run createTables && babel-node app.js",
     "start:dev": "nodemon app.js --exec babel-node",
     "test:dev": "nyc --reporter=html --reporter=text mocha ./server/tests/v1/*.js --require @babel/register --exit",
-    "test": "npm run createTables && nyc --reporter=html --reporter=text mocha ./server/tests/v2/*.js --require @babel/register --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test",
-    "createTables": "babel-node -- ./server/database/createTables/index.js",
-    "build": "cross-env NODE_ENV=production webpack --config build/webpack.config.js"
+    "createTables": "babel-node -- ./server/database/createTables/index.js"
   },
   "keywords": [
     "node",
