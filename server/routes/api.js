@@ -5,6 +5,8 @@ import MailValidatorHandler from '../middlewares/mail';
 import MailsController from '../controllers/v2/mailsController';
 import groupValidator from '../middlewares/group';
 import group from '../controllers/v2/groupController';
+import params from '../middlewares/params';
+import member from '../middlewares/memberId';
 import auth from '../helpers/auth';
 
 // Introduce the express router middleware
@@ -19,16 +21,16 @@ api.post('/api/v2/messages', auth.verifyToken, MailValidatorHandler.validMail, M
 api.get('/api/v2/messages', auth.verifyToken, MailsController.getMails);
 api.get('/api/v2/messages/unread', auth.verifyToken, MailsController.getUnreadMails);
 api.get('/api/v2/messages/sent', auth.verifyToken, MailsController.getSentMails);
-api.get('/api/v2/messages/:id', auth.verifyToken, MailsController.getMail);
-api.delete('/api/v2/messages/:id', auth.verifyToken, MailsController.deleteMail);
+api.get('/api/v2/messages/:id', auth.verifyToken, params.paramValidator, MailsController.getMail);
+api.delete('/api/v2/messages/:id', auth.verifyToken, params.paramValidator, MailsController.deleteMail);
 
 // Group Routes
 api.post('/api/v2/groups', auth.verifyToken, groupValidator.validGroupName, group.createGroup);
 api.get('/api/v2/groups', auth.verifyToken, group.getGroups);
-api.patch('/api/v2/groups/:id/name', auth.verifyToken, group.editGroup);
-api.delete('/api/v2/groups/:id', auth.verifyToken, group.deleteGroup);
-api.post('/api/v2/groups/:id/users', auth.verifyToken, groupValidator.validMember, group.addUser);
-api.delete('/api/v2/groups/:id/users/:memberid', auth.verifyToken, group.deleteUser);
-api.post('/api/v2/groups/:id/messages', auth.verifyToken, MailValidatorHandler.validMail, group.sendGroupMail);
+api.patch('/api/v2/groups/:id/name', auth.verifyToken, params.paramValidator,group.editGroup);
+api.delete('/api/v2/groups/:id', auth.verifyToken, params.paramValidator, group.deleteGroup);
+api.post('/api/v2/groups/:id/users', auth.verifyToken, params.paramValidator, groupValidator.validMember, group.addUser);
+api.delete('/api/v2/groups/:id/users/:memberid', auth.verifyToken, params.paramValidator, member.paramValidator, group.deleteUser);
+api.post('/api/v2/groups/:id/messages', auth.verifyToken, params.paramValidator, MailValidatorHandler.validMail, group.sendGroupMail);
 
 export default api;

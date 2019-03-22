@@ -1,4 +1,4 @@
-import { middleware } from 'express-param-validator';
+import { middleware } from 'express-params-validator';
 
 class Params {
   static paramValidator(req, res, next) {
