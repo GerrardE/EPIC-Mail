@@ -4,6 +4,7 @@ import {
   createGroup, getGroups, returnGroup, editGroup, deleteGroup, returnMember, addUser, checkGroup,
   deleteMember, returnGrp, groupCheck, returnMemberIds, sendGroupMessage
 } from '../../database/sqlQueries';
+import { mails } from '../../database/database';
 
 class GroupController {
   static createGroup(req, res) {
@@ -242,10 +243,10 @@ class GroupController {
               const members = [];
               data.rows.forEach(m => members.push(m.memberid));
               const {
-                subject, message, toEmail
+                subject, message
               } = req.body;
 
-              const toMessage = [ownerId, subject, message, toEmail, moment().format('llll')];
+              const toMessage = [ownerId, subject, message, 'group@epic-mail.com', moment().format('llll')];
               return pool.query(sendGroupMessage, toMessage)
                 .then((detail) => {
                   

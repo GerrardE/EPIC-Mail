@@ -4,7 +4,6 @@ import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
-import params from 'express-param-validator';
 import router from './server/routes/router';
 import api from './server/routes/api';
 import indexRouter from './server/routes/index';
