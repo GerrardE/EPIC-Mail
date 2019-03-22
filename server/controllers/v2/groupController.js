@@ -217,6 +217,7 @@ class GroupController {
   }
 
   static sendGroupMail(req, res) {
+
     const decUser = req.decoded;
     const ownerId = Number(decUser.userid);
     const groupId = Number(req.params.id);

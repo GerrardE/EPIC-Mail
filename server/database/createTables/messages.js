@@ -15,7 +15,7 @@ const userMessageTable = `DROP TABLE IF EXISTS userMessage CASCADE;
       CREATE TABLE userMessage (
         userId INTEGER NOT NULL,
         messageId INTEGER NOT NULL,
-        status BOOLEAN NOT NULL,
+        status TEXT NOT NULL,
         FOREIGN KEY (messageId) references messages (id) on delete cascade,
         FOREIGN KEY (userId) references users (userId) on delete cascade
   )`;

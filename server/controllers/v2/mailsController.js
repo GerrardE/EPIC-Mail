@@ -24,7 +24,7 @@ class MailsController {
             .then((data) => {
               const newMessage = data.rows[0];
 
-              return pool.query(userMessage, [userid, newMessage.id, false])
+              return pool.query(userMessage, [userid, newMessage.id, 'unread'])
                 .then(() => res.status(201)
                   .send({
                     success: true,
@@ -78,7 +78,7 @@ class MailsController {
   static getUnreadMails(req, res) {
     const { userId } = req.decoded;
 
-    pool.query(getUnreadMessages, [userId, false])
+    pool.query(getUnreadMessages, [userId, 'unread'])
       .then((data) => {
         if (data.rowCount !== 0) {
           const retrievedMessages = data.rows;
@@ -105,8 +105,8 @@ class MailsController {
 
   static getSentMails(req, res) {
     const { userId } = req.decoded;
-
     pool.query(getSentMessages, [userId, false])
+
       .then((data) => {
         if (data.rowCount !== 0) {
           const retrievedMessages = data.rows;
