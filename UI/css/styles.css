@@ -5,7 +5,8 @@
 
 body{
   font-family: 'Roboto', sans-serif;
-  background-color: rgb(221, 221, 219) 
+  background-color: rgb(221, 221, 219); 
+  margin: 0px 
 }
 
 #main{
