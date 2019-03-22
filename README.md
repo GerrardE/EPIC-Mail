@@ -29,7 +29,7 @@ Below are the basic features of EPIC-Mail Application at this point
 
 <table>
 
-<tr><th>HTTP VERB</th><th>API ENDPOINT</th><th>FUNCTION</th><th>INPUT</th><th>OUTPUT</th></tr>
+<tr><th>HTTP VERB</th><th>API ENDPOINTS VERSION 1</th><th>FUNCTION</th><th>INPUT</th><th>OUTPUT</th></tr>
 
 <tr>
 <td>POST</td> <td>api/v1/auth/signup</td>  <td>User Sign Up</td>
@@ -48,6 +48,191 @@ Below are the basic features of EPIC-Mail Application at this point
 </td>
 <td>
 {<br> message: "string",<br>token: "string"<br>}
+</td>
+</tr>
+
+<tr>
+<td>POST</td> <td>api/v1/messages</td>  <td>Create or send an email</td>
+<td>
+{<br> email: "string",<br>subject: "string"<br>message: "string"<br>}
+</td>
+<td>
+{<br> message: "string",<br>}
+</td>
+</tr>
+
+<tr>
+<td>GET</td> <td>api/v1/messages</td>  <td>Fetch all user received emails</td>
+<td>
+{<br> <br>}
+</td>
+<td>
+{<br> subject: "string",<br>message: "string"<br>senderId: "integer"<br>createdOn: DateTime()<br>}
+</td>
+</tr>
+
+<tr>
+<td>GET</td> <td>api/v1/messages/unread</td>  <td>Fetch all user unread emails</td>
+<td>
+{<br> <br>}
+</td>
+<td>
+{<br> subject: "string",<br>message: "string"<br>senderId: "integer"<br>createdOn: DateTime()<br>}
+</td>
+</tr>
+
+<tr>
+<td>GET</td> <td>api/v1/messages/sent</td>  <td>Fetch all user sent emails</td>
+<td>
+{<br> <br>}
+</td>
+<td>
+{<br> subject: "string",<br>message: "string"<br>receiverId: "integer"<br>createdOn: DateTime()<br>}
+</td>
+</tr>
+
+<tr>
+<td>GET</td> <td>api/v1/messages/message-id</td>  <td>Fetch a specific email</td>
+<td>
+{<br>id <br>}
+</td>
+<td>
+{<br> subject: "string",<br>message: "string"<br>id: "integer"<br>createdOn: DateTime()<br>}
+</td>
+</tr>
+
+<tr>
+<td>DELETE</td> <td>api/v1/messages/message-id</td>  <td>Delete a specific email</td>
+<td>
+{<br>id <br>}
+</td>
+<td>
+{<br> subject: "string",<br>message: "string"<br>id: "integer"<br>createdOn: DateTime()<br>}
+</td>
+</tr>
+</table>
+
+<table>
+
+<tr><th>HTTP VERB</th><th>API ENDPOINTS VERSION 2</th><th>FUNCTION</th><th>INPUT</th><th>OUTPUT</th></tr>
+
+<tr>
+<td>POST</td> <td>api/v2/auth/signup</td>  <td>User Sign Up</td>
+<td>
+{<br> firstName: "string",<br>lastName: "string",<br>email: "string",<br> password: "string"<br>}
+</td>
+<td>
+{<br> message: "string",<br>token: "string"<br>}
+</td>
+</tr>
+
+<tr>
+<td>POST</td> <td>api/v2/auth/login</td>  <td>User Login</td>
+<td>
+{<br> email: "string",<br>password: "string"<br>}
+</td>
+<td>
+{<br> message: "string",<br>token: "string"<br>}
+</td>
+</tr>
+
+<tr>
+<td>POST</td> <td>api/v2/messages</td>  <td>Create or send an email</td>
+<td>
+{<br> email: "string",<br>subject: "string"<br>message: "string"<br>}
+</td>
+<td>
+{<br> message: "string",<br>}
+</td>
+</tr>
+
+<tr>
+<td>GET</td> <td>api/v2/messages</td>  <td>Fetch all user received emails</td>
+<td>
+{<br> <br>}
+</td>
+<td>
+{<br> subject: "string",<br>message: "string"<br>senderId: "integer"<br>createdOn: DateTime()<br>}
+</td>
+</tr>
+
+<tr>
+<td>GET</td> <td>api/v2/messages/unread</td>  <td>Fetch all user unread emails</td>
+<td>
+{<br> <br>}
+</td>
+<td>
+{<br> subject: "string",<br>message: "string"<br>senderId: "integer"<br>createdOn: DateTime()<br>}
+</td>
+</tr>
+
+<tr>
+<td>GET</td> <td>api/v2/messages/sent</td>  <td>Fetch all user sent emails</td>
+<td>
+{<br> <br>}
+</td>
+<td>
+{<br> subject: "string",<br>message: "string"<br>receiverId: "integer"<br>createdOn: DateTime()<br>}
+</td>
+</tr>
+
+<tr>
+<td>GET</td> <td>api/v2/messages/message-id</td>  <td>Fetch a specific email</td>
+<td>
+{<br>id <br>}
+</td>
+<td>
+{<br> subject: "string",<br>message: "string"<br>id: "integer"<br>createdOn: DateTime()<br>}
+</td>
+</tr>
+
+<tr>
+<td>DELETE</td> <td>api/v2/messages/message-id</td>  <td>Delete a specific email</td>
+<td>
+{<br>id <br>}
+</td>
+<td>
+{<br> subject: "string",<br>message: "string"<br>id: "integer"<br>createdOn: DateTime()<br>}
+</td>
+</tr>
+
+<tr>
+<td>POST</td> <td>api/v2/groups</td>  <td>Create a group</td>
+<td>
+{<br> name: "string"<br>}
+</td>
+<td>
+{<br> name: "string"<br>}
+</td>
+</tr>
+
+<tr>
+<td>GET</td> <td>api/v2/groups</td>  <td>Get all groups</td>
+<td>
+{<br> <br>}
+</td>
+<td>
+{<br> name: "string"<br>}
+</td>
+</tr>
+
+<tr>
+<td>PATCH</td> <td>api/v2/groups/group-id/name</td>  <td>Edit name of a specific group</td>
+<td>
+{<br> name: "string"<br>}
+</td>
+<td>
+{<br> name: "string"<br>}
+</td>
+</tr>
+
+<tr>
+<td>DELETE</td> <td>api/v2/groups/group-id/</td>  <td>Delete a specific group</td>
+<td>
+{<br> id: "integer"<br>}
+</td>
+<td>
+{<br> <br>}
 </td>
 </tr>
 </table>

@@ -100,7 +100,7 @@ class MailValidatorHandler {
   }
 
   static validMail(req, res, next) {
-    const {
+    let {
       toEmail, subject, message
     } = req.body;
 
@@ -119,7 +119,7 @@ class MailValidatorHandler {
       });
     }
     toEmail = toEmail.toLowerCase();
-    
+
     if (subject === undefined) {
       return res.status(400)
         .send({

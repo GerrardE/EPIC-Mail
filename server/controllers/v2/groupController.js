@@ -7,7 +7,7 @@ import {
 
 class GroupController {
   static createGroup(req, res) {
-    const decUser = req.decoded.payload;
+    const decUser = req.decoded;
     const ownerId = +decUser.userid;
 
     const {
@@ -46,7 +46,7 @@ class GroupController {
   }
 
   static getGroups(req, res) {
-    const decUser = req.decoded.payload;
+    const decUser = req.decoded;
     const userId = +decUser.userid;
 
     pool.query(getGroups, [userId])
@@ -74,7 +74,7 @@ class GroupController {
   }
 
   static editGroup(req, res) {
-    const decUser = req.decoded.payload;
+    const decUser = req.decoded;
     const userId = +decUser.userid;
     let { id } = req.params;
     const { name } = req.body;
@@ -107,7 +107,7 @@ class GroupController {
   }
 
   static deleteGroup(req, res) {
-    const decUser = req.decoded.payload;
+    const decUser = req.decoded;
     const ownerId = +decUser.userid;
     const { id } = req.params;
 
@@ -136,7 +136,7 @@ class GroupController {
   }
 
   static addUser(req, res) {
-    const decUser = req.decoded.payload;
+    const decUser = req.decoded;
     const ownerId = Number(decUser.userid);
     const groupId = +req.params.id;
     const {
@@ -183,7 +183,7 @@ class GroupController {
   }
 
   static deleteUser(req, res) {
-    const decUser = req.decoded.payload;
+    const decUser = req.decoded;
     const ownerId = Number(decUser.userid);
     const { id, memberid } = req.params;
 
@@ -217,7 +217,7 @@ class GroupController {
   }
 
   static sendGroupMail(req, res) {
-    const decUser = req.decoded.payload;
+    const decUser = req.decoded;
     const ownerId = Number(decUser.userid);
     const groupId = Number(req.params.id);
 
