@@ -118,7 +118,8 @@ class MailValidatorHandler {
         error: 'Error: email should be 2 to 100 characters long'
       });
     }
-
+    toEmail = toEmail.toLowerCase();
+    
     if (subject === undefined) {
       return res.status(400)
         .send({
@@ -136,7 +137,9 @@ class MailValidatorHandler {
 
         });
     }
-    if (message === undefined) {
+    subject.replace(/ {1,}/g," ");
+
+    if (message === ' ') {
       return res.status(400)
         .send({
           status: 400,
@@ -152,6 +155,7 @@ class MailValidatorHandler {
 
         });
     }
+    message = message.trim();
 
     next();
   }
