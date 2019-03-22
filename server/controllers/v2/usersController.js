@@ -7,9 +7,10 @@ class UsersController {
   static createUser(req, res) {
     let email = req.body.email;
     email = email.split('@')[0];
-    email = `${email}` + `${'@epic-mail.com'}`;
+    email = `${email}${'@epic-mail.com'}`;
+    
 
-    const values = [
+    let values = [
       req.body.firstName,
       req.body.lastName,
       email,

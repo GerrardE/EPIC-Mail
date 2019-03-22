@@ -6,10 +6,10 @@ import {
 
 class MailsController {
   static createMail(req, res) { 
-    const decUser = req.decoded.payload;
-    const senderId = +decUser.userid;
+    const decUser = req.decoded.userid;
+    const senderId = Number(decUser);
 
-    const {
+    let {
       subject, message, toEmail
     } = req.body;
 
@@ -49,7 +49,7 @@ class MailsController {
   }
 
   static getMails(req, res) {
-    const { userId } = req.decoded.payload;
+    const { userId } = req.decoded;
 
     pool.query(getMessages, [userId])
       .then((data) => {
@@ -76,12 +76,13 @@ class MailsController {
   }
 
   static getUnreadMails(req, res) {
-    const { userId } = req.decoded.payload;
+    const { userId } = req.decoded;
 
     pool.query(getUnreadMessages, [userId, 'unread'])
       .then((data) => {
         if (data.rowCount !== 0) {
           const retrievedMessages = data.rows;
+
           return res.status(201)
             .send({
               success: true,
@@ -103,9 +104,9 @@ class MailsController {
   }
 
   static getSentMails(req, res) {
-    const { userId } = req.decoded.payload;
+    const { userId } = req.decoded;
+    pool.query(getSentMessages, [userId, false])
 
-    pool.query(getSentMessages, [userId, 'sent'])
       .then((data) => {
         if (data.rowCount !== 0) {
           const retrievedMessages = data.rows;
@@ -130,7 +131,7 @@ class MailsController {
   }
 
   static getMail(req, res) {
-    const { userId } = req.decoded.payload;
+    const { userId } = req.decoded;
     const { id } = req.params;
  
     pool.query(getMessage, [userId, id])
@@ -158,7 +159,7 @@ class MailsController {
   }
 
   static deleteMail(req, res) {
-    const { userid } = req.decoded.payload;
+    const { userid } = req.decoded;
     const { id } = req.params;
 
     pool.query(deleteMessage, [userid, id])
