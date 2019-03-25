@@ -3,9 +3,8 @@ import { middleware } from 'express-params-validator';
 class Params {
   static paramValidator(req, res, next) {
     const valid = middleware(req, res, next, {
-      status: 'error',
-      message: 'invalid id passed',
-      errors: null
+      status: 400,
+      message: 'Error: invalid id passed',
     });
 
     valid

@@ -12,8 +12,7 @@ class UserValidatorHandler {
       return res.status(400)
         .send({
           status: 400,
-          message: 'First name field cannot be empty',
-          sample: '{"firstName": "string", "lastName": "string", "email": "string", "password": "string"}'
+          message: 'First name field cannot be empty'
         });
     }
     if (firstName === '') {
@@ -21,7 +20,6 @@ class UserValidatorHandler {
         .send({
           status: 400,
           message: 'First name field cannot be empty',
-          sample: '{"firstName": "string", "lastName": "string", "email": "string", "password": "string"}'
         });
     }
     if (typeof firstName !== 'string') {
@@ -29,7 +27,6 @@ class UserValidatorHandler {
         .send({
           status: 400,
           message: 'First name must be a string',
-          sample: '{"firstName": "string", "lastName": "string", "email": "string", "password": "string"}'
         });
     }
     firstName = firstName.trim().replace(/\s\s+/g, ' ');
@@ -38,7 +35,6 @@ class UserValidatorHandler {
         .send({
           status: 400,
           message: 'First name should be 4 to 50 aplhabets long',
-          sample: '{"firstName": "string", "lastName": "string", "email": "string", "password": "string"}'
         });
     }
     const validFirstNameCharacters = /^[a-zA-Z]+$/;
@@ -47,7 +43,6 @@ class UserValidatorHandler {
         .send({
           status: 400,
           message: 'First name accepts only alphabets',
-          sample: '{"firstName": "string", "lastName": "string", "email": "string", "password": "string"}'
         });
     }
 
@@ -57,7 +52,6 @@ class UserValidatorHandler {
         .send({
           status: 400,
           message: 'Last name field is required',
-          sample: '{"firstName": "string", "lastName": "string", "email": "string", "password": "string"}'
         });
     }
     if (lastName === '') {
@@ -65,7 +59,6 @@ class UserValidatorHandler {
         .send({
           status: 400,
           message: 'Last name field cannot be empty',
-          sample: '{"firstName": "string", "lastName": "string", "email": "string", "password": "string"}'
         });
     }
     if (typeof lastName !== 'string') {
@@ -73,7 +66,6 @@ class UserValidatorHandler {
         .send({
           status: 400,
           message: 'Last name must be a string',
-          sample: '{"firstName": "string", "lastName": "string", "email": "string", "password": "string"}'
         });
     }
     lastName = lastName.trim().replace(/\s\s+/g, ' ');
@@ -82,7 +74,6 @@ class UserValidatorHandler {
         .send({
           status: 400,
           message: 'Last name should be 4 to 50 aplhabets long',
-          sample: '{"firstName": "string", "lastName": "string", "email": "string", "password": "string"}'
         });
     }
     const validlastNameCharacters = /^[a-zA-Z]+$/;
@@ -91,7 +82,6 @@ class UserValidatorHandler {
         .send({
           status: 400,
           message: 'Last name accepts only alphabets',
-          sample: '{"firstName": "string", "lastName": "string", "email": "string", "password": "string"}'
         });
     }
 
