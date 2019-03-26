@@ -17,23 +17,23 @@ let authToken;
 
 // Create an account. Login, then access routes with auth
 describe('Test for User SignUp/Login', () => {
-  // it('should return 201 success status', (done) => {
-  //   chai.request(app)
-  //     .post('/api/v2/auth/signup')
-  //     .send({
-  //       firstName: 'Kayla',
-  //       lastName: 'Perry',
-  //       email: 'kaylaperry@gmail.com',
-  //       password: 'kaylaperry'
-  //     })
-  //     .end((err, res) => {
-  //       expect(res).to.have.status(201);
-  //       res.body.should.be.a('object');
-  //       expect(res.body.message).to.equal('Success: User created successfully!');
-  //       expect(res.body).to.have.property('token');
-  //       done();
-  //     });
-  // });
+  it('should return 201 success status', (done) => {
+    chai.request(app)
+      .post('/api/v2/auth/signup')
+      .send({
+        firstName: 'Kayla',
+        lastName: 'Perry',
+        email: 'kaylaperry@gmail.com',
+        password: 'kaylaperry'
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(201);
+        res.body.should.be.a('object');
+        expect(res.body.message).to.equal('Success: User created successfully!');
+        expect(res.body).to.have.property('token');
+        done();
+      });
+  });
   it('should return 200 success status', (done) => {
     chai.request(app)
       .post('/api/v2/auth/login')
