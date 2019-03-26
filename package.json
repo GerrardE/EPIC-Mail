@@ -1,7 +1,7 @@
 {
   "name": "epic-mail",
   "version": "1.0.0",
-  "description": "A simple web application for people to exchange email messages",
+  "description": "A simple web application for people to exchange emails",
   "main": "app.js",
   "scripts": {
     "start": "babel-node app.js",
