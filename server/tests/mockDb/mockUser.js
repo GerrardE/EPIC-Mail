@@ -149,8 +149,8 @@ const whitespacePassword = {
 };
 
 const correctLogin = {
-    email: 'jamesdoe@gmail.com',
-    password: 'jamesdoe'
+  email: 'jamesdoe@epic-mail.com',
+  password: 'jamesdoe'
 };
 
 const undefinedEmailLogin = {

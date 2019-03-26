@@ -8,9 +8,9 @@ class UsersController {
     let email = req.body.email;
     email = email.split('@')[0];
     email = `${email}${'@epic-mail.com'}`;
-    
 
-    let values = [
+
+    const values = [
       req.body.firstName,
       req.body.lastName,
       email,
@@ -20,12 +20,12 @@ class UsersController {
     pool.query(createUser, values)
       .then((data) => {
         const newUser = data.rows[0];
-        const { email } = newUser;
+        const userEmail = newUser.email;
         const token = auth.makeToken(newUser);
         return res.status(201)
           .send({
             message: 'Success: User created successfully!',
-            email, 
+            data: `Your new email is ${userEmail}`,
             token
           });
       })
@@ -53,14 +53,14 @@ class UsersController {
                 token
               });
           }
-          res.status(401)
+          return res.status(401)
             .send({
               success: false,
               message: 'Authentication failed. Try again',
             });
         }
         if (result.rowCount === 0) {
-          res.status(404)
+          return res.status(404)
             .send({
               status: false,
               message: 'Error: Invalid credentials',
@@ -70,7 +70,7 @@ class UsersController {
       .catch(err => res.status(500)
         .send({
           success: false,
-          message: err.message
+          message: 'Error: authentication failed',
         }));
   }
 }

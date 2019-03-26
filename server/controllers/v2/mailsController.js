@@ -5,11 +5,11 @@ import {
 } from '../../database/sqlQueries';
 
 class MailsController {
-  static createMail(req, res) { 
+  static createMail(req, res) {
     const decUser = req.decoded.userid;
     const senderId = Number(decUser);
 
-    let {
+    const {
       subject, message, toEmail
     } = req.body;
 
@@ -22,29 +22,30 @@ class MailsController {
           const { userid } = result.rows[0];
           return pool.query(createMessage, toMessage)
             .then((data) => {
+
               const newMessage = data.rows[0];
 
               return pool.query(userMessage, [userid, newMessage.id, 'unread'])
-                .then(() => res.status(201)
+                .then(() => res.status(200)
                   .send({
                     success: true,
-                    message: 'Message sent successfully!',
+                    message: 'Success: message sent successfully!',
                     newMessage
                   })).catch(err => res.status(400)
                   .send({
                     success: false,
-                    error: 'Message sending failed.'
+                    error: 'Error: Message sending failed.'
                   }));
             })
             .catch(err => res.status(500).send({
               success: false,
-              message: 'Message sending failed.'
+              message: 'Error: message sending failed.'
             }));
         }
       })
       .catch(err => res.status(500).send({
         success: false,
-        message: 'Message sending failed.'
+        message: 'Error: email does not exist.'
       }));
   }
 
@@ -58,20 +59,15 @@ class MailsController {
           return res.status(200)
             .send({
               success: true,
-              message: 'Messages retrieved successfully!',
+              message: 'Success: messages retrieved successfully!',
               retrievedMessages
             });
         }
-        return res.status(500)
-          .send({
-            success: false,
-            message: 'No message found',
-          });
       })
       .catch(err => res.status(500)
         .send({
           success: false,
-          message: 'No message found'
+          message: 'Error: no message found'
         }));
   }
 
@@ -83,29 +79,24 @@ class MailsController {
         if (data.rowCount !== 0) {
           const retrievedMessages = data.rows;
 
-          return res.status(201)
+          return res.status(200)
             .send({
               success: true,
-              message: 'Unread messages retrieved successfully!',
+              message: 'Success: unread messages retrieved successfully!',
               retrievedMessages
             });
         }
-        return res.status(500)
-          .send({
-            success: false,
-            message: 'You have read all your messages',
-          });
       })
       .catch(err => res.status(500)
         .send({
           success: false,
-          message: 'You have read all your messages'
+          message: 'Error: you have read all your messages'
         }));
   }
 
   static getSentMails(req, res) {
     const { userId } = req.decoded;
-    pool.query(getSentMessages, [userId, false])
+    pool.query(getSentMessages, [userId, 'sent'])
 
       .then((data) => {
         if (data.rowCount !== 0) {
@@ -117,16 +108,11 @@ class MailsController {
               retrievedMessages
             });
         }
-        return res.status(500)
-          .send({
-            success: false,
-            message: 'You have not sent any message',
-          });
       })
       .catch(err => res.status(500)
         .send({
           success: false,
-          message: 'You have not sent any message'
+          message: 'Error: you have not sent any message'
         }));
   }
 
@@ -145,26 +131,23 @@ class MailsController {
               retrievedMessage
             });
         }
-        return res.status(500)
-          .send({
-            success: false,
-            message: 'No message found',
-          });
       })
       .catch(err => res.status(500)
         .send({
           success: false,
-          message: 'No message found'
+          message: 'Error: no message found'
         }));
   }
 
   static deleteMail(req, res) {
     const { userid } = req.decoded;
-    const { id } = req.params;
+    let { id } = req.params;
+    id = Number(id);
 
     pool.query(deleteMessage, [userid, id])
       .then((data) => {
-        if (data.rowCount !== 0) {
+
+        if (data.rowCount > 0) {
           const deletedMessage = data.rows[0];
           return res.status(200)
             .send({
@@ -173,16 +156,16 @@ class MailsController {
               deletedMessage
             });
         }
-        return res.status(500)
+        return res.status(400)
           .send({
-            success: false,
+            success: true,
             message: 'Error: mail not found'
           });
       })
       .catch(err => res.status(500)
         .send({
           success: false,
-          message: 'Error: mail not found'
+          message: 'Error: server error. Please try again.'
         }));
   }
 }
