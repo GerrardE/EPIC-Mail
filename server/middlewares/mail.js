@@ -56,7 +56,7 @@ class MailValidatorHandler {
       return res.status(400)
         .send({
           status: 400,
-          message: 'Error: subject cannot be undefined',
+          message: 'Error: subject cannot be empty',
 
         });
     }
@@ -76,13 +76,13 @@ class MailValidatorHandler {
         });
     }
     subject = subject.trim();
-    subject.replace(/ {1,}/g," ");
+    subject = subject.replace(/ {1,}/g," ");
 
     if (message === undefined) {
       return res.status(400)
         .send({
           status: 400,
-          message: 'Error: message cannot be undefined',
+          message: 'Error: message cannot be empty',
 
         });
     }
@@ -94,7 +94,7 @@ class MailValidatorHandler {
 
         });
     }
-    message = message.trim();
+    message = message.replace(/ {1,}/g," ");
 
     next();
   }
@@ -104,6 +104,20 @@ class MailValidatorHandler {
       toEmail, subject, message
     } = req.body;
 
+    if (toEmail === undefined) {
+      return res.status(400)
+        .send({
+          status: 400,
+          message: 'Error: email field cannot be empty',
+        });
+    }
+    if (toEmail === '') {
+      return res.status(400)
+        .send({
+          status: 400,
+          message: 'Error: email field cannot be empty.'
+        });
+    }
     // email check: stackoverflow
     const emailCheck = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
     if (!emailCheck.test(toEmail)) {
@@ -137,8 +151,16 @@ class MailValidatorHandler {
 
         });
     }
-    subject.replace(/ {1,}/g," ");
+    subject = subject.replace(/ {1,}/g," ");
 
+    if (message === undefined) {
+      return res.status(400)
+        .send({
+          status: 400,
+          message: 'Error: message field cannot be empty',
+
+        });
+    }
     if (message === ' ') {
       return res.status(400)
         .send({
@@ -155,7 +177,7 @@ class MailValidatorHandler {
 
         });
     }
-    message = message.trim();
+    message = message.replace(/ {1,}/g," ");
 
     next();
   }

@@ -209,6 +209,7 @@ describe('V2 Tests for User Sign Up', () => {
       });
   });
 });
+
 describe('V2 Tests for User Login', () => {
   it('should return 200 success status', (done) => {
     chai.request(app)
