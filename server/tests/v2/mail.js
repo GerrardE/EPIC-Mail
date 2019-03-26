@@ -14,7 +14,6 @@ const { should, expect } = chai;
 should();
 
 let authToken;
-
 // Create an account. Login, then access routes with auth
 describe('Test for User SignUp/Login', () => {
   it('should return 201 success status', (done) => {
@@ -38,8 +37,8 @@ describe('Test for User SignUp/Login', () => {
     chai.request(app)
       .post('/api/v2/auth/login')
       .send({
-        email: 'kaylaperry@epic-mail.com',
-        password: 'kaylaperry'
+        email: 'jamesdoe@epic-mail.com',
+        password: 'jamesdoe'
       })
       .end((err, res) => {
         expect(res).to.have.status(200);

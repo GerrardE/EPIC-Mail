@@ -1,16 +1,16 @@
 const correctMessage = {
-  toEmail: 'terryperry@epic-mail.com',
+  toEmail: 'kaylaperry@epic-mail.com',
   subject: 'First Subject',
   message: 'First Message'
 };
 
 const undefinedSubject = {
-  toEmail: 'terryperry@epic-mail.com',
+  toEmail: 'kaylaperry@epic-mail.com',
   message: 'First Message'
 };
 
 const undefinedMessage = {
-  toEmail: 'terryperry@epic-mail.com',
+  toEmail: 'kaylaperry@epic-mail.com',
   subject: 'First Subject'
 };
 
@@ -20,13 +20,13 @@ const undefinedToEmail = {
 };
 
 const emptySubject = {
-  toEmail: 'terryperry@epic-mail.com',
+  toEmail: 'kaylaperry@epic-mail.com',
   subject: '',
   message: 'First Message'
 };
 
 const emptyMessage = {
-  toEmail: 'terryperry@epic-mail.com',
+  toEmail: 'kaylaperry@epic-mail.com',
   subject: 'First Subject',
   message: ''
 };
