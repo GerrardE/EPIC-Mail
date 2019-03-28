@@ -4,9 +4,8 @@ const signup = (e) => {
   const lastName = document.getElementById('lastName').value.trim();
   const email = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value.trim();
-  const passwordRepeat = document.getElementById('passwordRepeat').value.trim();
 
-  fetch('https://epic-m.herokuapp.com/auth/signup', {
+  fetch('https://epic-m.herokuapp.com/api/v2/auth/signup', {
     method: 'POST',
     headers: {
       Accept: 'application/json, text/plain, */*',
@@ -26,4 +25,6 @@ const signup = (e) => {
     });
 };
 
-document.getElementById('signup').addEventListener('submit', signup);
+document.getElementById('signup').addEventListener('submit', {
+    signup()
+});
