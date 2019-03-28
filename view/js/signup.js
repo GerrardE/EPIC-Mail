@@ -18,7 +18,6 @@ const signup = (e) => {
     .then(res => res.json())
     .then((data) => {
       localStorage.setItem('token', data.token);
-      console.log(data)
     })
     .catch((err) => {
       console.log(err);
