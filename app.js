@@ -13,8 +13,8 @@ import indexRouter from './server/routes/index';
 const app = express();
 
 // Bring in the morgan middleware
-// morgan('tiny');
-// app.use(morgan('tiny'));
+morgan('tiny');
+app.use(morgan('tiny'));
 
 dotenv.config();
 
