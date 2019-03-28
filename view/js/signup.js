@@ -9,7 +9,7 @@ const signup = (e) => {
     method: 'POST',
     headers: {
       Accept: 'application/json, text/plain, */*',
-      'Content-type': 'application/json' 
+      'Content-type': 'application/json'
     },
     body: JSON.stringify({
       firstName, lastName, email, password
@@ -25,6 +25,4 @@ const signup = (e) => {
     });
 };
 
-document.getElementById('signup').addEventListener('submit', {
-    signup()
-});
+document.getElementById('createUser').addEventListener('submit', signup);

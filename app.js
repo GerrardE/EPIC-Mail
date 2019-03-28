@@ -1,5 +1,6 @@
 import express from 'express';
 import morgan from 'morgan';
+import cors from 'cors';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import bodyParser from 'body-parser';
@@ -16,6 +17,9 @@ const app = express();
 // app.use(morgan('tiny'));
 
 dotenv.config();
+
+// Enable CORS
+app.use(cors());
 
 // Introduce the body parser middleware
 app.use(bodyParser.json());
