@@ -181,6 +181,61 @@ class MailValidatorHandler {
 
     next();
   }
+
+  static groupMail(req, res, next) {
+    let {
+      subject, message
+    } = req.body;
+
+    if (subject === undefined) {
+      return res.status(400)
+        .send({
+          status: 400,
+          message: 'Error: subject field cannot be empty',
+
+        });
+    }
+
+    if (subject === '') {
+      return res.status(400)
+        .send({
+          status: 400,
+          message: 'Error: subject field cannot be empty',
+
+        });
+    }
+    subject = subject.replace(/ {1,}/g," ");
+    subject = subject.trim();
+
+    if (message === undefined) {
+      return res.status(400)
+        .send({
+          status: 400,
+          message: 'Error: message field cannot be empty',
+
+        });
+    }
+    if (message === ' ') {
+      return res.status(400)
+        .send({
+          status: 400,
+          message: 'Error: message field cannot be empty',
+
+        });
+    }
+    if (message === '') {
+      return res.status(400)
+        .send({
+          status: 400,
+          message: 'Error: message field cannot be empty',
+
+        });
+    }
+    message = message.replace(/ {1,}/g," ");
+    message = message.trim();
+
+    next();
+  }
 }
 
 export default MailValidatorHandler;

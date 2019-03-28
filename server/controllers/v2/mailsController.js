@@ -131,11 +131,16 @@ class MailsController {
               retrievedMessage
             });
         }
+        return res.status(400)
+          .send({
+            success: false,
+            message: 'Error: mail not found.'
+          });
       })
       .catch(err => res.status(500)
         .send({
           success: false,
-          message: 'Error: no message found'
+          message: 'Error: server not responding. Please try again.'
         }));
   }
 
@@ -165,7 +170,7 @@ class MailsController {
       .catch(err => res.status(500)
         .send({
           success: false,
-          message: 'Error: server error. Please try again.'
+          message: 'Error: server not responding. Please try again.'
         }));
   }
 }

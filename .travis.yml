@@ -1,18 +1,12 @@
 language: node_js
 node_js:
   - "stable"
+notifications:
+  email: false
 cache:
   directories:
     - node_modules
-global:
- - export NODE_ENV=test
-addons:
-    postgresql: "9.6"
-services:
-  - postgresql
 before_script:
-  - psql -c "create user gerrard with password 'testdb';" -U postgres
-  - psql -c 'create database epicmail;' -U postgres
   - npm install
 script: 
   - npm run test

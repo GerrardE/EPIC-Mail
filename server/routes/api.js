@@ -1,12 +1,12 @@
 import express from 'express';
 import UsersController from '../controllers/v2/usersController';
 import { signupValidator, loginCheck } from '../middlewares/user';
-import MailValidatorHandler from '../middlewares/mail';
+import valid from '../middlewares/mail';
 import MailsController from '../controllers/v2/mailsController';
 import groupValidator from '../middlewares/group';
 import group from '../controllers/v2/groupController';
 import params from '../middlewares/params';
-import member from '../middlewares/memberId';
+import member from '../middlewares/member';
 import auth from '../helpers/auth';
 
 // Introduce the express router middleware
@@ -17,7 +17,7 @@ api.post('/api/v2/auth/signup', signupValidator, UsersController.createUser);
 api.post('/api/v2/auth/login', loginCheck, UsersController.userLogin);
 
 // Message Routes
-api.post('/api/v2/messages', auth.verifyToken, MailValidatorHandler.validMail, MailsController.createMail);
+api.post('/api/v2/messages', auth.verifyToken, valid.validMail, MailsController.createMail);
 api.get('/api/v2/messages', auth.verifyToken, MailsController.getMails);
 api.get('/api/v2/messages/unread', auth.verifyToken, MailsController.getUnreadMails);
 api.get('/api/v2/messages/sent', auth.verifyToken, MailsController.getSentMails);
@@ -31,6 +31,6 @@ api.patch('/api/v2/groups/:id/name', auth.verifyToken, params.paramValidator,gro
 api.delete('/api/v2/groups/:id', auth.verifyToken, params.paramValidator, group.deleteGroup);
 api.post('/api/v2/groups/:id/users', auth.verifyToken, params.paramValidator, groupValidator.validMember, group.addUser);
 api.delete('/api/v2/groups/:id/users/:memberid', auth.verifyToken, params.paramValidator, member.paramValidator, group.deleteUser);
-api.post('/api/v2/groups/:id/messages', auth.verifyToken, params.paramValidator, MailValidatorHandler.validMail, group.sendGroupMail);
+api.post('/api/v2/groups/:id/messages', auth.verifyToken, params.paramValidator, valid.groupMail, group.sendGroupMail);
 
 export default api;
