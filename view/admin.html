@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <title>EPIC Mail</title>
+      <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta charset="utf-8">
+      <link rel="stylesheet" href="css/styles.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+   </head>
+   <body>
+      <nav class="topnav" id="topnav">
+         <span id="hamburger" onclick="openNav()">&#9776;</span>
+         <a href="login.html">Log Out</a>
+         <a href="inbox.html" class="active">Home</a>
+      </nav>
+      <aside>
+         <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="admin.html" class="select">Admin </a>
+            <a href="inbox.html" class="">Inbox</a>
+            <a href="create.html" class="">Create</a>
+            <a href="sent.html" class="">Sent</a>
+            <a href="drafts.html" class="">Drafts</a>
+         </div>
+         <div id="main" class="">
+            <h2 class="lead-title">Create Group</h2>
+            <div id="myDIV" class="header">
+               <input type="text" id="myInput" placeholder="Group Name...">
+               <span onclick="newElement()" class="addBtn">Add</span>
+            </div>
+            <ul id="myUL">
+               <li class="group">Gold</li>
+               <li class="group">Silver</li>
+               <li class="group">Diamond</li>
+               <li class="group">Myrr</li>
+               <li class="group">Teem</li>
+               <li class="group">Diamond</li>
+               <li class="group">Tana</li>
+            </ul>
+         </div>
+      </aside>
+      <footer class="footer">
+         <p>Copyright (c) 2019 <a href="/"><strong>EPIC Mail</strong></a> All Rights Reserved.</p>
+      </footer>
+      <script src="js/script.js"></script>
+   </body>
+</html>

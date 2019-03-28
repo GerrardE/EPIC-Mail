@@ -6,8 +6,8 @@ const verifyToken = (req, res, next) => {
   const token = req.headers.authorization || req.body.token;
   if (!token) {
     return res.status(403).json({
-      status: 'Fail',
-      mesage: 'Error: no token supplied'
+      success: false,
+      message: 'Error: no token supplied'
     });
   }
 
