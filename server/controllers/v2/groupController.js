@@ -4,7 +4,6 @@ import {
   createGroup, getGroups, returnGroup, editGroup, deleteGroup, returnMember, addUser, checkGroup,
   deleteMember, returnGrp, groupCheck, returnMemberIds, sendGroupMessage
 } from '../../database/sqlQueries';
-import { mails } from '../../database/database';
 
 class GroupController {
   static createGroup(req, res) {
@@ -26,23 +25,23 @@ class GroupController {
               const newGroup = data.rows[0];
               return res.status(201).send({
                 success: true,
-                message: 'Group created successfully!',
+                message: 'Success: group created successfully!',
                 newGroup
               });
             })
             .catch(err => res.status(500).send({
               success: false,
-              message: 'Group cannot be created. Try again.'
+              message: 'Error: server did not respond. Please try again.'
             }));
         }
         return res.status(400).send({
           success: false,
-          message: 'This name is taken. Try again'
+          message: 'Error: this name is taken. Please try again'
         });
       })
       .catch(err => res.status(500).send({
         success: false,
-        message: 'This name is taken. Try again'
+        message: 'Error: server not responding. Please try again.'
       }));
   }
 
@@ -57,26 +56,26 @@ class GroupController {
           return res.status(200)
             .send({
               success: true,
-              message: 'Groups retrieved successfully!',
+              message: 'Success: groups retrieved successfully!',
               retrievedGroups
             });
         }
         return res.status(500)
           .send({
             success: false,
-            message: 'No group found',
+            message: 'Error: no group found'
           });
       })
       .catch(err => res.status(500)
         .send({
           success: false,
-          message: 'No group found'
+          message: 'Error: server not responding. Please try again.'
         }));
   }
 
   static editGroup(req, res) {
     const decUser = req.decoded;
-    const userId = +decUser.userid;
+    const userId = Number(decUser.userid);
     let { id } = req.params;
     const { name } = req.body;
 
@@ -90,20 +89,20 @@ class GroupController {
           return res.status(200)
             .send({
               success: true,
-              message: 'Group edited successfully!',
+              message: 'Success: group edited successfully!',
               editedGroup
             });
         }
         return res.status(500)
           .send({
             success: false,
-            message: 'This group was not found',
+            message: 'Error: group not found',
           });
       })
       .catch(err => res.status(500)
         .send({
           success: false,
-          message: 'Your group could not be edited. Try again'
+          message: 'Error: group could not be edited. Try again'
         }));
   }
 
@@ -116,23 +115,23 @@ class GroupController {
       .then((data) => {
         if (data.rowCount !== 0) {
           const deletedGroup = data.rows[0];
-          return res.status(201)
+          return res.status(200)
             .send({
               success: true,
-              message: 'Group deleted successfully!',
+              message: 'Success: group deleted successfully!',
               deletedGroup
             });
         }
         return res.status(500)
           .send({
             success: false,
-            message: 'Something happened. Try again'
+            message: 'Error: group could not be deleted. Try again'
           });
       })
       .catch(err => res.status(500)
         .send({
           success: false,
-          message: 'YOur group was not deleted. Try again.'
+          message: 'Error: server not responding. Try again'
         }));
   }
 
@@ -143,19 +142,22 @@ class GroupController {
     const {
       email
     } = req.body;
-
+    
     // check if user exists
     pool.query(returnMember, [email])
       .then((result) => {
-        if (result.rowCount !== 0) {
+        if (result.rowCount > 0) {
           const values = [email, groupId, result.rows[0].userid, moment().format('llll')];
+          // select the user's group
           return pool.query(checkGroup, [ownerId])
             .then((detail) => {
+              // check that there is a result in the array
               if (detail.rowCount !== 0) {
+                // query the database and add the user
                 return pool.query(addUser, values)
                   .then((data) => {
                     const newMember = data.rows[0];
-                    return res.status(201).send({
+                    return res.status(200).send({
                       success: true,
                       message: 'Group member added successfully!',
                       newMember
@@ -163,23 +165,23 @@ class GroupController {
                   })
                   .catch(err => res.status(500).send({
                     success: false,
-                    message: 'An error occured. Try again'
+                    message: 'Error: user not added. Try again'
                   }));
               }
               return res.status(400).send({
                 success: false,
-                message: 'This group does not exist. Try again'
+                message: 'Error: group does not exist. Try again.'
               });
             });
         }
         return res.status(400).send({
           success: false,
-          message: 'An error occured. Try again'
+          message: 'Error: user does not exist. Try again.'
         });
       })
       .catch(err => res.status(500).send({
         success: false,
-        message: 'User does not exist. Try again.'
+        message: 'Error: server not responding. Try again.'
       }));
   }
 
@@ -188,33 +190,31 @@ class GroupController {
     const ownerId = Number(decUser.userid);
     const { id, memberid } = req.params;
 
-    pool.query(returnGrp, [+id])
+    pool.query(returnGrp, [id])
       .then((data) => {
-        console.log(data.rows[0]);
         if (data.rowCount > 0 && data.rows[0].ownerid === ownerId) {
           return pool.query(deleteMember, [id, memberid])
-            .then(() => res.status(200)
+            .then(result => res.status(200)
               .send({
                 success: true,
-                message: 'Group member deleted successfully!'
+                message: 'Success: group member deleted successfully!'
               }))
             .catch(err => res.status(500)
               .send({
                 success: false,
-                message: err.message
+                message: 'Error: group member could not be deleted. Please Try again.'
               }));
         }
-        return res.status(500)
+        return res.status(400)
           .send({
             success: false,
-            message: 'Group member does not exist. Try again'
+            message: 'Error: group member does not exist. Try again.'
           });
       })
-      .catch(err => res.status(500)
-        .send({
-          success: false,
-          message: 'User could not be deleted. Try again'
-        }));
+      .catch(err => res.status(500).send({
+        success: false,
+        message: 'Error: server not responding. Try again.'
+      }));
   }
 
   static sendGroupMail(req, res) {
@@ -228,6 +228,7 @@ class GroupController {
     // check if group exists
     pool.query(groupCheck, values)
       .then((result) => {
+        // check for the row count if greater than 0
         if (result.rowCount > 0) {
           return pool.query(returnMemberIds, [groupId])
             .then((data) => {
@@ -235,52 +236,55 @@ class GroupController {
               if (data.rowCount < 0) {
                 return res.status(400).send({
                   success: false,
-                  message: 'Error: no member found.'
+                  message: 'Error: no member found on the group.'
                 });
               } // end check for members
 
-              // create an email
+              // this array will hold all member ids
               const members = [];
               data.rows.forEach(m => members.push(m.memberid));
               const {
                 subject, message
               } = req.body;
 
+              // create an email
               const toMessage = [ownerId, subject, message, 'group@epic-mail.com', moment().format('llll')];
               return pool.query(sendGroupMessage, toMessage)
                 .then((detail) => {
-                  
-                  return pool.query(`INSERT INTO userMessage (messageId,status, userId) VALUES (${detail.rows[0].id}, 'unread', unnest(array[${members}]))`)
+                  // insert the messageId, status and userId in user messages
+                  return pool.query(`INSERT INTO userMessage (messageId, status, userId) VALUES (${detail.rows[0].id}, 'unread', unnest(array[${members}]))`)
                     .then(() => {
+                      const groupMsg = detail.rows[0];
                       return res.status(200)
                         .send({
                           success: true,
-                          message: 'Group message sent successfully!',
-                          toMessage
+                          message: 'Success: group message sent successfully!',
+                          groupMsg
                         });
                     })
-                    .catch(() => {
-
-                    });
+                    .catch(() => res.status(400).send({
+                      success: false,
+                      message: 'Error: message not sent. Try again.'
+                    }));
                 })
                 .catch(err => res.status(500).send({
                   success: false,
-                  message: err.message
+                  message: 'Error: server taking too long to respond. Try again.'
                 }));
             }) // end data block
             .catch(err => res.status(500)
               .send({
                 success: false,
-                message: err.message
+                message: 'Error: server could not respond. Try again.'
               }));
         }
         return res.status(400).send({
           success: false,
-          message: 'Error: group does not exist'
+          message: 'Error: group does not exist.'
         });
       })
       .catch(err => res.status(500).send({
-        success: 'Error: group does not exist'
+        success: 'Error: server not responding. Try again.'
       }));
   }
 }
