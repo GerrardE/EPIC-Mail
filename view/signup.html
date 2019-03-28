@@ -20,33 +20,31 @@
 
       <main>
          <section class="login-form">
-            <form action="inbox.html">
+            <form action="">
                 <div class="container">
                     <p><strong>EPIC | Mail</strong> <br><br> A simple web app that helps people exchange
                       messages/information over the internet.</p>
                   <h1>Register Here</h1>
                   <hr>
-                  <input type="text" placeholder="First Name" name="firstName" required>
+                  <input type="text" placeholder="First Name" name="firstName" aria-autocomplete="list" required>
 
-                  <input type="text" placeholder="Last Name" name="lastName" required>
+                  <input type="text" placeholder="Last Name" name="lastName" aria-autocomplete="list" required>
 
-                  <input type="email" placeholder="Enter Email" name="email" required>
+                  <input type="email" placeholder="Enter Email" name="email" aria-autocomplete="list" required>
               
                   <input type="password" placeholder="Enter Password" name="password" required>
               
-                  <input type="password" placeholder="Repeat Password" name="passwordRepeat" required>
-              
                   <div class="clearfix">
-                    <!-- <button type="button" class="cancelbtn">Cancel</button> -->
                     <button type="submit" class="btn" id="signup">Sign Up</button>
                   </div>
                 </div>
               </form>
          </section>
       </main>
+   
 
       <footer class="footer">
-        <p>Copyright (c) 2019 <a href="/"><strong>EPIC Mail</strong></a> All Rights Reserved.</p>
+          <p>Copyright (c) 2019 <a href="/"><strong>EPIC Mail</strong></a> All Rights Reserved.</p>
       </footer>
   <script src="js/script.js"></script>
   <script src="js/signup.js"></script>
