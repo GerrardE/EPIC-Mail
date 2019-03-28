@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-const makeToken = (payload => jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: '24d' }));
+const makeToken = (payload => jwt.sign(payload, 'authkey', { expiresIn: '24d' }));
 
 const verifyToken = (req, res, next) => {
   const token = req.headers.authorization || req.body.token;
@@ -12,7 +12,7 @@ const verifyToken = (req, res, next) => {
   }
 
   if (token) {
-    jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
+    jwt.verify(token, 'authkey', (err, decoded) => {
       if (err) {
         return res.json({
           success: false,
