@@ -9,7 +9,6 @@ class UsersController {
     email = email.split('@')[0];
     email = `${email}${'@epic-mail.com'}`;
 
-
     const values = [
       req.body.firstName,
       req.body.lastName,
@@ -25,7 +24,7 @@ class UsersController {
         return res.status(201)
           .send({
             message: 'Success: User created successfully!',
-            data: `Your new email is ${userEmail}`,
+            data: `Welcome to EPIC-Mail. Your new email is ${userEmail}`,
             token
           });
       })

@@ -307,14 +307,14 @@ class UserValidatorHandler {
     if (!emailCheck.test(email)) {
       return res.status(400).send({
         status: 400,
-        error: 'Error: email format is invalid'
+        message: 'Error: email format is invalid'
       });
     }
     email = email.toLowerCase().trim();
     if (email.length < 10 || email.length > 30) {
       return res.status(400).send({
         status: 400,
-        error: 'Error: email should be 10 to 30 characters long'
+        message: 'Error: email should be 10 to 30 characters long'
       });
     }
 
