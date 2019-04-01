@@ -1,6 +1,7 @@
 version: "2"
 exclude_patterns:
 - "server/tests/v1"
+- "server/controllers/v1"
 checks:
  return-statements:
    enabled: false
