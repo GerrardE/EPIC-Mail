@@ -34,7 +34,7 @@ class MailsController {
                   })).catch(err => res.status(400)
                   .send({
                     success: false,
-                    error: 'Error: Message sending failed.'
+                    error: 'Error: message sending failed.'
                   }));
             })
             .catch(err => res.status(500).send({

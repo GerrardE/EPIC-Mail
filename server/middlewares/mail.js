@@ -123,13 +123,13 @@ class MailValidatorHandler {
     if (!emailCheck.test(toEmail)) {
       return res.status(400).send({
         status: 400,
-        error: 'Error: email format is invalid'
+        message: 'Error: email format is invalid'
       });
     }
     if (toEmail.length < 2 || toEmail.length > 100) {
       return res.status(400).send({
         status: 400,
-        error: 'Error: email should be 2 to 100 characters long'
+        message: 'Error: email should be 2 to 100 characters long'
       });
     }
     toEmail = toEmail.toLowerCase();
