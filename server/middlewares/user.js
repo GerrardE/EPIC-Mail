@@ -118,7 +118,7 @@ class UserValidatorHandler {
     if (foundEmail) {
       return res.status(409).send({
         status: 409,
-        error: 'Error: email already exists!'
+        message: 'Error: email already exists!'
       });
     }
     // email check: stackoverflow
@@ -126,14 +126,14 @@ class UserValidatorHandler {
     if (!emailCheck.test(email)) {
       return res.status(400).send({
         status: 400,
-        error: 'Error: email format is invalid'
+        message: 'Error: email format is invalid'
       });
     }
     email = email.toLowerCase().trim();
     if (email.length < 5 || email.length > 30) {
       return res.status(400).send({
         status: 400,
-        error: 'Error: email should be 10 to 30 characters long'
+        message: 'Error: email should be 10 to 30 characters long'
       });
     }
 
@@ -165,6 +165,13 @@ class UserValidatorHandler {
           status: 400,
           message: 'Error: password should be a string'
         });
+    }
+    password = password.trim();
+    if (password.length < 5 || password.length > 30) {
+      return res.status(400).send({
+        status: 400,
+        message: 'Error: email should be 10 to 30 characters long'
+      });
     }
 
     next();
@@ -211,14 +218,14 @@ class UserValidatorHandler {
     if (!emailCheck.test(email)) {
       return res.status(400).send({
         status: 400,
-        error: 'Error: email format is invalid'
+        message: 'Error: email format is invalid'
       });
     }
     email = email.toLowerCase().trim();
     if (email.length < 10 || email.length > 30) {
       return res.status(400).send({
         status: 400,
-        error: 'Error: email should be 10 to 30 characters long'
+        message: 'Error: email should be 10 to 30 characters long'
       });
     }
     if (!foundUser) {
@@ -260,7 +267,7 @@ class UserValidatorHandler {
     if (foundUser.password !== password) {
       return res.status(409).send({
         status: 409,
-        error: 'Error: Incorrect login details'
+        message: 'Error: Incorrect login details'
       });
     }
 
