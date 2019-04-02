@@ -1,12 +1,13 @@
 const correctMessage = {
   toEmail: 'kaylaperry@epic-mail.com',
   subject: 'First Subject',
-  message: 'First Message'
+  message: 'First Message',
+  status: 'sent'
 };
 
 const undefinedSubject = {
   toEmail: 'kaylaperry@epic-mail.com',
-  message: 'First Message'
+  message: 'First Message',
 };
 
 const undefinedMessage = {
