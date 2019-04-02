@@ -1,7 +1,7 @@
 import moment from 'moment';
 import pool from '../../database/dbconnect';
 import {
-  createMessage, userMessage, returnUser, getMessages, getUnreadMessages, getSentMessages, getMessage, deleteMessage
+  createMessage, userMessage, returnUser, getMessages, getUnreadMessages, getUnread, getSentMessages, getMessage, deleteMessage
 } from '../../database/sqlQueries';
 
 class MailsController {
@@ -10,7 +10,7 @@ class MailsController {
     const senderId = Number(decUser);
 
     const {
-      subject, message, toEmail
+      subject, message, toEmail, status
     } = req.body;
 
     const toMessage = [senderId, subject, message, toEmail, moment().format('llll')];
@@ -25,7 +25,7 @@ class MailsController {
 
               const newMessage = data.rows[0];
 
-              return pool.query(userMessage, [userid, newMessage.id, 'unread'])
+              return pool.query(userMessage, [userid, newMessage.id, status])
                 .then(() => res.status(200)
                   .send({
                     success: true,
