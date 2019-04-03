@@ -1,5 +1,6 @@
 import express from 'express';
 import morgan from 'morgan';
+import cors from 'cors';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import bodyParser from 'body-parser';
@@ -24,6 +25,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // declare your port constant
 const port = process.env.PORT || 3000;
 
+let corsOptions = {
+  origin: '*',
+  credentials : true
+}
+
+// Use the CORS
+app.use(cors(corsOptions));
+
 // Bring in the user route
 app.use(router);
 app.use(api);
@@ -36,8 +45,8 @@ const swaggerDefinition = {
     version: '1.0.0', // Version of the app
     description: 'This is the REST API for EPIC-Mail', // short description of the app
   },
-  host: 'localhost:4000', // the host or url of the app
-  basePath: '/api/v1', // the basepath of your endpoint
+  host: 'epic-m.herokuapp.com', // the host or url of the app
+  basePath: '/api/v2', // the basepath of your endpoint
 };
 
 // options for the swagger docs

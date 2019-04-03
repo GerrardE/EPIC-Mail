@@ -25,14 +25,14 @@ class UsersController {
         return res.status(201)
           .send({
             message: 'Success: User created successfully!',
-            data: `Your new email is ${userEmail}`,
+            credentials: `Welcome to EPIC-Mail. Your new email address is ${userEmail}`,
             token
           });
       })
       .catch(err => res.status(500)
         .send({
           success: false,
-          message: 'Your account creation failed. Try again.'
+          message: 'Your account creation failed either because this email address is taken, or you used an incorrect format. Try again.'
         }));
   }
 
