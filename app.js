@@ -25,10 +25,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // declare your port constant
 const port = process.env.PORT || 3000;
 
-let corsOptions = {
+const corsOptions = {
   origin: '*',
-  credentials : true
-}
+  credentials: true
+};
 
 // Use the CORS
 app.use(cors(corsOptions));
