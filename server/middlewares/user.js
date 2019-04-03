@@ -170,7 +170,7 @@ class UserValidatorHandler {
     if (password.length < 5 || password.length > 30) {
       return res.status(400).send({
         status: 400,
-        message: 'Error: email should be 10 to 30 characters long'
+        message: 'Error: password should be 5 to 30 characters long'
       });
     }
 

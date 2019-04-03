@@ -60,7 +60,6 @@ describe('Tests for POST Messages', () => {
       .send(correctMessage)
       .end((err, res) => {
         expect(res).to.have.status(200);
-        console.log(res.body.rows);
         res.body.should.be.a('object');
         expect(res.body.message).to.equal('Success: message sent successfully!');
         done();
