@@ -18,9 +18,6 @@ app.use(morgan('tiny'));
 
 dotenv.config();
 
-// Enable CORS
-app.use(cors());
-
 // Introduce the body parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
