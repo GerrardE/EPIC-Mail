@@ -9,7 +9,6 @@ class UsersController {
     email = email.split('@')[0];
     email = `${email}${'@epic-mail.com'}`;
 
-
     const values = [
       req.body.firstName,
       req.body.lastName,
