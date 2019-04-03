@@ -13,10 +13,13 @@ import indexRouter from './server/routes/index';
 const app = express();
 
 // Bring in the morgan middleware
-// morgan('tiny');
-// app.use(morgan('tiny'));
+morgan('tiny');
+app.use(morgan('tiny'));
 
 dotenv.config();
+
+// Enable CORS
+app.use(cors());
 
 // Introduce the body parser middleware
 app.use(bodyParser.json());
