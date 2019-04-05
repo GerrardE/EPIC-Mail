@@ -18,16 +18,21 @@ const getMessages = 'select * from messages left join userMessage on userId = $1
 
 // Get unread messages
 const getUnreadMessages = 'select * from messages left join userMessage on userId = $1 and status=$2 order by createdOn desc';
+
+// Get unread by email
 const getUnread = 'select * from messages where email = $1 order by createdOn desc';
 
 // Get sent messages
-const getSentMessages = 'select * from messages left join userMessage on userId = $1 and status=$2 order by createdOn desc';
+const getSentMessages = 'select * from messages left join userMessage on userId = $1 and status=$2 where senderid = $1 order by createdOn desc';
+
+// Get sent messages
+const getSent = 'select * from messages where senderid = $1 order by createdOn desc';
 
 // Get specific message
-const getMessage = 'select * from messages left join userMessage on userId = $1 where id=$2';
+const getMessage = 'select * from messages left join userMessage on userid = $1 and messageid = id where id=$2';
 
 // Delete messages
-const deleteMessage = 'delete from userMessage where userId = $1 and messageId = $2 returning *';
+const deleteMessage = 'delete from userMessage where userid = $1 and messageid = $2 returning *';
 
 // Return an existing group
 const returnGroup = 'select * from groups where name = $1';
@@ -68,6 +73,6 @@ const sendGroupMessage = 'insert into messages (senderId, subject, message, emai
 
 export {
   createUser, emailLogin, returnUser, createMessage, userMessage, editGroup, deleteGroup, returnMember, addUser, checkGroup, returnGrp,
-  getMessages, getGroups, getUnreadMessages, getUnread,
+  getMessages, getGroups, getUnreadMessages, getUnread, getSent,
   getSentMessages, getMessage, deleteMessage, returnMemberIds, createGroup, returnGroup, deleteMember, groupCheck, sendGroupMessage
 };

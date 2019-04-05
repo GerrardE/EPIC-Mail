@@ -1,13 +1,14 @@
 import moment from 'moment';
 import pool from '../../database/dbconnect';
 import {
-  createMessage, userMessage, returnUser, getMessages, getUnreadMessages, getUnread, getSentMessages, getMessage, deleteMessage
+  createMessage, userMessage, returnUser, getMessages, getSent, getUnreadMessages, getUnread, getSentMessages, getMessage, deleteMessage
 } from '../../database/sqlQueries';
 
 class MailsController {
   static createMail(req, res) {
     const decUser = req.decoded.userid;
     const senderId = Number(decUser);
+    const decEmail = req.decoded.email;
 
     const {
       subject, message, toEmail, status
@@ -18,7 +19,7 @@ class MailsController {
     pool.query(returnUser, [toEmail])
     // check if email exists
       .then((result) => {
-        if (result.rowCount !== 0) {
+        if (result.rowCount !== 0 && (result.rows[0].email !== decEmail)) {
           const { userid } = result.rows[0];
           return pool.query(createMessage, toMessage)
             .then((data) => {
@@ -42,11 +43,23 @@ class MailsController {
               message: 'Error: message sending failed.'
             }));
         }
+        if (result.rows[0].email) {
+          return res.status(400).send({
+            success: false,
+            message: 'Error: Oops! looks like you tried to email yourself.'
+          });
+        }
+        if (result.rowCount === 0) {
+          return res.status(400).send({
+            success: false,
+            message: 'Error: email does not exist.'
+          });
+        }
       })
       .catch(err => res.status(500).send({
         success: false,
         message: 'Error: email does not exist.'
-      }));
+      }))
   }
 
   static getMails(req, res) {
@@ -94,9 +107,34 @@ class MailsController {
         }));
   }
 
+  // Refactors get unread mails
+  static getUnread(req, res) {
+    const { email } = req.decoded;
+
+    pool.query(getUnread, [email])
+      .then((data) => {
+        if (data.rowCount !== 0) {
+          const retrievedMessages = data.rows;
+
+          return res.status(200)
+            .send({
+              success: true,
+              message: 'Success: unread messages retrieved successfully!',
+              retrievedMessages
+            });
+        }
+      })
+      .catch(err => res.status(500)
+        .send({
+          success: false,
+          message: 'Error: you have read all your messages'
+        }));
+  }
+
   static getSentMails(req, res) {
-    const { userId } = req.decoded;
-    pool.query(getSentMessages, [userId, 'sent'])
+    const { userid } = req.decoded;
+    
+    pool.query(getSentMessages, [userid, 'sent'])
 
       .then((data) => {
         if (data.rowCount !== 0) {
@@ -117,10 +155,10 @@ class MailsController {
   }
 
   static getMail(req, res) {
-    const { userId } = req.decoded;
+    const { userid } = req.decoded;
     const { id } = req.params;
- 
-    pool.query(getMessage, [userId, id])
+
+    pool.query(getMessage, [userid, id])
       .then((data) => {
         if (data.rowCount !== 0) {
           const retrievedMessage = data.rows;
@@ -163,7 +201,7 @@ class MailsController {
         }
         return res.status(400)
           .send({
-            success: true,
+            success: false,
             message: 'Error: mail not found'
           });
       })
