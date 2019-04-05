@@ -19,7 +19,8 @@ api.post('/api/v2/auth/login', loginCheck, UsersController.userLogin);
 // Message Routes
 api.post('/api/v2/messages', auth.verifyToken, valid.validMail, MailsController.createMail);
 api.get('/api/v2/messages', auth.verifyToken, MailsController.getMails);
-api.get('/api/v2/messages/unread', auth.verifyToken, MailsController.getUnreadMails);
+// api.get('/api/v2/messages/unread', auth.verifyToken, MailsController.getUnreadMails);
+api.get('/api/v2/messages/unread', auth.verifyToken, MailsController.getUnread);
 api.get('/api/v2/messages/sent', auth.verifyToken, MailsController.getSentMails);
 api.get('/api/v2/messages/:id', auth.verifyToken, params.paramValidator, MailsController.getMail);
 api.delete('/api/v2/messages/:id', auth.verifyToken, params.paramValidator, MailsController.deleteMail);
