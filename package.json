@@ -4,9 +4,9 @@
   "description": "A simple web application for people to exchange emails",
   "main": "app.js",
   "scripts": {
-    "start": "npm run createTables && babel-node app.js",
+    "start": "nodemon --exec babel-node -- app.js",
     "start:dev": "nodemon app.js --exec babel-node",
-    "test:dev": "mocha ./server/tests/v2/*.js --require @babel/register --exit",
+    "test:dev": "cross-env NODE_ENV=test npm run createTables && cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha ./server/tests/v2/*.js --require @babel/register --exit",
     "test": "npm run createTables && nyc --reporter=html --reporter=text mocha ./server/tests/v2/*.js --require @babel/register --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test",
