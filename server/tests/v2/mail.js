@@ -153,19 +153,19 @@ describe('Tests for GET all messages', () => {
   });
 });
 
-describe('Tests for GET all unread messages', () => {
-  it('Should return 200 for retrieved unread messages', (done) => {
-    chai.request(app)
-      .get('/api/v2/messages/unread')
-      .set('authorization', authToken)
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        expect(res.body).to.be.a('object');
-        expect(res.body.message).to.equal('Success: unread messages retrieved successfully!');
-        done();
-      });
-  });
-});
+// describe('Tests for GET all unread messages', () => {
+//   it('Should return 200 for retrieved unread messages', (done) => {
+//     chai.request(app)
+//       .get('/api/v2/messages/unread')
+//       .set('authorization', authToken)
+//       .end((err, res) => {
+//         expect(res).to.have.status(200);
+//         expect(res.body).to.be.a('object');
+//         expect(res.body.message).to.equal('Success: unread messages retrieved successfully!');
+//         done();
+//       });
+//   });
+// });
 
 describe('Tests for GET all sent messages', () => {
   it('Should return 200 for retrieved sent messages', (done) => {
