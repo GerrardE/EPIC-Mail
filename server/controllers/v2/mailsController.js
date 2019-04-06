@@ -108,6 +108,30 @@ class MailsController {
         }));
   }
 
+  // Refactors get unread mails
+  static getUnread(req, res) {
+    const { email } = req.decoded;
+
+    pool.query(getUnread, [email])
+      .then((data) => {
+        if (data.rowCount !== 0) {
+          const retrievedMessages = data.rows;
+
+          return res.status(200)
+            .send({
+              success: true,
+              message: 'Success: unread messages retrieved successfully!',
+              retrievedMessages
+            });
+        }
+      })
+      .catch(err => res.status(500)
+        .send({
+          success: false,
+          message: 'Error: you have read all your messages'
+        }));
+  }
+
   static getSentMails(req, res) {
     const { userid } = req.decoded;
     
