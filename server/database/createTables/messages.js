@@ -8,6 +8,7 @@ const createMessagesTable = `DROP TABLE IF EXISTS messages CASCADE;
         message TEXT NOT NULL,
         email CHARACTER VARYING(100) NOT NULL,
         parentMessageId INTEGER,
+        msgstatus TEXT NOT NULL,
         createdOn TEXT NOT NULL
         )`;
      

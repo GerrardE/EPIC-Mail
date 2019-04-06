@@ -14,7 +14,7 @@ class MailsController {
       subject, message, toEmail, status
     } = req.body;
 
-    const toMessage = [senderId, subject, message, toEmail, moment().format('llll')];
+    const toMessage = [senderId, subject, message, toEmail, status, moment().format('llll')];
 
     pool.query(returnUser, [toEmail])
     // check if email exists
@@ -84,34 +84,11 @@ class MailsController {
         }));
   }
 
-  static getUnreadMails(req, res) {
-    const { userId } = req.decoded;
-
-    pool.query(getUnreadMessages, [userId, 'unread'])
-      .then((data) => {
-        if (data.rowCount !== 0) {
-          const retrievedMessages = data.rows;
-
-          return res.status(200)
-            .send({
-              success: true,
-              message: 'Success: unread messages retrieved successfully!',
-              retrievedMessages
-            });
-        }
-      })
-      .catch(err => res.status(500)
-        .send({
-          success: false,
-          message: 'Error: you have read all your messages'
-        }));
-  }
-
   // Refactors get unread mails
   static getUnread(req, res) {
-    const { email } = req.decoded;
+    const { email, userid } = req.decoded;
 
-    pool.query(getUnread, [email])
+    pool.query(getUnread, [userid, email, 'sent'])
       .then((data) => {
         if (data.rowCount !== 0) {
           const retrievedMessages = data.rows;
