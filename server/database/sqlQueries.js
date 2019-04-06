@@ -8,7 +8,7 @@ const emailLogin = 'select * from users where email = $1';
 const returnUser = 'select * from users where email = $1';
 
 // Create Message
-const createMessage = 'insert into messages (senderId, subject, message, email, createdOn) values ($1, $2, $3, $4, $5) returning *';
+const createMessage = 'insert into messages (senderId, subject, message, email, msgstatus, createdOn) values ($1, $2, $3, $4, $5, $6) returning *';
 
 // To user Message
 const userMessage = 'insert into userMessage (userId, messageId, status) values ($1, $2, $3)';
@@ -20,7 +20,7 @@ const getMessages = 'select * from messages left join userMessage on userId = $1
 const getUnreadMessages = 'select * from messages left join userMessage on userId = $1 and status=$2 order by createdOn desc';
 
 // Get unread by email
-const getUnread = 'select * from messages where email = $1 order by createdOn desc';
+const getUnread = 'select * from messages left join userMessage on userId = $1 and status = $3 where email = $2 and msgstatus = $3 order by createdOn desc';
 
 // Get sent messages
 const getSentMessages = 'select * from messages left join userMessage on userId = $1 and status=$2 where senderid = $1 order by createdOn desc';
