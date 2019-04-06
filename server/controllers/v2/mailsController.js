@@ -1,7 +1,7 @@
 import moment from 'moment';
 import pool from '../../database/dbconnect';
 import {
-  createMessage, userMessage, returnUser, getMessages, getUnreadMessages, getUnread, getSentMessages, getMessage, deleteMessage
+  createMessage, userMessage, returnUser, getMessages, getUnread, getSentMessages, getMessage, deleteMessage
 } from '../../database/sqlQueries';
 
 class MailsController {
@@ -89,30 +89,6 @@ class MailsController {
     const { email, userid } = req.decoded;
 
     pool.query(getUnread, [userid, email, 'sent'])
-      .then((data) => {
-        if (data.rowCount !== 0) {
-          const retrievedMessages = data.rows;
-
-          return res.status(200)
-            .send({
-              success: true,
-              message: 'Success: unread messages retrieved successfully!',
-              retrievedMessages
-            });
-        }
-      })
-      .catch(err => res.status(500)
-        .send({
-          success: false,
-          message: 'Error: you have read all your messages'
-        }));
-  }
-
-  // Refactors get unread mails
-  static getUnread(req, res) {
-    const { email } = req.decoded;
-
-    pool.query(getUnread, [email])
       .then((data) => {
         if (data.rowCount !== 0) {
           const retrievedMessages = data.rows;
