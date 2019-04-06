@@ -1,7 +1,7 @@
 import moment from 'moment';
 import pool from '../../database/dbconnect';
 import {
-  createMessage, userMessage, returnUser, getMessages, getSent, getUnreadMessages, getUnread, getSentMessages, getMessage, deleteMessage
+  createMessage, userMessage, returnUser, getMessages, getUnread, getSentMessages, getMessage, deleteMessage
 } from '../../database/sqlQueries';
 
 class MailsController {
