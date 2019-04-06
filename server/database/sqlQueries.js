@@ -25,9 +25,6 @@ const getUnread = 'select * from messages where email = $1 order by createdOn de
 // Get sent messages
 const getSentMessages = 'select * from messages left join userMessage on userId = $1 and status=$2 where senderid = $1 order by createdOn desc';
 
-// Get sent messages
-const getSent = 'select * from messages where senderid = $1 order by createdOn desc';
-
 // Get specific message
 const getMessage = 'select * from messages left join userMessage on userid = $1 and messageid = id where id=$2';
 
@@ -73,6 +70,6 @@ const sendGroupMessage = 'insert into messages (senderId, subject, message, emai
 
 export {
   createUser, emailLogin, returnUser, createMessage, userMessage, editGroup, deleteGroup, returnMember, addUser, checkGroup, returnGrp,
-  getMessages, getGroups, getUnreadMessages, getUnread, getSent,
+  getMessages, getGroups, getUnreadMessages, getUnread,
   getSentMessages, getMessage, deleteMessage, returnMemberIds, createGroup, returnGroup, deleteMember, groupCheck, sendGroupMessage
 };
