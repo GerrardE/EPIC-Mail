@@ -32,7 +32,7 @@ class GroupValidatorHandler {
     if (name.length < 2) {
       return res.status(400).send({
         status: 400,
-        error: 'Error: name should be over 2 characters long'
+        message: 'Error: name should be over 2 characters long'
       });
     }
 
@@ -79,13 +79,13 @@ class GroupValidatorHandler {
     if (!emailCheck.test(email)) {
       return res.status(400).json({
         status: 400,
-        error: 'Error: email format is invalid'
+        message: 'Error: email format is invalid'
       });
     }
     if (email.length < 12) {
       return res.status(400).json({
         status: 400,
-        error: 'Error: email should be at least 12 characters long'
+        message: 'Error: email should be at least 12 characters long'
       });
     }
 
