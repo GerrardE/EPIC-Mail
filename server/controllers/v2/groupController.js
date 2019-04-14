@@ -2,7 +2,7 @@ import moment from 'moment';
 import pool from '../../database/dbconnect';
 import {
   createGroup, getGroups, returnGroup, editGroup, deleteGroup, returnMember, addUser, checkGroup,
-  deleteMember, returnGrp, groupCheck, returnMemberIds, sendGroupMessage
+  deleteMember, returnGrp, groupCheck, returnGroupMembers, returnMemberIds, sendGroupMessage
 } from '../../database/sqlQueries';
 
 class GroupController {
@@ -142,7 +142,7 @@ class GroupController {
     const {
       email
     } = req.body;
-    
+
     // check if user exists
     pool.query(returnMember, [email])
       .then((result) => {
@@ -185,36 +185,97 @@ class GroupController {
       }));
   }
 
-  static deleteUser(req, res) {
+  static getGroupUsers(req, res) {
     const decUser = req.decoded;
     const ownerId = Number(decUser.userid);
-    const { id, memberid } = req.params;
-
-    pool.query(returnGrp, [id])
-      .then((data) => {
-        if (data.rowCount > 0 && data.rows[0].ownerid === ownerId) {
-          return pool.query(deleteMember, [id, memberid])
-            .then(result => res.status(200)
-              .send({
-                success: true,
-                message: 'Success: group member deleted successfully!'
-              }))
-            .catch(err => res.status(500)
-              .send({
-                success: false,
-                message: 'Error: group member could not be deleted. Please Try again.'
-              }));
+    const groupId = Number(req.params.id);
+    
+    // check if group exists
+    pool.query(groupCheck, [ownerId, groupId])
+      .then((result) => {
+        if (result.rowCount === 0) {
+          return res.status(400)
+            .send({
+              success: false,
+              message: 'Error: group not found.'
+            });
         }
+        if (result.rowCount > 0 && result.rows[0].ownerid === ownerId) {
+          return pool.query(returnGroupMembers, [groupId])
+            .then((data) => {
+              if (data.rowCount > 0) {
+                return res.status(200)
+                  .send({
+                    success: true,
+                    message: 'Success: group members retrieved.',
+                    returnedMembers: data.rows
+                  });
+              }
+              return res.status(400)
+                .send({
+                  success: false,
+                  message: 'Error: no one here. Try adding someone.'
+                });
+            }).catch((err) => {
+              console.log(err.message);
+              return res.status(400)
+                .send({
+                  success: false,
+                  message: 'Error: no one here. Try adding someone.'
+                });
+            });
+        }
+        if (result.rowCount > 0 && result.rows[0].ownerid !== ownerId) {
+          return res.status(404)
+            .send({
+              success: false,
+              message: 'Error: this group doesn\'t belong to you.'
+            });
+        }
+      }).catch((err) => {
+        console.log(err.message);
         return res.status(400)
           .send({
             success: false,
-            message: 'Error: group member does not exist. Try again.'
+            message: 'Error: group does not exist.'
           });
+      });
+  }
+
+  static deleteUser(req, res) {
+    let { userid } = req.decoded;
+    let { id, memberid } = req.params;
+    userid = Number(userid);
+    id = Number(id);
+    memberid = Number(memberid);
+
+    pool.query(returnGrp, [id])
+      .then(async (data) => {
+        if (data.rowCount !== 0 && data.rows[0].ownerid === userid) {
+          try {
+            await pool.query(deleteMember, [id, memberid]);
+            return res.status(200)
+              .send({
+                success: true,
+                message: 'Success: group member deleted successfully'
+              });
+          } catch (err) {
+            console.log(err);
+            return res.status(400)
+              .send({
+                success: false,
+                message: 'Error: group member could not be deleted. Try again.'
+              });
+          }
+        }
       })
-      .catch(err => res.status(500).send({
-        success: false,
-        message: 'Error: server not responding. Try again.'
-      }));
+      .catch((err) => {
+        console.log(err);
+        return res.status(500).send({
+          success: false,
+          message: 'Error: group does not exist',
+        });
+      });
   }
 
   static sendGroupMail(req, res) {
