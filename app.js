@@ -15,7 +15,10 @@ dotenv.config();
 
 const corsOptions = {
   origin: '*',
-  credentials: true
+  credentials: true,
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  preflightContinue: false,
+  optionsSuccessStatus: 204
 };
 
 // Use the CORS

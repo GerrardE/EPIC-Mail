@@ -64,6 +64,9 @@ const returnGrp = 'select * from groups where id=$1;';
 // check for a group
 const groupCheck = 'select * from groups where ownerId=$1 and id=$2;';
 
+// return group members
+const returnGroupMembers = 'select * from groupMembers where groupid = $1';
+
 const returnMemberIds = 'select memberId from groupMembers where groupId=$1;';
 
 const sendGroupMessage = 'insert into messages (senderId, subject, message, email, createdOn) values ($1, $2, $3, $4, $5) returning *;';
@@ -71,5 +74,5 @@ const sendGroupMessage = 'insert into messages (senderId, subject, message, emai
 export {
   createUser, emailLogin, returnUser, createMessage, userMessage, editGroup, deleteGroup, returnMember, addUser, checkGroup, returnGrp,
   getMessages, getGroups, getUnreadMessages, getUnread,
-  getSentMessages, getMessage, deleteMessage, returnMemberIds, createGroup, returnGroup, deleteMember, groupCheck, sendGroupMessage
+  getSentMessages, getMessage, deleteMessage, returnGroupMembers, returnMemberIds, createGroup, returnGroup, deleteMember, groupCheck, sendGroupMessage
 };

@@ -28,10 +28,11 @@ api.delete('/api/v2/messages/:id', auth.verifyToken, params.paramValidator, Mail
 // Group Routes
 api.post('/api/v2/groups', auth.verifyToken, groupValidator.validGroupName, group.createGroup);
 api.get('/api/v2/groups', auth.verifyToken, group.getGroups);
-api.patch('/api/v2/groups/:id/name', auth.verifyToken, params.paramValidator,group.editGroup);
+api.patch('/api/v2/groups/:id/name', auth.verifyToken, params.paramValidator, group.editGroup);
 api.delete('/api/v2/groups/:id', auth.verifyToken, params.paramValidator, group.deleteGroup);
 api.post('/api/v2/groups/:id/users', auth.verifyToken, params.paramValidator, groupValidator.validMember, group.addUser);
-api.delete('/api/v2/groups/:id/users/:memberid', auth.verifyToken, params.paramValidator, member.paramValidator, group.deleteUser);
+api.get('/api/v2/groups/:id/users', auth.verifyToken, params.paramValidator, group.getGroupUsers);
+api.delete('/api/v2/groups/:id/users/:memberid', auth.verifyToken, params.paramValidator, group.deleteUser);
 api.post('/api/v2/groups/:id/messages', auth.verifyToken, params.paramValidator, valid.groupMail, group.sendGroupMail);
 
 export default api;
