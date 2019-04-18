@@ -2,7 +2,7 @@ import { mails, users } from '../../database/database';
 
 class MailsController {
   static createMail(req, res) {
-    const decUser = req.decoded.payload;
+    const decUser = req.decoded;
     const person = users.find(user => decUser.email === user.email);
 
     const mail = {
@@ -39,7 +39,7 @@ class MailsController {
   }
 
   static getMails(req, res) {
-    const decUser = req.decoded.payload;
+    const decUser = req.decoded;
     const person = users.find(user => decUser.email === user.email);
 
     if (person) {
@@ -53,7 +53,7 @@ class MailsController {
   }
 
   static getUnreadMails(req, res) {
-    const decUser = req.decoded.payload;
+    const decUser = req.decoded;
     const person = users.find(user => decUser.email === user.email);
 
     if (person) {
@@ -71,7 +71,7 @@ class MailsController {
   }
 
   static getSentMails(req, res) {
-    const decUser = req.decoded.payload;
+    const decUser = req.decoded;
     const person = users.find(user => decUser.email === user.email);
 
     if (person) {
@@ -89,7 +89,7 @@ class MailsController {
   }
 
   static getMail(req, res) {
-    const decUser = req.decoded.payload;
+    const decUser = req.decoded;
     const person = users.find(user => decUser.email === user.email);
     const id = +req.params.id;
 
@@ -108,7 +108,7 @@ class MailsController {
   }
 
   static deleteMail(req, res) {
-    const decUser = req.decoded.payload;
+    const decUser = req.decoded;
     const person = users.find(user => decUser.email === user.email);
     const id = +req.params.id;
     const mail = mails.find(msg => msg.id === id)

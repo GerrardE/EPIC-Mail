@@ -73,7 +73,7 @@ describe('Tests for POST Messages', () => {
       .send(undefinedSubject)
       .end((err, res) => {
         expect(res).to.have.status(400);
-        expect(res.body.message).to.equal('Error: subject cannot be undefined');
+        expect(res.body.message).to.equal('Error: subject cannot be empty');
         done();
       });
   });
@@ -97,7 +97,7 @@ describe('Tests for POST Messages', () => {
       .send(undefinedMessage)
       .end((err, res) => {
         expect(res).to.have.status(400);
-        expect(res.body.message).to.equal('Error: message cannot be undefined');
+        expect(res.body.message).to.equal('Error: message cannot be empty');
         done();
       });
   });
