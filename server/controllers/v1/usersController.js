@@ -1,4 +1,4 @@
-import auth from '../../helpers/auth';
+import auth from '../../helpers/authV1';
 import { users } from '../../database/database';
 
 class UsersController {

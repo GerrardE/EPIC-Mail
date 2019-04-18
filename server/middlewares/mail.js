@@ -60,13 +60,6 @@ class MailValidatorHandler {
 
         });
     }
-    if (subject.includes(' ')) {
-      return res.status(400)
-        .send({
-          status: 400,
-          message: 'Error: email cannot include space.'
-        });
-    }
     if (subject === '') {
       return res.status(400)
         .send({
