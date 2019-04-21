@@ -19,17 +19,25 @@ const getMessages = 'select * from messages left join userMessage on userId = $1
 // Get unread messages
 const getUnreadMessages = 'select * from messages left join userMessage on userId = $1 and status=$2 order by createdOn desc';
 
-// Get unread by email
-const getUnread = 'select * from messages left join userMessage on userId = $1 and status = $3 where email = $2 and msgstatus = $3 order by createdOn desc';
+// Get unread/read by email
+// const getUnread = 'select * from messages left join userMessage on userId = $1 and status = $3 where email = $2 and msgstatus = $3 order by createdOn desc';
+const getUnread = 'select * from messages where email = $1 and msgstatus = $2 order by createdOn desc';
+const getRead = 'select * from messages where email = $1 and msgstatus = $2 order by createdOn desc';
 
 // Get sent messages
-const getSentMessages = 'select * from messages left join userMessage on userId = $1 and status=$2 where senderid = $1 order by createdOn desc';
+// const getSentMessages = 'select * from messages left join userMessage on userId = $1 and status=$2 where senderid = $1 order by createdOn desc';
+const getSentMessages = 'select * from messages where senderid = $1 order by createdOn desc';
+
 
 // Get specific message
 const getMessage = 'select * from messages left join userMessage on userid = $1 and messageid = id where id=$2';
 
-// Delete messages
-const deleteMessage = 'delete from userMessage where userid = $1 and messageid = $2 returning *';
+// Delete/Retract messages
+// const deleteMessage = 'delete from userMessage where userid = $1 and messageid = $2';
+const deleteMessage = 'update messages set msgstatus=$3 where id=$2 and email=$1 returning *';
+const deleteUserMessage = 'delete from userMessage where userid = $1 and messageid = $2';
+const retractUserMessage = 'delete from userMessage where messageid = $1 and userid=$2';
+const retractMessage = 'delete from messages where senderid = $1 and id = $2';
 
 // Return an existing group
 const returnGroup = 'select * from groups where name = $1';
@@ -69,10 +77,19 @@ const returnGroupMembers = 'select * from groupMembers where groupid = $1';
 
 const returnMemberIds = 'select memberId from groupMembers where groupId=$1;';
 
-const sendGroupMessage = 'insert into messages (senderId, subject, message, email, createdOn) values ($1, $2, $3, $4, $5) returning *;';
+const sendGroupMessage = 'insert into messages (senderId, subject, message, email, msgstatus, createdOn) values ($1, $2, $3, $4, $5, $6) returning *;';
+
+// const updateMessageStatus = 'update messages set msgstatus=$3 where id=$2 and senderid=$1 
+// returning *';
+const updateMessageStatus = 'update messages set msgstatus=$3 where id=$2 and email=$1 returning *';
+
+const updateUserMessageStatus = 'update userMessage set status=$3 where messageId=$2 and userId=$1 returning *';
 
 export {
-  createUser, emailLogin, returnUser, createMessage, userMessage, editGroup, deleteGroup, returnMember, addUser, checkGroup, returnGrp,
-  getMessages, getGroups, getUnreadMessages, getUnread,
-  getSentMessages, getMessage, deleteMessage, returnGroupMembers, returnMemberIds, createGroup, returnGroup, deleteMember, groupCheck, sendGroupMessage
+  createUser, emailLogin, returnUser, createMessage, userMessage, editGroup, deleteGroup,
+  returnMember, addUser, checkGroup, returnGrp,
+  getMessages, getGroups, getUnreadMessages, getUnread, getRead, deleteUserMessage,
+  getSentMessages, getMessage, deleteMessage, retractMessage, retractUserMessage,
+  returnGroupMembers, returnMemberIds, createGroup, returnGroup, deleteMember, groupCheck,
+  sendGroupMessage, updateMessageStatus, updateUserMessageStatus
 };

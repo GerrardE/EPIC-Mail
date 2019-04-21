@@ -1,7 +1,8 @@
 import moment from 'moment';
 import pool from '../../database/dbconnect';
 import {
-  createMessage, userMessage, returnUser, getMessages, getUnread, getSentMessages, getMessage, deleteMessage
+  createMessage, userMessage, returnUser, getMessages, getUnread, getRead, getSentMessages,
+  getMessage, deleteMessage, updateMessageStatus, retractMessage, retractUserMessage
 } from '../../database/sqlQueries';
 
 class MailsController {
@@ -86,9 +87,9 @@ class MailsController {
 
   // Refactors get unread mails
   static getUnread(req, res) {
-    const { email, userid } = req.decoded;
+    const { email } = req.decoded;
 
-    pool.query(getUnread, [userid, email, 'sent'])
+    pool.query(getUnread, [email, 'sent'])
       .then((data) => {
         if (data.rowCount !== 0) {
           const retrievedMessages = data.rows;
@@ -100,6 +101,11 @@ class MailsController {
               retrievedMessages
             });
         }
+        return res.status(400)
+          .send({
+            success: false,
+            message: 'Error: you have read all your messages'
+          });
       })
       .catch(err => res.status(500)
         .send({
@@ -108,10 +114,71 @@ class MailsController {
         }));
   }
 
+  static getRead(req, res) {
+    const { email } = req.decoded;
+
+    pool.query(getRead, [email, 'read'])
+      .then((data) => {
+        if (data.rowCount !== 0) {
+          const retrievedMessages = data.rows;
+
+          return res.status(200)
+            .send({
+              success: true,
+              message: 'Success: read messages retrieved successfully!',
+              retrievedMessages
+            });
+        }
+        return res.status(400)
+          .send({
+            success: false,
+            message: 'Error: you have not read any message'
+          });
+      })
+      .catch(err => res.status(500)
+        .send({
+          success: false,
+          message: 'Error: server not responding. Please try again.'
+        }));
+  }
+
+  static updateStatus(req, res) {
+    const { email } = req.decoded;
+    let { id } = req.params;
+    id = Number(id);
+
+    const values = [email, id, 'read'];
+
+    pool.query(updateMessageStatus, values)
+      .then((data) => {
+        if (data.rowCount > 0) {
+          const editedMessage = data.rows;
+          // user message query starts
+          return res.status(200)
+            .send({
+              success: true,
+              message: 'Success: message status updated successfully!',
+              editedMessage
+            });
+        }
+        // If the message was not found
+        return res.status(500)
+          .send({
+            success: false,
+            message: 'Error: message not found',
+          });
+      })// If the message status was not edited
+      .catch(() => res.status(500)
+        .send({
+          success: false,
+          message: 'Error: message status could not be edited. Try again'
+        }));
+  }
+
   static getSentMails(req, res) {
     const { userid } = req.decoded;
     
-    pool.query(getSentMessages, [userid, 'sent'])
+    pool.query(getSentMessages, [userid])
 
       .then((data) => {
         if (data.rowCount !== 0) {
@@ -160,33 +227,82 @@ class MailsController {
   }
 
   static deleteMail(req, res) {
-    const { userid } = req.decoded;
+    const { email } = req.decoded;
     let { id } = req.params;
     id = Number(id);
 
-    pool.query(deleteMessage, [userid, id])
+    pool.query(deleteMessage, [email, id, 'deleted'])
       .then((data) => {
-
         if (data.rowCount > 0) {
-          const deletedMessage = data.rows[0];
-          return res.status(200)
-            .send({
-              success: true,
-              message: 'Success: mail deleted successfully!',
-              deletedMessage
-            });
+          return res.status(200).send({
+            success: true,
+            message: 'Success: mail deleted successfully!'
+          });
         }
+        // If the message was not found
         return res.status(400)
           .send({
             success: false,
-            message: 'Error: mail not found'
+            message: 'Error: mail not found',
           });
       })
       .catch(err => res.status(500)
-        .send({
+        .send({ 
           success: false,
-          message: 'Error: server not responding. Please try again.'
+          message: 'Error: mail could not be deleted either because the mail was not found, or something bad happened. Please try again.'
         }));
+  }
+
+  static retractMail(req, res) {
+    const { userid } = req.decoded;
+    const { email } = req.body;
+    let { id } = req.params;
+    id = Number(id);
+
+    // return the person email was sent to
+    pool.query(returnUser, [email])
+      .then((info) => {
+        if (info.rowCount > 0) {
+          const userId = info.rows[0].userid;
+          // delete from userMessages
+          return pool.query(retractMessage, [userid, id])
+            .then((data) => {
+              if (data.rowCount > 0) {
+                // delete from messages
+                return pool.query(retractUserMessage, [id, userId])
+                  .then((result) => {
+                    return res.status(200)
+                      .send({
+                        success: true,
+                        message: 'Success: mail retracted successfully!'
+                      });
+                  })
+                  .catch(err => res.status(400).send({
+                    success: false,
+                    message: 'Error: mail not found'
+                  }));
+              }
+              return res.status(400)
+                .send({
+                  success: false,
+                  message: 'Error: mail not deleted'
+                });
+            })
+            .catch(err => res.status(500)
+              .send({
+                success: false,
+                message: 'Error: server not responding. Please try again.'
+              }));
+        }
+        return res.status(400).send({
+          success: false,
+          message: 'Error: problem retrieving email'
+        });
+      })
+      .catch(err => res.status(500).send({
+        success: false,
+        message: 'Error: server not responding, Try again later'
+      }));
   }
 }
 
