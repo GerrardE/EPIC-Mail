@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import UsersController from '../controllers/v2/usersController';
 import { signupValidator, loginCheck } from '../middlewares/user';
 import valid from '../middlewares/mail';
@@ -11,6 +12,7 @@ import auth from '../helpers/auth';
 
 // Introduce the express router middleware
 const api = express.Router();
+api.use(cors());
 
 // User Auth Routes
 api.post('/api/v2/auth/signup', signupValidator, UsersController.createUser);
