@@ -13,6 +13,12 @@ import indexRouter from './server/routes/index';
 const app = express();
 dotenv.config();
 
+app.all('/*', (req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With');
+  next();
+});
+
 const corsOptions = {
   origin: '*',
   credentials: true,
@@ -23,12 +29,6 @@ const corsOptions = {
 
 // Use the CORS
 app.use(cors(corsOptions));
-
-app.all('/*', (req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'X-Requested-With');
-  next();
-});
 
 // Bring in the morgan middleware
 morgan('tiny');
