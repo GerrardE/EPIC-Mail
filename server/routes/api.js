@@ -19,11 +19,13 @@ api.post('/api/v2/auth/login', loginCheck, UsersController.userLogin);
 // Message Routes
 api.post('/api/v2/messages', auth.verifyToken, valid.validMail, MailsController.createMail);
 api.get('/api/v2/messages', auth.verifyToken, MailsController.getMails);
-// api.get('/api/v2/messages/unread', auth.verifyToken, MailsController.getUnreadMails);
+api.patch('/api/v2/messages/:id', auth.verifyToken, params.paramValidator, MailsController.updateStatus);
 api.get('/api/v2/messages/unread', auth.verifyToken, MailsController.getUnread);
+api.get('/api/v2/messages/read', auth.verifyToken, MailsController.getRead);
 api.get('/api/v2/messages/sent', auth.verifyToken, MailsController.getSentMails);
 api.get('/api/v2/messages/:id', auth.verifyToken, params.paramValidator, MailsController.getMail);
-api.delete('/api/v2/messages/:id', auth.verifyToken, params.paramValidator, MailsController.deleteMail);
+api.patch('/api/v2/messages/:id/delete', auth.verifyToken, params.paramValidator, MailsController.deleteMail);
+api.delete('/api/v2/messages/:id', auth.verifyToken, params.paramValidator, MailsController.retractMail);
 
 // Group Routes
 api.post('/api/v2/groups', auth.verifyToken, groupValidator.validGroupName, group.createGroup);
@@ -32,7 +34,7 @@ api.patch('/api/v2/groups/:id/name', auth.verifyToken, params.paramValidator, gr
 api.delete('/api/v2/groups/:id', auth.verifyToken, params.paramValidator, group.deleteGroup);
 api.post('/api/v2/groups/:id/users', auth.verifyToken, params.paramValidator, groupValidator.validMember, group.addUser);
 api.get('/api/v2/groups/:id/users', auth.verifyToken, params.paramValidator, group.getGroupUsers);
-api.delete('/api/v2/groups/:id/users/:memberid', auth.verifyToken, params.paramValidator, group.deleteUser);
+api.delete('/api/v2/groups/:id/users/:memberid', auth.verifyToken, params.paramValidator, member.paramValidator, group.deleteUser);
 api.post('/api/v2/groups/:id/messages', auth.verifyToken, params.paramValidator, valid.groupMail, group.sendGroupMail);
 
 export default api;

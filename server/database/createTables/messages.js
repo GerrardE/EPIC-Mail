@@ -11,7 +11,7 @@ const createMessagesTable = `DROP TABLE IF EXISTS messages CASCADE;
         msgstatus TEXT NOT NULL,
         createdOn TEXT NOT NULL
         )`;
-     
+
 const userMessageTable = `DROP TABLE IF EXISTS userMessage CASCADE;
       CREATE TABLE userMessage (
         userId INTEGER NOT NULL,

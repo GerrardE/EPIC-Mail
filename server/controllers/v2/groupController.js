@@ -279,7 +279,6 @@ class GroupController {
   }
 
   static sendGroupMail(req, res) {
-
     const decUser = req.decoded;
     const ownerId = Number(decUser.userid);
     const groupId = Number(req.params.id);
@@ -305,11 +304,11 @@ class GroupController {
               const members = [];
               data.rows.forEach(m => members.push(m.memberid));
               const {
-                subject, message
+                subject, message, status
               } = req.body;
 
               // create an email
-              const toMessage = [ownerId, subject, message, 'group@epic-mail.com', moment().format('llll')];
+              const toMessage = [ownerId, subject, message, `group${groupId}@epic-mail.com`, status, moment().format('llll')];
               return pool.query(sendGroupMessage, toMessage)
                 .then((detail) => {
                   // insert the messageId, status and userId in user messages
