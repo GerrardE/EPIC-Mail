@@ -146,8 +146,9 @@ class MailsController {
     const { email } = req.decoded;
     let { id } = req.params;
     id = Number(id);
-
-    const values = [email, id, 'read'];
+    const { status } = req.body;
+    
+    const values = [email, id, status];
 
     pool.query(updateMessageStatus, values)
       .then((data) => {
