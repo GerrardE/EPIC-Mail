@@ -7,3 +7,4 @@ coverage
 .nyc_output
 .env
 ./database/createTables/group.js
+package-lock.json

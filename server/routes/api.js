@@ -25,6 +25,7 @@ api.patch('/api/v2/messages/:id', auth.verifyToken, params.paramValidator, Mails
 api.get('/api/v2/messages/unread', auth.verifyToken, MailsController.getUnread);
 api.get('/api/v2/messages/read', auth.verifyToken, MailsController.getRead);
 api.get('/api/v2/messages/sent', auth.verifyToken, MailsController.getSentMails);
+api.get('/api/v2/messages/draft', auth.verifyToken, MailsController.getDrafts);
 api.get('/api/v2/messages/:id', auth.verifyToken, params.paramValidator, MailsController.getMail);
 api.patch('/api/v2/messages/:id/delete', auth.verifyToken, params.paramValidator, MailsController.deleteMail);
 api.delete('/api/v2/messages/:id', auth.verifyToken, params.paramValidator, MailsController.retractMail);
