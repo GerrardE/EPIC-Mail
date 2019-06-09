@@ -8,7 +8,7 @@ const emailLogin = 'select * from users where email = $1';
 const returnUser = 'select * from users where email = $1';
 
 // Create Message
-const createMessage = 'insert into messages (senderId, subject, message, email, msgstatus, createdOn) values ($1, $2, $3, $4, $5, $6) returning *';
+const createMessage = 'insert into messages (senderId, fromEmail, subject, message, email, msgstatus, createdOn) values ($1, $2, $3, $4, $5, $6, $7) returning *';
 
 // To user Message
 const userMessage = 'insert into userMessage (userId, messageId, status) values ($1, $2, $3)';
@@ -23,6 +23,7 @@ const getUnreadMessages = 'select * from messages left join userMessage on userI
 // const getUnread = 'select * from messages left join userMessage on userId = $1 and status = $3 where email = $2 and msgstatus = $3 order by createdOn desc';
 const getUnread = 'select * from messages where email = $1 and msgstatus = $2 order by createdOn desc';
 const getRead = 'select * from messages where email = $1 and msgstatus = $2 order by createdOn desc';
+const getDraft = 'select * from messages where senderid = $1 and msgstatus = $2 order by createdOn desc';
 
 // Get sent messages
 // const getSentMessages = 'select * from messages left join userMessage on userId = $1 and status=$2 where senderid = $1 order by createdOn desc';
@@ -77,7 +78,7 @@ const returnGroupMembers = 'select * from groupMembers where groupid = $1';
 
 const returnMemberIds = 'select memberId from groupMembers where groupId=$1;';
 
-const sendGroupMessage = 'insert into messages (senderId, subject, message, email, msgstatus, createdOn) values ($1, $2, $3, $4, $5, $6) returning *;';
+const sendGroupMessage = 'insert into groupMessages (senderId, fromEmail, subject, message, email, msgstatus, createdOn) values ($1, $2, $3, $4, $5, $6, $7) returning *;';
 
 // const updateMessageStatus = 'update messages set msgstatus=$3 where id=$2 and senderid=$1 
 // returning *';
@@ -88,7 +89,7 @@ const updateUserMessageStatus = 'update userMessage set status=$3 where messageI
 export {
   createUser, emailLogin, returnUser, createMessage, userMessage, editGroup, deleteGroup,
   returnMember, addUser, checkGroup, returnGrp,
-  getMessages, getGroups, getUnreadMessages, getUnread, getRead, deleteUserMessage,
+  getMessages, getGroups, getUnreadMessages, getUnread, getRead, getDraft, deleteUserMessage,
   getSentMessages, getMessage, deleteMessage, retractMessage, retractUserMessage,
   returnGroupMembers, returnMemberIds, createGroup, returnGroup, deleteMember, groupCheck,
   sendGroupMessage, updateMessageStatus, updateUserMessageStatus

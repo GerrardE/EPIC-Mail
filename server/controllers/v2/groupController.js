@@ -189,7 +189,7 @@ class GroupController {
     const decUser = req.decoded;
     const ownerId = Number(decUser.userid);
     const groupId = Number(req.params.id);
-    
+
     // check if group exists
     pool.query(groupCheck, [ownerId, groupId])
       .then((result) => {
@@ -280,6 +280,7 @@ class GroupController {
 
   static sendGroupMail(req, res) {
     const decUser = req.decoded;
+    const fromEmail = decUser.email;
     const ownerId = Number(decUser.userid);
     const groupId = Number(req.params.id);
 
@@ -308,13 +309,20 @@ class GroupController {
               } = req.body;
 
               // create an email
-              const toMessage = [ownerId, subject, message, `group${groupId}@epic-mail.com`, status, moment().format('llll')];
+              const toMessage = [ownerId, fromEmail, subject, message, `group${groupId}@epic-mail.com`, status, moment().format('llll')];
               return pool.query(sendGroupMessage, toMessage)
                 .then((detail) => {
+                  const groupMsg = detail.rows;
+
                   // insert the messageId, status and userId in user messages
-                  return pool.query(`INSERT INTO userMessage (messageId, status, userId) VALUES (${detail.rows[0].id}, 'unread', unnest(array[${members}]))`)
-                    .then(() => {
-                      const groupMsg = detail.rows[0];
+                  return pool
+                    .query(`INSERT INTO usermessage (userid, messageid, status) 
+                    values ((unnest(array[${members}])), 
+                    ${detail.rows[0].id}, 
+                    ${status}) 
+                    returning *`)
+                    .then((val) => {
+                      console.log(val)
                       return res.status(200)
                         .send({
                           success: true,

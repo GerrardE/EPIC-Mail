@@ -4,7 +4,9 @@ import group from './group';
 
 user.usersTable()
   .then(() => message.messagesTable()
-    .then(() => message.userMessageTable()
-      .then(() => group.groupsTable()
-        .then(() => group.groupMembersTable()
-          .catch(error => console.log(error))))));
+    .then(() => message.messagesTable()
+      .then(() => message.groupMessagesTable()
+        .then(() => message.userMessageTable()
+          .then(() => group.groupsTable()
+            .then(() => group.groupMembersTable()
+              .catch(error => console.log(error))))))));
