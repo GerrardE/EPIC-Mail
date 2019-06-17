@@ -109,7 +109,7 @@ class MailsController {
       .catch(err => res.status(500)
         .send({
           success: false,
-          message: 'Error: you have read all your messages'
+          message: 'Error: server not responding.'
         }));
   }
 
@@ -217,11 +217,16 @@ class MailsController {
               retrievedMessages
             });
         }
+        return res.status(400)
+          .send({
+            success: false,
+            message: 'Error: you have not sent any message'
+          });
       })
       .catch(err => res.status(500)
         .send({
           success: false,
-          message: 'Error: you have not sent any message'
+          message: 'Error: server not responding. Please try again.'
         }));
   }
 

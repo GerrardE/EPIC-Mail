@@ -73,6 +73,7 @@ class GroupController {
         }));
   }
 
+  // do not allow same group name or edit other group name
   static editGroup(req, res) {
     const decUser = req.decoded;
     const userId = Number(decUser.userid);
@@ -135,6 +136,7 @@ class GroupController {
         }));
   }
 
+  // do not allow adding self to group
   static addUser(req, res) {
     const decUser = req.decoded;
     const ownerId = Number(decUser.userid);
@@ -312,6 +314,7 @@ class GroupController {
               const toMessage = [ownerId, fromEmail, subject, message, `group${groupId}@epic-mail.com`, status, moment().format('llll')];
               return pool.query(sendGroupMessage, toMessage)
                 .then((detail) => {
+                  
                   // insert the messageId, status and userId in user messages
                   return pool.query(`INSERT INTO userMessage (messageId, status, userId) VALUES (${detail.rows[0].id}, ${status}, unnest(array[${members}]))`)
                     .then(() => {
