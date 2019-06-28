@@ -1,7 +1,7 @@
 import moment from 'moment';
 import pool from '../../database/dbconnect';
 import {
-  createMessage, userMessage, returnUser, getMessages, getUnread, getRead, getSentMessages,
+  createMessage, userMessage, returnUser, getMessages, getUnread, getRead, getSentMessages, getDraft, 
   getMessage, deleteMessage, updateMessageStatus, retractMessage, retractUserMessage
 } from '../../database/sqlQueries';
 
@@ -15,8 +15,7 @@ class MailsController {
       subject, message, toEmail, status
     } = req.body;
 
-    const toMessage = [senderId, subject, message, toEmail, status, moment().format('llll')];
-
+    const toMessage = [senderId, decEmail, subject, message, toEmail, status, moment().format('llll')];
     pool.query(returnUser, [toEmail])
     // check if email exists
       .then((result) => {
@@ -110,7 +109,7 @@ class MailsController {
       .catch(err => res.status(500)
         .send({
           success: false,
-          message: 'Error: you have read all your messages'
+          message: 'Error: server not responding.'
         }));
   }
 
@@ -133,6 +132,33 @@ class MailsController {
           .send({
             success: false,
             message: 'Error: you have not read any message'
+          });
+      })
+      .catch(err => res.status(500)
+        .send({
+          success: false,
+          message: 'Error: server not responding. Please try again.'
+        }));
+  }
+
+  static getDrafts(req, res) {
+    const { userid } = req.decoded;
+
+    pool.query(getDraft, [userid, 'draft'])
+      .then((data) => {
+        if (data.rowCount !== 0) {
+          const retrievedMessages = data.rows;
+          return res.status(200)
+            .send({
+              success: true,
+              message: 'Success: draft messages retrieved successfully!',
+              retrievedMessages
+            });
+        }
+        return res.status(400)
+          .send({
+            success: false,
+            message: 'Error: you have not prepared any message'
           });
       })
       .catch(err => res.status(500)
@@ -179,7 +205,7 @@ class MailsController {
   static getSentMails(req, res) {
     const { userid } = req.decoded;
     
-    pool.query(getSentMessages, [userid])
+    pool.query(getSentMessages, [userid, 'sent'])
 
       .then((data) => {
         if (data.rowCount !== 0) {
@@ -191,11 +217,16 @@ class MailsController {
               retrievedMessages
             });
         }
+        return res.status(400)
+          .send({
+            success: false,
+            message: 'Error: you have not sent any message'
+          });
       })
       .catch(err => res.status(500)
         .send({
           success: false,
-          message: 'Error: you have not sent any message'
+          message: 'Error: server not responding. Please try again.'
         }));
   }
 

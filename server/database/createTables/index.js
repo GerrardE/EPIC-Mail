@@ -7,4 +7,5 @@ user.usersTable()
     .then(() => message.userMessageTable()
       .then(() => group.groupsTable()
         .then(() => group.groupMembersTable()
-          .catch(error => console.log(error))))));
+          .then(() => message.groupMessagesTable()
+            .catch(error => console.log(error)))))));
