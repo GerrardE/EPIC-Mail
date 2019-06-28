@@ -7,6 +7,8 @@
     "start": "npm run createTables && babel-node -- app.js",
     "start:dev": "nodemon app.js --exec babel-node",
     "test:dev": "cross-env NODE_ENV=test:dev npm run createTables && cross-env NODE_ENV=test:dev nyc --reporter=html --reporter=text mocha ./server/tests/**/*.js --require @babel/register --exit",
+    "build": "npm run clean && babel ./server -d ./dist",
+    "heroku-postbuild": "npm run build && npm run createTables",
     "test": "npm run createTables && nyc --reporter=html --reporter=text mocha ./server/tests/**/*.js --require @babel/register --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test",
